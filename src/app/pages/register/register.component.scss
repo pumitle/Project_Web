@@ -1,0 +1,33 @@
+/* Add this to your global styles or component styles */
+
+.fullscreen-background {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.logo {
+    max-width: 60%;
+    max-height: 60%;
+}
+
+
+::ng-deep .comment .mdc-notched-outline > *{
+    border-color: white !important;
+}
+
+.comment input::placeholder{
+    color: rgb(255, 255, 255);
+}
+
+
+
+
