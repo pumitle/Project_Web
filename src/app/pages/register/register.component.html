@@ -29,63 +29,49 @@
             <img class="logo" src="assets/imges/BC_3D_Color.png" alt="">
         </div>
         <div class="content-container">
-            <mat-card style="width: 480px; background-color: rgba(33, 33, 33, 0.7); display: flex; justify-content: center; align-items: center; margin-left: 580px; backdrop-filter: blur(10px);">
-                <br><br>
+            <mat-card>
+                <br>
                 <mat-card-header style="display: flex; justify-content: center; align-items: center; font-size: 50px; font-weight: bold;">
                     <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;" class="font-login1">
                         <span style="color: rgb(255, 255, 255);">Regis<span style="color: rgb(131, 4, 4);">ter</span></span>
                     </div>
                     
                 </mat-card-header>
-                <br><br><br>
                 <mat-card-content >
                     <form  (ngSubmit)="onSubmit(username, password,email)">
                         <p class="font-login1" style="color: white;">email</p>
-                        <mat-form-field class="comment" appearance="outline" style="width: 415px; margin-top: -15px; ">
+                        <mat-form-field class="comment" appearance="outline">
                             <mat-label style="color: white;">Email</mat-label>
                             <input style="color: white; " type="email" name="email" [(ngModel)]="email"  matInput required >
-                        </mat-form-field><br>
+                        </mat-form-field>
                         <p class="font-login1" style="color: white;">User</p>
-                        <mat-form-field class="comment" appearance="outline" style="width: 415px; margin-top: -15px; ">
+                        <mat-form-field class="comment" appearance="outline">
                             <mat-label style="color: white;">Username</mat-label>
                             <input style="color: white; " type="username" name="username" [(ngModel)]="username"  matInput required >
-                        </mat-form-field><br>
+                        </mat-form-field>
                         <p class="font-login1"  style="color: white;">password</p>
-                        <mat-form-field  class="comment" appearance="outline" style="width: 415px;  margin-top: -15px;">
+                        <mat-form-field  class="comment" appearance="outline">
                             <mat-label style="color: white;">Password</mat-label>
                             <input style="color: white;" type="password" name="password" [(ngModel)]="password"   matInput required >
-                        </mat-form-field><br>
+                        </mat-form-field>
                         <p class="font-login1" style="color: white;">Confirm Password</p>
-                        <mat-form-field class="comment" appearance="outline" style="width: 415px; margin-top: -15px;">
+                        <mat-form-field class="comment" appearance="outline">
                             <mat-label style="color: white;">Confirm Password</mat-label>
                             <input style="color: white;" type="password" name="confirmPassword" [(ngModel)]="confirmPassword" matInput required>
                         </mat-form-field>
               
-
                     <mat-card-actions style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
                         <button   class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
                            Signin
                         </button>
                        
                     </mat-card-actions>
-                          </form>
-                    <!-- <div style="display: flex; flex-direction: row; align-items: center;">
-                        <label  class="font-login1" style="color: #fff;">
-                            <input type="checkbox" checked="checked" name="remember" >  Remember
-                        </label>
-                        
-                    </div> -->
-                    <br><br><br><br>
+                    </form>
 
-                    <div style="margin-bottom: -20px; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                    <div class="nomem">
                         <span style="color: #fff; font-size: 11px;" class="font-login1">Already have an account?</span><span [routerLink]="['/login',]"  style="color: #8c0404; font-size: 11px; margin-left: 6px; cursor: pointer;" class="font-login1">Login now</span> 
                     </div>
-                    <br><br>
-
-                    
-                    
-
-
+                    <br>
                 </mat-card-content>
             </mat-card>
         </div>
