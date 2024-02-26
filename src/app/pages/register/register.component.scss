@@ -5,8 +5,10 @@
 }
 
 .logo {
-    max-width: 60%;
-    max-height: 60%;
+    margin-top: 10%;
+    margin-left: 10%;
+    max-width: 30%;
+    max-height: 30%;
 }
 
 ::ng-deep .comment .mdc-notched-outline > *{
@@ -29,6 +31,7 @@ mat-card {
 mat-form-field {
     width: 415px; 
     margin-top: 0px; 
+    margin-bottom: -20px;
 }
 .nomem{
     margin-top: 10px; 
@@ -38,6 +41,10 @@ mat-form-field {
     justify-content: center;
 }
 @media (max-width: 700px) {
+    .logo{
+        margin-top: 15%;
+        margin-left: 15%;
+    }
     .content-container {
         margin-left: 0;
     }
@@ -47,7 +54,7 @@ mat-form-field {
     }
     mat-form-field {
         width: 250px; 
-        margin-top: 0px; 
+        margin-top: -5px; 
     }
     .nomem{
         margin-top: 0; 
