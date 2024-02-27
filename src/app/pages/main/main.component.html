@@ -3,18 +3,45 @@
         <div class="nav-bar">
             <div class="nav-bar-main">
                 <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
-                    <div class="profile">
+                <!-- <div class="profile">
                     <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
                     <div class="line"></div>
                     <img src="assets/imges/user1.jpg" alt="" class="imgprofile">
                     <p class="uname">WYEYOU</p>
                     <img src="assets/imges/menu.png" alt="" style="width: 40px; margin-left: 2vw;">
+                </div> -->
+                <div class="profile">
+                    <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                    <button mat-raised-button style="background-color: #bb0102; color: white;">SIGN IN</button>
                 </div>
+                
             </div>
             
         </div>
         <div class="main-content">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eveniet excepturi animi cumque accusamus perferendis dolorum adipisci incidunt! Laborum laudantium eum, necessitatibus quae magni reprehenderit iusto cupiditate excepturi sapiente perferendis.
+            <div class="head-main">
+                <div class="topten">
+                   <p class="tt" >TOP 10 THE BEST</p>
+                   <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
+                </div>
+                <div class="topname">
+                    <p>#1/10 PUMITLE</p>
+                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">1500</p> 
+                    <p>point</p>
+                 </div> 
+            </div>
+            <div class="main-main">
+                <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt="">
+            </div>
+            <div class="bt-main">
+                <button mat-raised-button style="background-color: #bb0102; color: white;">Start Vote</button>
+                <button mat-raised-button style="background-color: #bb0102; color: white;">Upload Car</button>
+            </div>
+            <div class="slide-main">
+                <div *ngFor="let image of images" class="img-slide">
+                    <img [src]="image.src" alt="Image">
+                </div>
+            </div>
         </div>
     </div>    
 </body>

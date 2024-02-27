@@ -6,10 +6,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserResponese } from '../../Modeldatabase/user_get';
 import { lastValueFrom } from 'rxjs';
 import {MatButtonModule} from '@angular/material/button';
+import { SlickCarouselModule, SlickCarouselComponent } from 'ngx-slick-carousel';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule ],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,SlickCarouselModule ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -26,10 +27,11 @@ export class MainComponent implements OnInit {
     console.log('Call Completed');
   }
 
- 
-
- 
-
-
-
+  images = [
+    { src: '/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg' },
+    { src: '/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg' },
+    { src: '/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg' },
+    { src: '/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg' },
+    { src: '/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg' }
+];
 }
