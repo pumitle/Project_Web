@@ -14,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { AuthenticationService } from '../../authen.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
 
   
-  private apiUrl = 'http://localhost:3000/api/mysql-data'; // เปลี่ยนเป็น URL ของ API ของคุณ
+
 
   email:any;
   password: any;
@@ -34,14 +34,21 @@ export class LoginComponent implements OnInit {
   rememberMe: boolean = false;
   
   
-  constructor(private http :HttpClient,private router:Router, private snackBar: MatSnackBar) {}
+  constructor(private http :HttpClient,private router:Router, private snackBar: MatSnackBar,private mysql: MysqlService,private authService: AuthenticationService) {}
   datauser: UserResponese[] = [];
+  
+ 
+
   
    ngOnInit() {
     
     const rememberedEmail = localStorage.getItem('rememberedEmail');
     const rememberedPassword = localStorage.getItem('rememberedPassword');
-
+   
+    if (this.authService.isAuthenticated()) {
+      console.log('User is already authenticated');
+      // Redirect or perform other actions as needed
+    }
     if (rememberedEmail && rememberedPassword) {
       this.email = rememberedEmail;
       this.password = rememberedPassword;
@@ -49,45 +56,88 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit(email: string, password: string) {
-    // ตรวจสอบค่า email และ password ที่ได้จาก form
-    console.log('Email:', email);
-    console.log('Password:', password);
-    const url = 'http://localhost:3000/api/login/';
+//   async onSubmitt(email: string, password: string) {
+//     // ตรวจสอบค่า email และ password ที่ได้จาก form
+//     console.log('Email:', email);
+//     console.log('Password:', password);
+//     const url = 'http://localhost:3000/user/login';
   
+//     // ตรวจสอบ email และ password
+//     if (!email || !password) {
+//       console.error('Please provide both email and password');
+//       this.showSnackBar('Please provide both email and password');
+//       return;
+//     }
+  
+  
+//     // ส่งคำขอ HTTP โดยไม่ใช้ await
+//     try {
+//       const response: any = await lastValueFrom(this.http.post(url, { email, password }));
+//       console.log('Login successful:', response);
+//       const userData: UserResponese = response.user;
+//       console.log(userData);
+//       this.router.navigate(['/id/uid', { uid: userData.uid }]);
+//     } catch (error) {
+//       console.error('Error during login:', error);
+//       this.showSnackBar('Invalid email or password');
+//     }
+  
+//     if (this.rememberMe) {
+//       localStorage.setItem('rememberedEmail', email);
+//       localStorage.setItem('rememberedPassword', password);
+//     }
+ 
+// }
+
+
+///Login this localStorage
+
+ async onSubmit(): Promise<void> {
+  try{
+
+    const  user = await this.authService.login(this.email,this.password);
+
     // ตรวจสอบ email และ password
-    if (!email || !password) {
+    if (!this.email || !this.password) {
       console.error('Please provide both email and password');
       this.showSnackBar('Please provide both email and password');
       return;
     }
   
-  
-    // ส่งคำขอ HTTP โดยไม่ใช้ await
-    this.http.post(url, { email, password }).subscribe(
-      (data : any) => {
-        console.log('Login successful:', data);
-        this.router.navigate(['/']);
-        // Redirect or perform further actions upon successful login
-      },
-      (error : any) => {
-        console.error('Error during login:', error);
-        this.showSnackBar('Invalid email or password');
-        // Handle error, show message, etc.
-      }
-    );
-
-    if (this.rememberMe) {
-      localStorage.setItem('rememberedEmail', email);
-      localStorage.setItem('rememberedPassword', password);
+    if(user){
+        console.log('Login successful');
+        console.log('User Data:', user);
+        this.router.navigate(['/id/uid', { uid: user.uid }]);
+    }else{
+      console.log('Invalid email or password');
     }
-  }
-  private showSnackBar(message: string): void {
-    this.snackBar.open(message, 'Close', { duration: 3000 });
+
+  }catch (error){
+    console.error('Error during login:', error);
+    this.showSnackBar('Invalid email or password');
   }
 
- 
-    
+  if (this.rememberMe) {
+          localStorage.setItem('rememberedEmail', this.email);
+          localStorage.setItem('rememberedPassword', this.password);
+        }
+
+ }
+
+
+
+private showSnackBar(message: string): void {
+  this.snackBar.open(message, 'Close', { duration: 3000 });
+}
+
+
+
+
+
+
 
 }
+
+
+
 

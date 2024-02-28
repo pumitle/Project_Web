@@ -35,20 +35,20 @@ username: any;
 confirmPassword: any;
   
   
-  constructor(private http :HttpClient,private router:Router, private snackBar: MatSnackBar) {}
+  constructor(private http :HttpClient,private router:Router, private snackBar: MatSnackBar,private mysql: MysqlService) {}
   datauser: UserResponese[] = [];
 
   ngOnInit(): void {
     
   }
 
-  onSubmit(username: string, password: string, email: string) {
+ async onSubmit(username: string, password: string, email: string) {
     // ตรวจสอบค่า email และ password ที่ได้จาก form
     console.log('User:', username);
     console.log('email:', email);
     console.log('Password:', password);
     console.log('Confirm Password:', this.confirmPassword);
-    const url = 'http://localhost:3000/api/register'; // เปลี่ยนเป็น URL ของ API สำหรับการลงทะเบียน
+    const url = 'http://localhost:3000/user/signin'; // เปลี่ยนเป็น URL ของ API สำหรับการลงทะเบียน
   
   
     // ตรวจสอบ email และ password
@@ -65,21 +65,31 @@ confirmPassword: any;
     return;
   }
 
+  // ส่งคำขอ HTTP โดยไม่ใช้ await
+try {
+  const response: any = await lastValueFrom(this.http.post(url, {username, password,email }));
+  console.log('Registration successful:', response);
+  this.router.navigate(['/login']);
+} catch (error) {
+  console.error('Error during registration:', error);
+  this.showSnackBar('Error during registration');
+}
+
   
-   // ส่งคำขอ HTTP โดยไม่ใช้ await
-   this.http.post(url, { username, password,email  }).subscribe(
-    (data: any) => {
-      console.log('Registration successful:', data);
-      this.showSnackBar('Registration successful');
-      this.router.navigate(['/login']);
-      // Redirect or perform further actions upon successful registration
-    },
-    (error: any) => {
-      console.error('Error during registration:', error);
-      this.showSnackBar('Error during registration');
-      // Handle error, show message, etc.
-    }
-  );
+  //  // ส่งคำขอ HTTP โดยไม่ใช้ await
+  //  this.http.post(url, { username, password,email  }).subscribe(
+  //   (data: any) => {
+  //     console.log('Registration successful:', data);
+  //     this.showSnackBar('Registration successful');
+  //     this.router.navigate(['/login']);
+  //     // Redirect or perform further actions upon successful registration
+  //   },
+  //   (error: any) => {
+  //     console.error('Error during registration:', error);
+  //     this.showSnackBar('Error during registration');
+  //     // Handle error, show message, etc.
+  //   }
+  // );
   }
   
   private showSnackBar(message: string): void {

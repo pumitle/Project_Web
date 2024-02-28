@@ -22,41 +22,36 @@
         bottom: 0;
     
       
-    }
-    
-  
+    }  
 </style>
 
 <body>
     <div class="fullscreen-background">
         <div class="logo-container" style="margin-top: -60px; margin-left: -50px;">
-            <img class="logo" src="assets/imges/BC_3D_Color.png" alt="">
+            <img class="logo" src="assets/imges/BC_3D_Color.png" alt=""  [routerLink]="['/']">
         </div>
         <div class="content-container">
-            <mat-card style="width: 480px; background-color: rgba(33, 33, 33, 0.7); display: flex; justify-content: center; align-items: center; margin-left: 580px;  backdrop-filter: blur(10px); ">
-                
-                <br><br>
+            <mat-card>                
+                <br>
                 <mat-card-header style="display: flex; justify-content: center; align-items: center; font-size: 50px; font-weight: bold;">
                     <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;" class="font-login1">
                         <span style="color: rgb(255, 255, 255);">LOG<span style="color: rgb(131, 4, 4);">IN</span></span>
-                    </div>
-                    
+                    </div>                   
                 </mat-card-header>
-                <br><br><br>
+                <br>
                 <mat-card-content >
-                    <form  (ngSubmit)="onSubmit(email, password)">
+                    <form  (ngSubmit)="onSubmit()">
                         <p class="font-login1" style="color: white;">Email</p>
-                        <mat-form-field class="comment" appearance="outline" style="width: 415px; margin-top: -15px; ">
+                        <mat-form-field class="comment" appearance="outline">
                             <mat-label style="color: white;">Email</mat-label>
                             <input style="color: white; " type="email" name="email" [(ngModel)]="email"  matInput required >
                         </mat-form-field><br>
                         <p class="font-login1"  style="color: white;">password</p>
-                        <mat-form-field  class="comment" appearance="outline" style="width: 415px;  margin-top: -15px;">
+                        <mat-form-field  class="comment" appearance="outline">
                             <mat-label style="color: white;">Password</mat-label>
                             <input style="color: white;" type="password" name="password" [(ngModel)]="password"   matInput required >
                         </mat-form-field>
               
-
                     <mat-card-actions style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
                         <button class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
                             Login
@@ -64,23 +59,16 @@
                        
                     </mat-card-actions>
                           </form>
-                    <div style="display: flex; flex-direction: row; align-items: center;">
+                    <div style="height: 10px; display: flex; flex-direction: row; align-items: center; margin-top: 10px;">
                         <label  class="font-login1" style="color: #fff;">
                             <input type="checkbox" [(ngModel)]="rememberMe" name="remember" >  Remember
                         </label>
                         
                     </div>
-                    <br><br><br><br>
-
-                    <div style="margin-bottom: -20px; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+                    <div class="nomem">
                         <span style="color: #fff; font-size: 11px;" class="font-login1">Not a member?</span><span [routerLink]="['/signin',]"  style="color: #8c0404; font-size: 11px; margin-left: 6px; cursor: pointer;" class="font-login1">Register now</span> 
                     </div>
-                    <br><br>
-
-                    
-                    
-
-
+                    <br>
                 </mat-card-content>
             </mat-card>
         </div>
@@ -89,4 +77,3 @@
 
 
 </body>
-
