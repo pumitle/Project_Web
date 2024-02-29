@@ -9,11 +9,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
 import {  SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,SlickCarouselModule ],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,SlickCarouselModule,MatFormFieldModule,MatSelectModule ],
 
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -69,9 +71,30 @@ images = [
  
 ];
 
+onSelectChange(event: any) {
+  const selectedValue = event.target.value;
+  if (selectedValue === 'logout') {
+    this.logout();
+  }
+  if (selectedValue === 'upload') {
+    this.goUpload();
+  }
+  if (selectedValue === 'profile') {
+    this.goProfile();
+  }
+}
+
 logout(): void {
   this.authService.logout();
   this.router.navigate(['/login']);
+}
+
+goUpload(): void {
+  this.router.navigate(['/upload']);
+}
+
+goProfile(): void {
+  this.router.navigate(['/profile']);
 }
 
 

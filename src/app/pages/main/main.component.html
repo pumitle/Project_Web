@@ -1,16 +1,12 @@
 <body>
     <div class="container">
         <div class="nav-bar">
-            <div class="nav-bar-main">
-             
-                
                 <div class="nav-bar-main">
                     <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
-                    <div *ngIf="user; else notLoggedIn">
+                    <div *ngIf="user; else notLoggedIn" class="profile">
                       <!-- Logged in user -->
-                      <div class="profile">
                         <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
-                        <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button>
+                        <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
                         <div class="line"></div>
                         <span *ngIf="user.img_user">
                             <img src="{{user.img_user}}" alt="" class="imgprofile">
@@ -19,10 +15,14 @@
                             <!-- Display a default image if user.img_user is not defined -->
                             <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
                           </span>
-                       
                         <p class="uname">{{user.username }}</p>
-                        <img src="assets/imges/menu.png" alt="" style="width: 40px; margin-left: 2vw;">
-                      </div>
+                            <select class="menu" (change)="onSelectChange($event)">
+                                <option value="" disabled selected hidden>MENU</option>
+                                <option class="menu-option" value="profile">Profile</option>
+                                <option class="menu-option" value="upload">Upload</option>
+                                <option class="menu-option" value="toprank">Top Rank</option>
+                                <option class="menu-option" value="logout">Logout</option>
+                            </select>
                     </div>
                     <ng-template #notLoggedIn>
                       <!-- Not logged in user -->
@@ -31,14 +31,7 @@
                         <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/login',]">LOGIN</button>
                       </div>
                     </ng-template>
-                  </div>
-                  
-
-
-
-                
-            </div>
-            
+                  </div>         
         </div>
         <div class="main-content">
             <div class="head-main">
@@ -67,8 +60,6 @@
                     
                     </div>
                 </ngx-slick-carousel>
-          
-      
         </div>
     </div>    
 </body>

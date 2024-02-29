@@ -9,14 +9,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
 
+
 @Component({
-  selector: 'app-upload',
+  selector: 'app-profile',
   standalone: true,
   imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule],
-  templateUrl: './upload.component.html',
-  styleUrl: './upload.component.scss'
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss'
 })
-export class UploadComponent {
+export class ProfileComponent {
   uid: any;
   user : UserResponese | undefined;
  
@@ -68,5 +69,4 @@ goUpload(): void {
 goProfile(): void {
   this.router.navigate(['/profile']);
 }
-
 }
