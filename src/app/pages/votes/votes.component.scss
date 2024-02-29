@@ -137,11 +137,20 @@ body{
     justify-content: center;
 }
 .img-main{
-    width: 80vw;
+    width: 30vw;
     object-fit: cover;
     border-radius: 20px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    margin-right: 10px;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
 }
+.img-main:hover{
+    transform: scale(1.1);
+}
+
 .bt-main{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -179,5 +188,7 @@ body{
     margin: auto;
   }
 
+
+  
 
 

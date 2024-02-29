@@ -9,10 +9,12 @@ import {MatButtonModule} from '@angular/material/button';
 import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
 import {  SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
+
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,SlickCarouselModule  ],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,SlickCarouselModule ],
+
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -29,7 +31,6 @@ export class MainComponent implements OnInit {
   async ngOnInit()  {
   //   this.uid = this.activateRoute.snapshot.paramMap.get('uid') || '';
   //   console.log('uid',this.uid);
-
   //  this.datauser = await this.mysqlService.getById(this.uid);
   //  console.log('Main User',this.datauser);
    
@@ -72,6 +73,7 @@ logout(): void {
   this.authService.logout();
   this.router.navigate(['/login']);
 }
+
 
 }
 

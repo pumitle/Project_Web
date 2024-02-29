@@ -43,30 +43,41 @@
         <div class="main-content">
             <div class="head-main">
                 <div class="topten">
-                   <p class="tt" >TOP 10 THE BEST</p>
+                   <p class="tt" >Vote</p>
                    <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
                 </div>
                 <div class="topname">
-                    <p>#1/10 PUMITLE</p>
+                    <!-- <p>#1/10 PUMITLE</p>
                     <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">1500</p> 
-                    <p>point</p>
+                    <p>point</p> -->
                  </div> 
             </div>
-            <div class="main-main">
-                <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt="">
+            <!-- <div class="main-main">
+                <div style="display: flex; flex-direction: row;">
+                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt=""> 
+                    <span style="display: flex; align-items: center; margin-right: 10px; font-size: 50px; color: #bb0102;">V</span><span style="display: flex; align-items: center; margin-right: 10px; margin-left: -10px; font-size: 50px; color: #000000;">s</span>
+                    <img  src="https://www.wsupercars.com/wallpapers-regular/Lamborghini/2023-Lamborghini-Lanzador-Concept-001-1080.jpg" class="img-main" alt=""> 
+                </div>
+                
             </div>
             <div class="bt-main">
-                <button mat-raised-button style="background-color: #bb0102; color: white;"[routerLink]="['/vote',]">Start Vote</button>
-                <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/upload',]">Upload Car</button>
+                    <button mat-button style="display: flex; align-items: center; justify-content: center; background-color: #bb0102; margin-left: 75px; margin-top: 50px;">Vote here</button>
             </div>
+           -->
+           <div class="main-main">
+            <div style="display: flex; flex-direction: row;">
+              <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt="" (click)="selectImage('left')">
+              <span style="display: flex; align-items: center; margin-right: 10px; font-size: 50px; color: #bb0102;">V</span>
+              <span style="display: flex; align-items: center; margin-right: 10px; margin-left: -10px; font-size: 50px; color: #000000;">s</span>
+              <img src="https://www.wsupercars.com/wallpapers-regular/Lamborghini/2023-Lamborghini-Lanzador-Concept-001-1080.jpg" class="img-main" alt="" (click)="selectImage('right')">
+            </div>
+          </div>
           
-                <ngx-slick-carousel  class="slide-main" #slickModal="slick-carousel" [config]="slickConfig">
-                    <div ngxSlickItem *ngFor="let image of images" let i = index class="img-slide">
-                    
-                        <img [src]="image.src" alt="Image">
-                    
-                    </div>
-                </ngx-slick-carousel>
+          <div class="bt-main">
+            <button mat-button style="display: flex; align-items: center; justify-content: center; background-color: #bb0102; margin-left: 75px; margin-top: 50px;" (click)="vote()">Vote here</button>
+          </div>
+          
+            
           
       
         </div>
