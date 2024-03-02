@@ -7,14 +7,15 @@ import { MysqlService } from '../app/mysql.service';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthenticationService } from '../../src/app/authen.service';
-
+import { VotesComponent } from './pages/votes/votes.component';
+import { UploadComponent } from './pages/upload/upload.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet,MainComponent,LoginComponent, HttpClientModule,RegisterComponent ],
+  imports: [CommonModule, RouterOutlet,MainComponent,LoginComponent, HttpClientModule,RegisterComponent,VotesComponent,UploadComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

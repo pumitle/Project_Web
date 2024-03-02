@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+body{
+    width: 100%;
+    height: auto;
+    background-image: url("/assets/imges/BG-Bestcar.png");
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: "Bebas Neue", sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.nav-bar{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+.nav-bar-main{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo{
+    width: 100px;
+}
+.profile{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.imgprofile{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.uname{
+    color: white;
+    margin-left: 1vw;
+}
+.line{
+    background-color: white; 
+    width: 2px; 
+    height: 40px; 
+    margin-right: 1vw;
+    border-radius: 40%;
+}
+.buttonRK{
+    margin-right: 1vw;
+}
+.menu {
+    width: 80px;
+    margin-left: 1vw;
+    font-size: 16px;
+    padding: 0.5vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #000000; 
+    color: white;
+    font-family: "Bebas Neue", sans-serif;
+  }
+  .menu-option{
+    border: 1px solid #ccc; /* ขอบของตัวเลือก */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* เงาของตัวเลือก */
+    background-color: #ffffff;
+    color: #000000;
+  }
+  .menu-option:hover{
+    background-color: #bb0102; /* สีพื้นหลังเมื่อ hover หรือ focus */
+    color: #ffffff; /* สีตัวอักษรเมื่อ hover หรือ focus */
+  }
+  
+.main-content{
+    width: 80%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.fontinput{
+    font-size: 30px;
+}
+
+.head-main{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.upload{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.ul {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-size: 50px;
+}
+.topname{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 3vw;
+}
+.main-main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.card-upload{
+    width: 50%;
+    height: auto;
+    background-color: #0000003e;
+    margin-bottom: 100px;
+    padding-bottom: 50px;
+    backdrop-filter: blur(3px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.upload-box{
+    font-size: 10px;
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    outline: none;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -2vw;
+}
+::-webkit-file-upload-button{
+    color: white;
+    background-color: #bb0102;
+    padding: 1vw;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 1px 0 1px 1px #6b4559;
+    outline: none;
+}
+.input{
+    font-size: 10px;
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    height: 30px;
+    outline: none;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -2vw;
+}
+.textarea{
+    font-size: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    outline: none;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -2vw;
+}
+
+@media (max-width: 700px){
+    body{
+        background-image: url("/assets/imges/BG-BcForPhone.png");
+    }
+    .logo{
+        width: 40%;
+    }
+    .line{
+        display: none;
+    }
+    .buttonRK{
+        display: none;
+    }
+    .menu{
+        width: 50px;
+        font-size: 10px;
+    }
+    .main-content{
+        height: 780px;
+    }
+
+    .head-main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .img-main{
+        width: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+    .bt-main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .bt-main button{
+        width: 15vw;
+        font-size: xx-small;
+        margin-bottom: 2vw;
+    }
+    .card-upload{
+        width: 100%;
+    }
+    .upload-box{
+        height: 30px;
+        width: 200px;
+    }
+    ::-webkit-file-upload-button{
+        height: 30px;
+    }
+    .input{
+        height: 30px;
+        width: 200px;
+    }
+    .textarea{
+        width: 200px;
+
+    }  
+    .ul{
+        font-size: 30px;
+    }  
+}

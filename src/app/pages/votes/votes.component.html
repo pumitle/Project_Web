@@ -52,30 +52,41 @@
                     <p>point</p> -->
                  </div> 
             </div>
-            <!-- <div class="main-main">
-                <div style="display: flex; flex-direction: row;">
-                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt=""> 
-                    <span style="display: flex; align-items: center; margin-right: 10px; font-size: 50px; color: #bb0102;">V</span><span style="display: flex; align-items: center; margin-right: 10px; margin-left: -10px; font-size: 50px; color: #000000;">s</span>
-                    <img  src="https://www.wsupercars.com/wallpapers-regular/Lamborghini/2023-Lamborghini-Lanzador-Concept-001-1080.jpg" class="img-main" alt=""> 
-                </div>
-                
-            </div>
-            <div class="bt-main">
-                    <button mat-button style="display: flex; align-items: center; justify-content: center; background-color: #bb0102; margin-left: 75px; margin-top: 50px;">Vote here</button>
-            </div>
-           -->
            <div class="main-main">
-            <div style="display: flex; flex-direction: row;">
-              <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt="" (click)="selectImage('left')">
-              <span style="display: flex; align-items: center; margin-right: 10px; font-size: 50px; color: #bb0102;">V</span>
-              <span style="display: flex; align-items: center; margin-right: 10px; margin-left: -10px; font-size: 50px; color: #000000;">s</span>
-              <img src="https://www.wsupercars.com/wallpapers-regular/Lamborghini/2023-Lamborghini-Lanzador-Concept-001-1080.jpg" class="img-main" alt="" (click)="selectImage('right')">
+         
+            <div *ngFor="let item of data; let i = index">
+              <!-- Display images only for the first pair available -->
+              <div *ngIf="i === 0">
+                <div style="display: flex; flex-direction: row;">
+                  <!-- img 1 -->
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                  <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)">
+                  <p>{{item.name_img}}</p>
+                </div>
+                  <span style="display: flex; align-items: center; margin-right: 10px; font-size: 50px; color: #bb0102;">V</span>
+                  <span style="display: flex; align-items: center; margin-right: 10px; margin-left: -10px; font-size: 50px; color: #000000;">s</span>
+                  <!-- img 2 -->
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                  <img src="{{data[i + 1].img_car}}" class="img-main" alt="" (click)="selectImage('right', data[i + 1], i + 1,data[i + 1].upid,data[i + 1].score,item.score,item.upid)">
+                  <p>{{data[i + 1].name_img}}</p>
+                </div>
+                </div>
+              </div>
             </div>
+            
+
+            
+      
+
           </div>
+
           
-          <div class="bt-main">
-            <button mat-button style="display: flex; align-items: center; justify-content: center; background-color: #bb0102; margin-left: 75px; margin-top: 50px;" (click)="vote()">Vote here</button>
-          </div>
+           
+      
+          
+          <!-- <div class="bt-main">
+            <button mat-button style="display: flex; align-items: center; justify-content: center; background-color: #bb0102; margin-left: 75px; margin-top: 50px;" (click)="vote(imageId)">Vote here</button>
+          </div> -->
           
             
           
