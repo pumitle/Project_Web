@@ -35,17 +35,28 @@
         </div>
         <div class="main-content">
             <div class="head-main">
-                <div class="topten">
-                   <p class="tt" >TOP 10 THE BEST</p>
-                   <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
+                <div class="upload">
+                   <p class="ul" >UP</p>
+                   <p class="ul" style="color: #bb0102;">LOAD</p> 
                 </div>
-                <div class="topname">
-                    <p>#1/10 PUMITLE</p>
-                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">1500</p> 
-                    <p>point</p>
-                 </div> 
+                <div class="topname"></div> 
             </div>
             <div class="main-main">
+              <div class="card-upload">
+                <form class="form">
+                  <p class="fontinput" style="color: white;">Select Your car</p>
+                    <input class="upload-box" type="file" accept="image/*, text/*" name="file"/>
+                  <p class="fontinput"  style="color: white;">Name Car</p>
+                    <input class="input" style="color: rgb(0, 0, 0);" type="text" name="namecar" required>
+                  <p class="fontinput"  style="color: white;">Details car</p>
+                    <textarea class="textarea" name="detailscar">  </textarea>
+                    <button class="font-login2" mat-raised-button style="background-color: #990000; color: #fff; width: 100px; margin-top: 30px;">
+                      Save
+                    </button>
+                </form>
+                
+              </div>
+              
             </div>
         </div>
     </div>    

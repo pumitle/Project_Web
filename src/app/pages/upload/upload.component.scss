@@ -90,6 +90,98 @@ body{
     align-items: center;
     flex-direction: column;
 }
+.fontinput{
+    font-size: 30px;
+}
+
+.head-main{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.upload{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.ul {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+    font-size: 50px;
+}
+.topname{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 3vw;
+}
+.main-main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.card-upload{
+    width: 50%;
+    height: auto;
+    background-color: #0000003e;
+    margin-bottom: 100px;
+    padding-bottom: 50px;
+    backdrop-filter: blur(3px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.upload-box{
+    font-size: 10px;
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    outline: none;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -2vw;
+}
+::-webkit-file-upload-button{
+    color: white;
+    background-color: #bb0102;
+    padding: 1vw;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 1px 0 1px 1px #6b4559;
+    outline: none;
+}
+.input{
+    font-size: 10px;
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    height: 30px;
+    outline: none;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -2vw;
+}
+.textarea{
+    font-size: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px black;
+    width: 300px;
+    outline: none;
+    font-family: "Bebas Neue", sans-serif;
+    margin-top: -2vw;
+}
 
 @media (max-width: 700px){
     body{
@@ -135,32 +227,25 @@ body{
         font-size: xx-small;
         margin-bottom: 2vw;
     }
-    
-}
-.head-main{
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.topten{
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.tt {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    font-size: 4vw;
-}
-.topname{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    font-size: 3vw;
-}
-.main-main{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    .card-upload{
+        width: 100%;
+    }
+    .upload-box{
+        height: 30px;
+        width: 200px;
+    }
+    ::-webkit-file-upload-button{
+        height: 30px;
+    }
+    .input{
+        height: 30px;
+        width: 200px;
+    }
+    .textarea{
+        width: 200px;
+
+    }  
+    .ul{
+        font-size: 30px;
+    }  
 }

@@ -107,7 +107,7 @@ body{
 }
 .pf {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    font-size: 4vw;
+    font-size: 50px;
 }
 .topname{
     width: 50%;
@@ -161,6 +161,7 @@ body{
     width: 20%;
     display: flex;
     justify-content: end;
+    margin-left: 10%;
 }
 .line2{
     height: 0.1vw;
@@ -250,6 +251,9 @@ body{
     .imgcar{
         width: 150px;
         height: 100px;
+    }
+    .pf{
+        font-size: 30px;
     }
     
 }

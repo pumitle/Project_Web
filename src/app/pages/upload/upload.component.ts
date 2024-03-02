@@ -8,19 +8,19 @@ import { lastValueFrom } from 'rxjs';
 import {MatButtonModule} from '@angular/material/button';
 import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardActions } from '@angular/material/card';
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatCardActions],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss'
 })
 export class UploadComponent {
   uid: any;
   user : UserResponese | undefined;
- 
-
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
