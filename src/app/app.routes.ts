@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthenticationGuard } from '../app/authen.guard';
 import { UploadComponent } from './pages/upload/upload.component';
 import { VotesComponent } from './pages/votes/votes.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {path:'login' ,component:LoginComponent},
     {path:'signin' ,component:RegisterComponent},
     {path:'upload',component:UploadComponent,canActivate: [AuthenticationGuard]},
-    {path:'vote',component:VotesComponent,canActivate: [AuthenticationGuard]}
+    {path:'vote',component:VotesComponent,canActivate: [AuthenticationGuard]},
+    {path:'profile',component:ProfileComponent,canActivate: [AuthenticationGuard]},
     
 ];
