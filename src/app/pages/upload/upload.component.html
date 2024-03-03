@@ -45,12 +45,12 @@
               <div class="card-upload">
                 <form class="form">
                   <p class="fontinput" style="color: white;">Select Your car</p>
-                    <input class="upload-box" type="file" accept="image/*, text/*" name="file"/>
+                    <input class="upload-box" type="file" (change)="onFileSelected($event)" #fileUpload/>
                   <p class="fontinput"  style="color: white;">Name Car</p>
-                    <input class="input" style="color: rgb(0, 0, 0);" type="text" name="namecar" required>
-                  <p class="fontinput"  style="color: white;">Details car</p>
-                    <textarea class="textarea" name="detailscar">  </textarea>
-                    <button class="font-login2" mat-raised-button style="background-color: #990000; color: #fff; width: 100px; margin-top: 30px;">
+                    <input class="input" style="color: rgb(0, 0, 0);" type="text" name="namecar"  [(ngModel)]="carName" required>
+                  <p class="fontinput"  style="color: white;" >Details car</p>
+                    <textarea class="textarea" name="detailscar"  [(ngModel)]="carDetails">  </textarea>
+                    <button class="font-login2" mat-raised-button style="background-color: #990000; color: #fff; width: 100px; margin-top: 30px;" (click)="goUpload(carName,carDetails)">
                       Save
                     </button>
                 </form>

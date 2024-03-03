@@ -3,6 +3,7 @@ import { Observable, lastValueFrom } from 'rxjs';
 import { Dbconn } from '../../src/app/config/dbconn';
 import { HttpClient } from '@angular/common/http';
 import { UserResponese } from './Modeldatabase/user_get';
+import {  UploadRes } from './Modeldatabase/user_get';
 
 
 @Injectable({
@@ -20,5 +21,16 @@ export class MysqlService {
    const response = await lastValueFrom(this.http.get(url));
    return response as UserResponese[];
   }
+
+
+
+  public async getdataupload(option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
+  
+ 
 
 }

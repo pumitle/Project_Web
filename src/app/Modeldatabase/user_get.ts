@@ -8,3 +8,24 @@ export interface UserResponese {
     img_user:      null;
     type:          string;
 }
+
+export interface UploadRes {
+    user_fk_id: number;
+    up_fk_id:   number;
+    whowon:     number;
+    score:      number;
+    vote_date:  Date;
+    upid:       number;
+    img_car:    string;
+    name_img:   string;
+    detail:     string;
+    uid_user:   number;
+}
+
+export interface VoteRes {
+    user_fk_id: number;
+    up_fk_id:   number;
+    whowon:     number;
+    score:      number;
+    vote_date:  Date;
+}
