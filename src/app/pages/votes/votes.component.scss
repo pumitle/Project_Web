@@ -32,8 +32,10 @@ body{
     width: 100px;
 }
 .profile{
+    width: 40%;
     display: flex;
     align-items: center;
+    justify-content: end;
 }
 .imgprofile{
     width: 40px;
@@ -55,6 +57,27 @@ body{
 .buttonRK{
     margin-right: 1vw;
 }
+.menu {
+    width: 80px;
+    margin-left: 1vw;
+    font-size: 16px;
+    padding: 0.5vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #000000; 
+    color: white;
+    font-family: "Bebas Neue", sans-serif;
+  }
+  .menu-option{
+    border: 1px solid #ccc; /* ขอบของตัวเลือก */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* เงาของตัวเลือก */
+    background-color: #ffffff;
+    color: #000000;
+  }
+  .menu-option:hover{
+    background-color: #bb0102; /* สีพื้นหลังเมื่อ hover หรือ focus */
+    color: #ffffff; /* สีตัวอักษรเมื่อ hover หรือ focus */
+  }
 .main-content{
     width: 80%;
     height: auto;
@@ -67,48 +90,6 @@ body{
     flex-direction: column;
 }
 
-@media (max-width: 700px){
-    body{
-        background-image: url("/assets/imges/BG-BcForPhone.png");
-    }
-    .logo{
-        width: 40%;
-    }
-    .line{
-        display: none;
-    }
-    .buttonRK{
-        display: none;
-    }
-    .main-content{
-        height: 780px;
-    }
-
-    .head-main{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .img-main{
-        width: 100px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-    
-    .bt-main{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .bt-main button{
-        width: 15vw;
-        font-size: xx-small;
-        margin-bottom: 2vw;
-    }
-    
-}
 .head-main{
     width: 80%;
     display: flex;
@@ -119,11 +100,11 @@ body{
     width: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 .tt {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
-    font-size: 4vw;
+    font-size: 50px;
 }
 .topname{
     width: 50%;
@@ -137,7 +118,8 @@ body{
     justify-content: center;
 }
 .img-main{
-    width: 30vw;
+    width: 500px;
+    height: 350px;
     object-fit: cover;
     border-radius: 20px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
@@ -149,6 +131,26 @@ body{
 }
 .img-main:hover{
     transform: scale(1.1);
+}
+.vs{
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.font-v{
+    font-size: 60px;
+    
+}
+.font-s{
+    font-size: 60px;
+    
+}
+.vote-main{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .bt-main{
@@ -187,7 +189,73 @@ body{
     width: 90%;
     margin: auto;
   }
+.namecar{
+    font-size: 30px;
+    text-shadow: 1px 1px 1px #bb010170; 
+}
+  @media (max-width: 700px){
+    body{
+        background-image: url("/assets/imges/BG-BcForPhone.png");
+    }
+    .logo{
+        width: 40%;
+    }
+    .line{
+        display: none;
+    }
+    .buttonRK{
+        display: none;
+    }
+    .main-content{
+        height: 780px;
+    }
+    .tt{
+        font-size: 30px;
+    }
 
+    .head-main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .img-main{
+        width: 100%;
+        height: 70%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+    .bt-main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .bt-main button{
+        width: 15vw;
+        font-size: xx-small;
+        margin-bottom: 2vw;
+    }
+    .vote-main{
+        flex-direction: column;
+    }
+    .vs{
+        margin-top: -3vw;
+    }
+    .font-v{
+        font-size: 40px;
+        
+    }
+    .font-s{
+        font-size: 40px;
+        
+    }
+    .namecar{
+        font-size: 20px;
+    }
+    
+}
 
   
 

@@ -24,8 +24,9 @@ export class VotesComponent implements OnInit {
   
 
 
-  logout() {
-    throw new Error('Method not implemented.');
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
   user: UserResponese | undefined;
   data: UploadRes[] = [];
@@ -44,7 +45,7 @@ export class VotesComponent implements OnInit {
   winnerScore:number | undefined;
   loserScore: number | undefined;
 
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { }
 
    ngOnInit(): void {
     this.authService.initializeAuthentication().then(user => {
@@ -61,7 +62,28 @@ export class VotesComponent implements OnInit {
     });
 
   }
-
+  onSelectChange(event: any) {
+    const selectedValue = event.target.value;
+   
+    if (selectedValue === 'logout') {
+      this.logout();
+    }
+    if (selectedValue === 'upload') {
+      this.goToUpload();
+    
+    }
+    if (selectedValue === 'profile') {
+      this.goToProfile();
+    }
+  }
+  goToUpload(): void {
+    this.router.navigate(['/upload']);
+  }
+  
+  
+  goToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
 
   async loadDataAsync() {
     this.data = await this.mysqlService.getdataupload();

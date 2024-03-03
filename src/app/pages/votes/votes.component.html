@@ -1,43 +1,37 @@
 <body>
     <div class="container">
         <div class="nav-bar">
-            <div class="nav-bar-main">
-             
-                
-                <div class="nav-bar-main">
-                    <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
-                    <div *ngIf="user; else notLoggedIn">
-                      <!-- Logged in user -->
-                      <div class="profile">
-                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
-                        <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button>
-                        <div class="line"></div>
-                        <span *ngIf="user.img_user">
-                            <img src="{{user.img_user}}" alt="" class="imgprofile">
-                        </span>
-                        <span *ngIf="!user.img_user">
-                            <!-- Display a default image if user.img_user is not defined -->
-                            <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
-                          </span>
-                       
-                        <p class="uname">{{user.username }}</p>
-                        <img src="assets/imges/menu.png" alt="" style="width: 40px; margin-left: 2vw;">
-                      </div>
-                    </div>
-                    <ng-template #notLoggedIn>
-                      <!-- Not logged in user -->
-                      <div class="profile">
-                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
-                        <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/login',]">LOGIN</button>
-                      </div>
-                    </ng-template>
-                  </div>
-                  
-
-
-
-                
+          <div class="nav-bar-main">
+            <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
+            <div *ngIf="user; else notLoggedIn" class="profile">
+              <!-- Logged in user -->
+                <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
+                <div class="line"></div>
+                <span *ngIf="user.img_user">
+                    <img src="{{user.img_user}}" alt="" class="imgprofile">
+                </span>
+                <span *ngIf="!user.img_user">
+                    <!-- Display a default image if user.img_user is not defined -->
+                    <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
+                  </span>
+                <p class="uname">{{user.username }}</p>
+                    <select class="menu" (change)="onSelectChange($event)">
+                        <option value="" disabled selected hidden>MENU</option>
+                        <option class="menu-option" value="profile">Profile</option>
+                        <option class="menu-option" value="upload">Upload</option>
+                        <option class="menu-option" value="toprank">Top Rank</option>
+                        <option class="menu-option" value="logout">Logout</option>
+                    </select>
             </div>
+            <ng-template #notLoggedIn>
+              <!-- Not logged in user -->
+              <div class="profile">
+                <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/login',]">LOGIN</button>
+              </div>
+            </ng-template>
+          </div>  
             
         </div>
         <div class="main-content">
@@ -57,19 +51,22 @@
             <div *ngFor="let item of data; let i = index">
               <!-- Display images only for the first pair available -->
               <div *ngIf="i === 0">
-                <div style="display: flex; flex-direction: row;">
+                <div class="vote-main">
                   <!-- img 1 -->
                   <div style="display: flex; flex-direction: column; align-items: center;">
-                  <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)">
-                  <p>{{item.name_img}}</p>
-                </div>
-                  <span style="display: flex; align-items: center; margin-right: 10px; font-size: 50px; color: #bb0102;">V</span>
-                  <span style="display: flex; align-items: center; margin-right: 10px; margin-left: -10px; font-size: 50px; color: #000000;">s</span>
+                    <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)">
+                    <p class="namecar">{{item.name_img}}</p>
+                  </div>
+                  <div class="vs">
+                    <span class="font-v" style="color: #bb0102;">V</span>
+                    <span class="font-s" style="color: #000000;">s</span>  
+                  </div>
+                  
                   <!-- img 2 -->
                   <div style="display: flex; flex-direction: column; align-items: center;">
-                  <img src="{{data[i + 1].img_car}}" class="img-main" alt="" (click)="selectImage('right', data[i + 1], i + 1,data[i + 1].upid,data[i + 1].score,item.score,item.upid)">
-                  <p>{{data[i + 1].name_img}}</p>
-                </div>
+                    <img src="{{data[i + 1].img_car}}" class="img-main" alt="" (click)="selectImage('right', data[i + 1], i + 1,data[i + 1].upid,data[i + 1].score,item.score,item.upid)">
+                    <p class="namecar">{{data[i + 1].name_img}}</p>
+                  </div>
                 </div>
               </div>
             </div>

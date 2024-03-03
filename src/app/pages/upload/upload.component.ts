@@ -51,11 +51,11 @@ onSelectChange(event: any) {
     this.logout();
   }
   if (selectedValue === 'upload') {
-   
+    this.goToUpload();
   
   }
   if (selectedValue === 'profile') {
-    this.goProfile();
+    this.goToProfile();
   }
 }
 
@@ -116,10 +116,12 @@ async goUpload(namecar: any, detailscar: any) {
   }
 }
 
+goToUpload(): void {
+  this.router.navigate(['/upload']);
+}
 
 
-
-goProfile(): void {
+goToProfile(): void {
   this.router.navigate(['/profile']);
 }
 
