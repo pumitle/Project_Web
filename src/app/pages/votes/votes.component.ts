@@ -44,6 +44,9 @@ export class VotesComponent implements OnInit {
   loserNewScore :number | undefined;
   winnerScore:number | undefined;
   loserScore: number | undefined;
+  totalScores: { [key: number]: number } = {}; 
+  newtotalScores: { [key: number]: number } = {}; 
+  displayedTotalScores: { [key: number]: number } = {}; 
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { }
 
@@ -90,6 +93,9 @@ export class VotesComponent implements OnInit {
     this.shuffleImages(this.data);
     console.log("Shuffled Data:", this.data);
     console.log("data is ", this.data);
+   
+    this.calculateTotalScores();
+    console.log("Total Scores:", this.totalScores);
   }
 
   
@@ -149,7 +155,8 @@ export class VotesComponent implements OnInit {
     console.log("selectid", this.selectImageId);
     console.log("score", this.selectScore);
     console.log("Unselectscore", this.UnselectScore);
-    
+    // this.calculateTotalScores();
+
   }
 
 
@@ -236,9 +243,76 @@ export class VotesComponent implements OnInit {
     const { winnerNewScore, loserNewScore } = this.calculateEloRating(winnerScore, loserScore);
   
     this.insertvote(this.selectImageId, this.unselect, winnerNewScore, loserNewScore);
+    this.newcalculateTotalScores(this.selectImageId,this.unselect, winnerNewScore, loserNewScore);
     console.log("Calculated winner score:", winnerNewScore);
     console.log("Calculated loser score:", loserNewScore);
   }
+
+
+  calculateTotalScores() {
+    // Reset total scores
+    this.totalScores = {};
+
+    // Recalculate total scores based on ID
+    this.data.forEach((item) => {
+      this.totalScores[item.upid] = (this.totalScores[item.upid] || 0) + item.score;
+    });
+  }
+  
+  // newcalculateTotalScores(winnerId: number, loserId: number,winscore: number, losescore: number): void {
+  //   this.newtotalScores = {};
+
+  
+  //   // Calculate new total scores by adding the existing score and the winscore/losescore
+  //   this.data.forEach((item) => {
+  //     this.newtotalScores[item.upid] = (this.newtotalScores[item.upid] || 0) + item.score;
+  
+  //     // Add winscore to the winner ID and losescore to the loser ID
+  //     if (item.upid === winnerId) {
+  //       this.newtotalScores[item.upid] += winscore;
+      
+  //     } else if (item.upid === loserId) {
+  //       this.newtotalScores[item.upid] += losescore;
+  //     }
+  //   });
+  
+  //   // Update the 'score' property in this.data with the newly calculated total scores
+  //   this.data.forEach((item) => {
+  //     item.score = this.newtotalScores[item.upid];
+  //   });
+  //   console.log('New Total Scores:', this.newtotalScores);
+  //   console.log('Updated Data:', this.data);
+  // }
+  
+  newcalculateTotalScores(winnerId: number, loserId: number, winscore: number, losescore: number): void {
+    this.newtotalScores = {};
+  
+    // Calculate new total scores by adding the existing score and the winscore/losescore
+    this.data.forEach((item) => {
+      this.newtotalScores[item.upid] = (this.newtotalScores[item.upid] || 0) + item.score;
+  
+      // Add winscore to the winner ID and losescore to the loser ID
+      if (item.upid === winnerId) {
+        this.newtotalScores[item.upid] += winscore;
+      } else if (item.upid === loserId) {
+        this.newtotalScores[item.upid] += losescore;
+      }
+    });
+  
+    // Update the 'score' property in this.data with the newly calculated total scores
+    this.data.forEach((item) => {
+      item.score = this.newtotalScores[item.upid];
+    });
+  
+    // Log and display the new total scores and updated data
+    console.log('New Total Scores:', this.newtotalScores);
+
+  
+    // Display the new total scores in the UI (assuming you have a property to bind)
+    this.displayedTotalScores = this.newtotalScores;
+    console.log('Updated Data:',this.displayedTotalScores);
+  }
+  
   
 
 }

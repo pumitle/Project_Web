@@ -122,16 +122,44 @@ body{
     height: 350px;
     object-fit: cover;
     border-radius: 20px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0);
     margin-right: 10px;
     transition: transform 0.3s ease-in-out;
     position: relative;
     cursor: pointer;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+
 }
 .img-main:hover{
     transform: scale(1.1);
+ 
 }
+
+// .img-main::before {
+//     content: '';
+//     position: absolute;
+//     width: 500px;
+//     height: 350px;
+//     background-color: #ffffff;
+//     box-shadow: 0px 0px 20px rgba(0, 0, 0);
+//     animation: animate 4s linear infinite;
+// }
+// .img-main::after {
+//     content: '';
+//     position: absolute;
+//     inset: 10px;
+ 
+// }
+// @keyframes animate {
+//     0%{
+//         transform: rotate(0deg);
+//     }
+//     100%{
+//         transform: rotate(360deg);
+//     }
+// }
 .vs{
     display: flex;
     align-items: center;

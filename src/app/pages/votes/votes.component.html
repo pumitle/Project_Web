@@ -54,8 +54,10 @@
                 <div class="vote-main">
                   <!-- img 1 -->
                   <div style="display: flex; flex-direction: column; align-items: center;">
-                    <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)">
+                    <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)" >
                     <p class="namecar">{{item.name_img}}</p>
+                    <p class="namecar">Total Score: {{totalScores[item.upid]}}</p>
+                    <p class="namecar">New Total Score: {{newtotalScores[item.upid]}}</p>
                   </div>
                   <div class="vs">
                     <span class="font-v" style="color: #bb0102;">V</span>
@@ -66,24 +68,17 @@
                   <div style="display: flex; flex-direction: column; align-items: center;">
                     <img src="{{data[i + 1].img_car}}" class="img-main" alt="" (click)="selectImage('right', data[i + 1], i + 1,data[i + 1].upid,data[i + 1].score,item.score,item.upid)">
                     <p class="namecar">{{data[i + 1].name_img}}</p>
+                    <p class="namecar">Total Score: {{totalScores[data[i + 1].upid]}}</p>
+                    <p class="namecar">New Total Score: {{newtotalScores[data[i + 1].upid]}}</p>
                   </div>
                 </div>
               </div>
             </div>
-            
-
-            
-      
-
           </div>
 
-          
-           
-      
-          
-          <!-- <div class="bt-main">
-            <button mat-button style="display: flex; align-items: center; justify-content: center; background-color: #bb0102; margin-left: 75px; margin-top: 50px;" (click)="vote(imageId)">Vote here</button>
-          </div> -->
+
+
+         
           
             
           
