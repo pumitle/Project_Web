@@ -101,37 +101,3 @@ goProfile(): void {
 }
 
 
-
-////Ero
-
-// class EloRating {
-//   private static readonly K_FACTOR = 32;
-
-//   // Function to calculate expected probability of winning
-//   private static expectedProbability(ratingA: number, ratingB: number): number {
-//     return 1 / (1 + Math.pow(10, (ratingB - ratingA) / 400));
-//   }
-
-//   // Function to calculate new ratings after a match
-//   static updateRatings(ratingA: number, ratingB: number, outcome: number): { newRatingA: number; newRatingB: number } {
-//     const expectedProbabilityA = EloRating.expectedProbability(ratingA, ratingB);
-//     const expectedProbabilityB = EloRating.expectedProbability(ratingB, ratingA);
-
-//     const actualOutcomeA = outcome === 1 ? 1 : 0; // 1 for win, 0 for loss
-//     const actualOutcomeB = outcome === 0 ? 1 : 0; // 1 for win, 0 for loss
-
-//     const newRatingA = ratingA + EloRating.K_FACTOR * (actualOutcomeA - expectedProbabilityA);
-//     const newRatingB = ratingB + EloRating.K_FACTOR * (actualOutcomeB - expectedProbabilityB);
-
-//     return { newRatingA, newRatingB };
-//   }
-// }
-
-// // Example usage
-// const playerARating = 1600;
-// const playerBRating = 1500;
-// const outcome = 1; // Assume player A wins the match
-
-// const updatedRatings = EloRating.updateRatings(playerARating, playerBRating, outcome);
-// console.log('New Rating for Player A:', updatedRatings.newRatingA);
-// console.log('New Rating for Player B:', updatedRatings.newRatingB);

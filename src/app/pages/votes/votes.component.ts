@@ -259,31 +259,6 @@ export class VotesComponent implements OnInit {
     });
   }
   
-  // newcalculateTotalScores(winnerId: number, loserId: number,winscore: number, losescore: number): void {
-  //   this.newtotalScores = {};
-
-  
-  //   // Calculate new total scores by adding the existing score and the winscore/losescore
-  //   this.data.forEach((item) => {
-  //     this.newtotalScores[item.upid] = (this.newtotalScores[item.upid] || 0) + item.score;
-  
-  //     // Add winscore to the winner ID and losescore to the loser ID
-  //     if (item.upid === winnerId) {
-  //       this.newtotalScores[item.upid] += winscore;
-      
-  //     } else if (item.upid === loserId) {
-  //       this.newtotalScores[item.upid] += losescore;
-  //     }
-  //   });
-  
-  //   // Update the 'score' property in this.data with the newly calculated total scores
-  //   this.data.forEach((item) => {
-  //     item.score = this.newtotalScores[item.upid];
-  //   });
-  //   console.log('New Total Scores:', this.newtotalScores);
-  //   console.log('Updated Data:', this.data);
-  // }
-  
   newcalculateTotalScores(winnerId: number, loserId: number, winscore: number, losescore: number): void {
     this.newtotalScores = {};
   
