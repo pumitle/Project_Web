@@ -162,7 +162,7 @@ export class VotesComponent implements OnInit {
 
   async insertvote(selectImageId: any,UnselectImageId: any ,winscore : number,losescore : number) {
     // Assuming you have an API endpoint for voting
-    const voteApiUrl = 'http://localhost:3000/voteapi/vote';
+    const voteApiUrl = 'https://adv-voote.onrender.com/voteapi/vote';
 
     try {
       // Assuming you have the user object available after authentication

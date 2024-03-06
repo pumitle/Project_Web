@@ -48,7 +48,7 @@ confirmPassword: any;
     console.log('email:', email);
     console.log('Password:', password);
     console.log('Confirm Password:', this.confirmPassword);
-    const url = 'http://localhost:3000/user/signin'; // เปลี่ยนเป็น URL ของ API สำหรับการลงทะเบียน
+    const url = 'https://adv-voote.onrender.com/user/signin'; // เปลี่ยนเป็น URL ของ API สำหรับการลงทะเบียน
   
   
     // ตรวจสอบ email และ password
