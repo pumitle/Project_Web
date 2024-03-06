@@ -180,7 +180,7 @@ export class VotesComponent implements OnInit {
 
  
         // // Insert data for the non-selected image
-    const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date: new Date() }).toPromise();
+    const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date: new Date().toISOString() }).toPromise();
 
    
 
