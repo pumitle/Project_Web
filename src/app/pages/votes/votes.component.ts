@@ -175,7 +175,7 @@ export class VotesComponent implements OnInit {
         
         // Send a vote request to the server
 
-    const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date: new Date() }).toPromise();
+    const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date: new Date().toISOString()}).toPromise();
      
 
  
