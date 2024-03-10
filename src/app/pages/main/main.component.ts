@@ -97,6 +97,10 @@ goProfile(): void {
   this.router.navigate(['/profile']);
 }
 
+goToprank(): void {
+  this.router.navigate(['/toprank']);
+}
+
 
 }
 

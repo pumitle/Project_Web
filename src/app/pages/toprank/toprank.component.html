@@ -5,7 +5,7 @@
                     <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
                     <div *ngIf="user; else notLoggedIn" class="profile">
                       <!-- Logged in user -->
-                        <button mat-raised-button class="buttonRK" (click)="goToprank()" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
                         <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
                         <div class="line"></div>
                         <span *ngIf="user.img_user">
@@ -40,26 +40,36 @@
                    <p class="tc">CAR</p> 
                 </div>
                 <div class="topname">
-                    <p>#1/10 PUMITLE</p>
-                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">1500</p> 
-                    <p>point</p>
+                    <p class="font-dm">14 FEB 2024</p>
+                    <button mat-raised-button class="buttonRK" style="margin-left: 10%; background-color: #bb0102; color: white;">Swap date</button>
                  </div> 
             </div>
             <div class="main-main">
-                <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt="">
-            </div>
-            <div class="bt-main">
-                <button mat-raised-button class="bt-vote" style="background-color: #bb0102; color: white;"[routerLink]="['/vote',]">Start Vote</button>
-                <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/upload',]">Upload Car</button>
-            </div>
-          
-                <ngx-slick-carousel  class="slide-main" #slickModal="slick-carousel" [config]="slickConfig">
-                    <div ngxSlickItem *ngFor="let image of images" let i = index class="img-slide">
-                    
-                        <img [src]="image.src" alt="Image">
-                    
+                <div class="card-rank">
+                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="imgrank" alt="">
+                    <div class="detailcar">
+                       <p class="font-dm">Mission X</p> 
+                       <p style="margin-top: -1vw;">Lorem ipsum dolor sit amet consectetur adipisicing elit. A ex eligendi facere voluptate illum voluptatum quibusdam corporis vel cum ipsum, est id cupiditate repellendus sed possimus. Corrupti corporis laudantium iure.</p>
                     </div>
-                </ngx-slick-carousel>
+                    <div class="line-card"></div>
+                    <div class="deatilmember">
+                        <p class="font-dm">Pumitle</p>
+                        <p class="font-dm" style="margin-top: -20px;">1890</p>
+                    </div>
+                </div>
+                <div class="card-rank">
+                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="imgrank" alt="">
+                    <div class="detailcar">
+                       <p class="font-dm">Mission X</p> 
+                       <p style="margin-top: -1vw;">Lorem ipsum dolor sit amet consectetur adipisicing elit. A ex eligendi facere voluptate illum voluptatum quibusdam corporis vel cum ipsum, est id cupiditate repellendus sed possimus. Corrupti corporis laudantium iure.</p>
+                    </div>
+                    <div class="line-card"></div>
+                    <div class="deatilmember">
+                        <p class="font-dm">Pumitle</p>
+                        <p class="font-dm" style="margin-top: -20px;">1890</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>    
+    </div>
 </body>
