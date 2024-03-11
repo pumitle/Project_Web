@@ -1,7 +1,7 @@
 
 import { CommonModule } from '@angular/common';
 import { HttpClient ,HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
 import { MysqlService } from '../app/../../mysql.service'; 
 import { MatButtonModule } from '@angular/material/button';
 import { AuthenticationService } from '../../authen.service';
@@ -20,8 +20,14 @@ export class ToprankComponent {
   uid: any;
   user : UserResponese | undefined;
   data: UploadRes[] = [];
+  befordata: UploadRes[] = [];
+  upid: any;
+  currentDate: Date = new Date();
+  isShowingYesterday: boolean = false;
+  selectedData: UploadRes[] = [];
 
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) {}
+
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router,private renderer: Renderer2, private el: ElementRef) {}
   datauser: UserResponese[] = [];
   async ngOnInit()  {   
     this.authService.initializeAuthentication().then(user => {
@@ -30,6 +36,12 @@ export class ToprankComponent {
         console.log('User authenticated:', user);
         this.user = user;
         this.loadDataAsync();
+      
+        setInterval(() => {
+          this.currentDate = new Date();
+        }, 1000);
+      
+    
       } else {
         console.log('User not authenticated');
        
@@ -65,9 +77,23 @@ export class ToprankComponent {
   async loadDataAsync() {
     this.data = await this.mysqlService.getdataAllupload();
     console.log("data is ", this.data);
-   
+
+    this.befordata = await this.mysqlService.getBefordataupload();
+    console.log("Befor data is ", this.befordata);
  
   }
+
+  today() {
+    this.renderer.setStyle(this.el.nativeElement.querySelector('#btn'), 'left', '110px');
+    this.selectedData = this.data;
+  }
+
+  before() {
+    this.renderer.setStyle(this.el.nativeElement.querySelector('#btn'), 'left', '0');
+    this.selectedData = this.befordata;
+  }
+ 
+ 
 
 
 }

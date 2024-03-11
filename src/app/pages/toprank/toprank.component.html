@@ -40,12 +40,20 @@
                    <p class="tc">CAR</p> 
                 </div>
                 <div class="topname">
-                    <p class="font-dm">14 FEB 2024</p>
-                    <button mat-raised-button class="buttonRK" style="margin-left: 10%; background-color: #bb0102; color: white;">Swap date</button>
+                    <p class="font-dm">{{ currentDate | date: 'dd MMM yyyy  HH:mm:ss' }}</p>
+                    <div class="form-box">
+                        <div class="button-box" style="display: flex; flex-direction: row;">
+                            <div id="btn"></div>
+                            <button type="button" class="toggle-btn"  (click)="before()">Before</button>
+                            <button type="button" class="toggle-btn"  (click)="today()">Today</button>
+                        </div>
+                    </div>
                  </div> 
             </div>
-            <div class="main-main"  *ngFor="let item of data; let i = index">
+            <div *ngIf="!selectedData || selectedData.length === 0">
+            <div class="main-main"    *ngFor="let item of data; let i = index ">
                 <div class="card-rank">
+                    <div class="number">{{ i + 1 }}</div>
                     <img src="{{item.img_car}}" class="imgrank" alt="">
                     <div class="detailcar">
                        <p class="font-dm">{{item.name_img}}</p> 
@@ -54,11 +62,29 @@
                     <div class="line-card"></div>
                     <div class="deatilmember">
                         <p class="font-dm">{{item.username}}</p>
-                        <p class="font-dm" style="margin-top: -20px;">1890</p>
+                        <p class="font-dm" style="margin-top: -20px;">{{item.total_score}}</p>
                     </div>
                 </div>
          
-            </div>
+            </div></div>
+
+            <div *ngIf="selectedData && selectedData.length > 0">
+            <div class="main-main" *ngFor="let item of selectedData; let i = index">
+                <div class="card-rank">
+                    <div class="number">{{ i + 1 }}</div>
+                  <img src="{{ item.img_car }}" class="imgrank" alt="">
+                  <div class="detailcar">
+                    <p class="font-dm">{{ item.name_img }}</p>
+                    <p style="margin-top: -1vw;">{{ item.detail }}</p>
+                  </div>
+                  <div class="line-card"></div>
+                  <div class="deatilmember">
+                    <p class="font-dm">{{ item.username }}</p>
+                    <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
+                  </div>
+                </div>
+              </div></div>
+              
         </div>
     </div>
 </body>

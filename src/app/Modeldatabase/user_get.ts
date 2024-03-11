@@ -10,6 +10,7 @@ export interface UserResponese {
 }
 
 export interface UploadRes {
+
     upid:          number;
     img_car:       string;
     name_img:      string;
@@ -28,6 +29,7 @@ export interface UploadRes {
     whowon:        number;
     score:         number;
     vote_date:     Date;
+    total_score: number;
 }
 
 export interface VoteRes {

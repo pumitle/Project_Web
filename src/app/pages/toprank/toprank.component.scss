@@ -57,6 +57,43 @@ body{
 .buttonRK{
     margin-right: 1vw;
 }
+.button-box{
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    border-radius: 30px;
+    background: #ffffff;
+}
+.toggle-btn{
+    padding: 10px  40px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+    text-align: center;
+}
+#btn {
+    right: 0;
+    top: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    background:  #bb0102;
+    border-radius: 30px;
+    transition: .5s;
+}
+.number{
+    font-weight: 500;
+    font-size: 4rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    color: #000000;
+    font-family: "Black Ops One", system-ui;
+}
+
 .menu {
     width: 80px;
     margin-left: 1vw;
@@ -135,6 +172,12 @@ body{
     padding-left: 2%;
     padding-right: 2%;
     margin-top: 20px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+.card-rank:hover{
+    transform: scale(1.1);
+ 
 }
 .imgrank{
     width: 250px;
