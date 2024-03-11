@@ -44,31 +44,20 @@
                     <button mat-raised-button class="buttonRK" style="margin-left: 10%; background-color: #bb0102; color: white;">Swap date</button>
                  </div> 
             </div>
-            <div class="main-main">
+            <div class="main-main"  *ngFor="let item of data; let i = index">
                 <div class="card-rank">
-                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="imgrank" alt="">
+                    <img src="{{item.img_car}}" class="imgrank" alt="">
                     <div class="detailcar">
-                       <p class="font-dm">Mission X</p> 
-                       <p style="margin-top: -1vw;">Lorem ipsum dolor sit amet consectetur adipisicing elit. A ex eligendi facere voluptate illum voluptatum quibusdam corporis vel cum ipsum, est id cupiditate repellendus sed possimus. Corrupti corporis laudantium iure.</p>
+                       <p class="font-dm">{{item.name_img}}</p> 
+                       <p style="margin-top: -1vw;">{{item.detail}}</p>
                     </div>
                     <div class="line-card"></div>
                     <div class="deatilmember">
-                        <p class="font-dm">Pumitle</p>
+                        <p class="font-dm">{{item.username}}</p>
                         <p class="font-dm" style="margin-top: -20px;">1890</p>
                     </div>
                 </div>
-                <div class="card-rank">
-                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="imgrank" alt="">
-                    <div class="detailcar">
-                       <p class="font-dm">Mission X</p> 
-                       <p style="margin-top: -1vw;">Lorem ipsum dolor sit amet consectetur adipisicing elit. A ex eligendi facere voluptate illum voluptatum quibusdam corporis vel cum ipsum, est id cupiditate repellendus sed possimus. Corrupti corporis laudantium iure.</p>
-                    </div>
-                    <div class="line-card"></div>
-                    <div class="deatilmember">
-                        <p class="font-dm">Pumitle</p>
-                        <p class="font-dm" style="margin-top: -20px;">1890</p>
-                    </div>
-                </div>
+         
             </div>
         </div>
     </div>

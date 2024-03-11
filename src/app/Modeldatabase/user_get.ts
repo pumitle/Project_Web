@@ -10,16 +10,24 @@ export interface UserResponese {
 }
 
 export interface UploadRes {
-    user_fk_id: number;
-    up_fk_id:   number;
-    whowon:     number;
-    score:      number;
-    vote_date:  Date;
-    upid:       number;
-    img_car:    string;
-    name_img:   string;
-    detail:     string;
-    uid_user:   number;
+    upid:          number;
+    img_car:       string;
+    name_img:      string;
+    detail:        string;
+    uid_user:      number;
+    uid:           number;
+    username:      string;
+    email:         string;
+    password:      string;
+    mobile_number: string;
+    url_user:      string;
+    img_user:      string;
+    type:          string;
+    user_fk_id:    number;
+    up_fk_id:      number;
+    whowon:        number;
+    score:         number;
+    vote_date:     Date;
 }
 
 export interface VoteRes {

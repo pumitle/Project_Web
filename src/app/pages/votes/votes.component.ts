@@ -11,6 +11,7 @@ import { AuthenticationService } from '../../authen.service';
 import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
+import { utcToZonedTime, format } from 'date-fns-tz';
 
 @Component({
   selector: 'app-votes',
@@ -174,13 +175,17 @@ export class VotesComponent implements OnInit {
         const userId = user.uid;
         
         // Send a vote request to the server
-
-    const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date: new Date().toISOString()}).toPromise();
+        const now = new Date();
+        const timeZone = 'Asia/Bangkok';  // Set to Thailand's time zone
+        const zonedTime = utcToZonedTime(now, timeZone);
+        const isoString = format(zonedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        
+      const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date:isoString}).toPromise();
      
 
  
         // // Insert data for the non-selected image
-    const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date: new Date().toISOString() }).toPromise();
+    const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date:isoString}).toPromise();
 
    
 

@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthenticationService } from '../../authen.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import {Router } from '@angular/router';
-import { UserResponese } from '../../Modeldatabase/user_get';
+import { UserResponese,UploadRes } from '../../Modeldatabase/user_get';
 
 @Component({
   selector: 'app-toprank',
@@ -19,19 +19,17 @@ import { UserResponese } from '../../Modeldatabase/user_get';
 export class ToprankComponent {
   uid: any;
   user : UserResponese | undefined;
-  constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
+  data: UploadRes[] = [];
+
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) {}
   datauser: UserResponese[] = [];
-  async ngOnInit()  {
-    //   this.uid = this.activateRoute.snapshot.paramMap.get('uid') || '';
-    //   console.log('uid',this.uid);
-    //  this.datauser = await this.mysqlService.getById(this.uid);
-    //  console.log('Main User',this.datauser);
-     
+  async ngOnInit()  {   
     this.authService.initializeAuthentication().then(user => {
       console.log('User data:', user);
       if (user) {
         console.log('User authenticated:', user);
         this.user = user;
+        this.loadDataAsync();
       } else {
         console.log('User not authenticated');
        
@@ -63,5 +61,13 @@ export class ToprankComponent {
   goProfile(): void {
     this.router.navigate(['/profile']);
   }
+
+  async loadDataAsync() {
+    this.data = await this.mysqlService.getdataAllupload();
+    console.log("data is ", this.data);
+   
+ 
+  }
+
 
 }
