@@ -11,6 +11,7 @@ import { AuthenticationService } from '../../authen.service';
 import {  SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { UploadRes } from '../../Modeldatabase/user_get';
 
 @Component({
   selector: 'app-main',
@@ -23,27 +24,24 @@ import { MatSelectModule } from '@angular/material/select';
 export class MainComponent implements OnInit {
   uid: any;
   user : UserResponese | undefined;
- 
-
+  data: UploadRes[] = [];
+  topten: UploadRes[] = [];
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
   
   
   async ngOnInit()  {
-  //   this.uid = this.activateRoute.snapshot.paramMap.get('uid') || '';
-  //   console.log('uid',this.uid);
-  //  this.datauser = await this.mysqlService.getById(this.uid);
-  //  console.log('Main User',this.datauser);
    
   this.authService.initializeAuthentication().then(user => {
     console.log('User data:', user);
     if (user) {
       console.log('User authenticated:', user);
       this.user = user;
+      this.loadDataAsync();
     } else {
       console.log('User not authenticated');
-     
+      this.loadDataAsync();
     }
   });
 }
@@ -62,14 +60,7 @@ slickConfig = {
 };
 
 
-images = [
-  { src: '/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg' },
-  { src: '/assets/imges/2021-Nissan-GT-R50-by-Italdesign-003-2160.jpg' },
-  { src: 'https://www.wsupercars.com/wallpapers-regular/Alfa-Romeo/2024-Alfa-Romeo-33-Stradale-001-1080.jpg' },
-  { src: 'https://www.wsupercars.com/wallpapers-regular/Ferrari/2023-Ferrari-812-Competizione-Tailor-Made-001-1080.jpg' },
-  { src: 'https://www.wsupercars.com/wallpapers-regular/Lamborghini/2023-Lamborghini-Lanzador-Concept-001-1080.jpg' },
- 
-];
+
 
 onSelectChange(event: any) {
   const selectedValue = event.target.value;
@@ -99,6 +90,16 @@ goProfile(): void {
 
 goToprank(): void {
   this.router.navigate(['/toprank']);
+}
+
+
+async loadDataAsync() {
+  this.data = await this.mysqlService.getNoonecar();
+  console.log("data is ", this.data);
+
+  this.topten = await this.mysqlService.getdataAllupload();
+  console.log("Top10 is ", this.topten);
+
 }
 
 

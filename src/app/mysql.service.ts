@@ -42,6 +42,12 @@ export class MysqlService {
    return response as  UploadRes[];
   }
 
+  public async getNoonecar(option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup/noone`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
 
   
  

@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit {
     if(user){
         console.log('Login successful');
         console.log('User Data:', user);
-        this.router.navigate(['/id/uid', { uid: user.uid }]);
+        this.router.navigate(['/id', user.uid ]);
     }else{
       console.log('Invalid email or password');
     }

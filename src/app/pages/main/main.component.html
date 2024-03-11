@@ -33,20 +33,20 @@
                     </ng-template>
                   </div>         
         </div>
-        <div class="main-content">
+        <div class="main-content" *ngFor="let itm of data">
             <div class="head-main">
                 <div class="topten">
                    <p class="tt" >TOP 10 THE BEST</p>
                    <p class="tc">CAR</p> 
                 </div>
                 <div class="topname">
-                    <p>#1/10 PUMITLE</p>
-                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">1500</p> 
+                    <p>#1 <span>{{itm.username}}</span></p>
+                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">{{itm.total_score}}</p> 
                     <p>point</p>
                  </div> 
             </div>
             <div class="main-main">
-                <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-main" alt="">
+                <img src="{{itm.img_car}}" class="img-main" alt="">
             </div>
             <div class="bt-main">
                 <button mat-raised-button class="bt-vote" style="background-color: #bb0102; color: white;"[routerLink]="['/vote',]">Start Vote</button>
@@ -54,9 +54,9 @@
             </div>
           
                 <ngx-slick-carousel  class="slide-main" #slickModal="slick-carousel" [config]="slickConfig">
-                    <div ngxSlickItem *ngFor="let image of images" let i = index class="img-slide">
+                    <div ngxSlickItem *ngFor="let image of topten" let i = index class="img-slide">
                     
-                        <img [src]="image.src" alt="Image">
+                        <img [src]="image.img_car" alt="Image">
                     
                     </div>
                 </ngx-slick-carousel>
