@@ -74,8 +74,9 @@ export class ToprankComponent {
     this.router.navigate(['/profile']);
   }
 
-  goDetailcar(): void {
-    this.router.navigate(['/detailcar']);
+  goDetailcar(carId: any) {
+    this.router.navigate(['/detailcar',carId]);
+    console.log("idcar :",carId);
   }
 
 

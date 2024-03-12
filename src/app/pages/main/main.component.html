@@ -56,7 +56,7 @@
                 <ngx-slick-carousel  class="slide-main" #slickModal="slick-carousel" [config]="slickConfig">
                     <div ngxSlickItem *ngFor="let image of topten" let i = index class="img-slide">
                     
-                        <img [src]="image.img_car" alt="Image">
+                        <img [src]="image.img_car" alt="Image" style="cursor: pointer;">
                     
                     </div>
                 </ngx-slick-carousel>

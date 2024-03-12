@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service'; 
 import { HttpClient, HttpClientModule } from '@angular/common/http'; 
-import { UserResponese } from '../../Modeldatabase/user_get';
+import { UserResponese,UploadRes } from '../../Modeldatabase/user_get';
 import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +19,10 @@ import Chart from 'chart.js/auto';
 export class DetailcarComponent implements OnInit, AfterViewInit {
   uid: any;
   user : UserResponese | undefined;
+  data: UploadRes[] = [];
+  dataOfday: UploadRes[] = [];
+  upid: any;
+
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
@@ -26,12 +30,16 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
   @ViewChild('myChart') myChart!: ElementRef;
   
   async ngOnInit()  {
-     
+    this.upid = this.activateRoute.snapshot.paramMap.get('upid') || '';
     this.authService.initializeAuthentication().then(user => {
       console.log('User data:', user);
       if (user) {
         console.log('User authenticated:', user);
         this.user = user;
+       
+       console.log("dataofday is ", this.dataOfday);
+        this.loadDataAsync();
+      
       } else {
         console.log('User not authenticated');
        
@@ -69,29 +77,98 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/toprank']);
   }
 
+  async loadDataAsync() {
+    this.upid = this.activateRoute.snapshot.paramMap.get('upid') || '';
+    try{
+      const req : any = await this.mysqlService.getCarsbyId(this.upid);
+        this.data = req;
+        console.log(this.data);
+     
+    }catch(e){
+      console.log(e);
+    }
+  
+    this.dataOfday = await this.mysqlService.getdataCarsbyId(this.upid);
+    console.log("dataofday is ", this.dataOfday);
+    
+ 
+  }
+
+
+  // ngAfterViewInit() {
+  //   const ctx = this.myChart.nativeElement.getContext('2d');
+    
+  //   new Chart(ctx, {
+  //     type: 'line',
+  //     data: {
+  //       labels: ['7 day ago','6 day ago', '5 day ago', '4 day ago', '3 day ago', '2 day ago', '1 day ago', 'today'],
+  //       datasets: [{
+  //         label: 'Statics for the past 7 days',
+  //         data: [200,123,50, 89, 48, 12, 11, 54],
+  //         borderWidth: 2, // กำหนดความหนาของเส้น
+  //         borderColor: '#bb0102', // กำหนดสีของเส้น
+  //         fill: false // ไม่เติมสีเข้าไปในพื้นที่ใต้เส้น
+  //       }]
+  //     },
+  //     options: {
+  //       scales: {
+  //         y: {
+  //           beginAtZero: true
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
+
   ngAfterViewInit() {
     const ctx = this.myChart.nativeElement.getContext('2d');
-    
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['7 day ago','6 day ago', '5 day ago', '4 day ago', '3 day ago', '2 day ago', '1 day ago', 'today'],
-        datasets: [{
-          label: 'Statics for the past 7 days',
-          data: [200,123,50, 89, 48, 12, 11, 54],
-          borderWidth: 1,
-          borderRadius: 50,
-          backgroundColor: '#bb0102'
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+    const data: any[] = [];
+    const upid = this.upid;
+    console.log("idddd", upid );
+    this.mysqlService.getdataCarsbyId(upid)
+        .then((dataOfday) => {
+            this.dataOfday = dataOfday;
+            console.log("dataofday is ", this.dataOfday);
+            // วนลูปผ่านทุกๆ ออบเจ็กต์ในอาร์เรย์ dataOfday
+            this.dataOfday.forEach((item) => {
+                data.push(item.total_score); // เพิ่มคะแนนทั้งหมดในวันนั้นลงใน data
+            });
+            const sortedData = data.slice().reverse(); 
+            console.log("asdasdad", sortedData);
+            const sortedLabels = ['7 day ago', '6 day ago', '5 day ago', '4 day ago', '3 day ago', '2 day ago', '1 day ago', 'today'];
+            if (sortedData.length < sortedLabels.length) {
+              const diff = sortedLabels.length - sortedData.length;
+              for (let i = 0; i < diff; i++) {
+                  sortedData.unshift(0); // เพิ่มค่า 0 ในข้อมูลที่ขาดหายไป
+              }
           }
-        }
-      }
-    });
-  }
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels:sortedLabels, // ใช้ labels ที่สร้างไว้
+                    datasets: [{
+                        label: 'Total Score',
+                        data:sortedData, // ใช้ data ที่สร้างไว้
+                        borderWidth: 2,
+                        borderColor: '#bb0102',
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching data", error);
+        });
+}
+
+  
   
 }

@@ -61,36 +61,19 @@
                     </div>
                 </div>
                 <div class="line2"></div>
-                <div class="car">
-                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" alt="" class="imgcar">
+                <div class="car" *ngFor="let itm of data">
+                    <img src="{{itm.img_car}}" alt="" class="imgcar">
                     <div class="detailcar">
-                        <p style="font-size: 20px; margin-bottom: 0;">Song Sheng</p>
-                        <p style="font-size: 10px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum dolor? Consequatur excepturi atque eaque eveniet ex quisquam ducimus cumque officiis eius, ipsa dolorem voluptatum, dolorum quam praesentium? Dicta, exercitationem?</p>
+                        <p style="font-size: 20px; margin-bottom: 0;">{{itm.name_img}}</p>
+                        <p style="font-size: 10px;">{{itm.detail}}</p>
+                        <p style="font-size: 30px; color: white; ">Total Score : {{itm.total_score}}</p>
                     </div>
                     <div class="car-bt">
                         <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit</button>
                     </div>
                 </div>
-                <div class="car">
-                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" alt="" class="imgcar">
-                    <div class="detailcar">
-                        <p style="font-size: 20px; margin-bottom: 0;">Song Sheng</p>
-                        <p style="font-size: 10px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum dolor? Consequatur excepturi atque eaque eveniet ex quisquam ducimus cumque officiis eius, ipsa dolorem voluptatum, dolorum quam praesentium? Dicta, exercitationem?</p>
-                    </div>
-                    <div class="car-bt">
-                        <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit</button>
-                    </div>
-                </div>
-                <div class="car">
-                    <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" alt="" class="imgcar">
-                    <div class="detailcar">
-                        <p style="font-size: 20px; margin-bottom: 0;">Song Sheng</p>
-                        <p style="font-size: 10px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum dolor? Consequatur excepturi atque eaque eveniet ex quisquam ducimus cumque officiis eius, ipsa dolorem voluptatum, dolorum quam praesentium? Dicta, exercitationem?</p>
-                    </div>
-                    <div class="car-bt">
-                        <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit</button>
-                    </div>
-                </div>
+               
+               
                 
             </div>
         </div>

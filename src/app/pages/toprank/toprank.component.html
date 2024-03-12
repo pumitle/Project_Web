@@ -40,7 +40,7 @@
                    <p class="tc">CAR</p> 
                 </div>
                 <div class="topname">
-                    <p class="font-dm">{{ currentDate | date: 'dd MMM yyyy  HH:mm:ss' }}</p>
+                    <p class="font-dm">{{ currentDate | date: 'dd MMM yyyy HH:mm:ss' }}</p>
                     <div class="form-box">
                         <div class="button-box" style="display: flex; flex-direction: row;">
                             <div id="btn"></div>
@@ -52,7 +52,7 @@
             </div>
             <div *ngIf="!selectedData || selectedData.length === 0">
             <div class="main-main"    *ngFor="let item of data; let i = index ">
-                <div class="card-rank" (click)="goDetailcar()">
+                <div class="card-rank" (click)="goDetailcar(item.upid)">
                     <div class="number">{{ i + 1 }}</div>
                     <img src="{{item.img_car}}" class="imgrank" alt="">
                     <div class="detailcar">
@@ -70,7 +70,7 @@
 
             <div *ngIf="selectedData && selectedData.length > 0">
             <div class="main-main" *ngFor="let item of selectedData; let i = index">
-                <div class="card-rank">
+                <div class="card-rank"  (click)="goDetailcar(item.upid)">
                     <div class="number">{{ i + 1 }}</div>
                   <img src="{{ item.img_car }}" class="imgrank" alt="">
                   <div class="detailcar">

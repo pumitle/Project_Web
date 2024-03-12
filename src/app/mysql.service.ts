@@ -48,6 +48,24 @@ export class MysqlService {
    return response as  UploadRes[];
   }
 
+  public async getCarsbyId(id: number,option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup/detailcar/${id}`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
+  public async getdataCarsbyId(id: number,option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup/rewind/${id}`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
+  public async getProfilebyId(id: number,option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/user/profile/${id}`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
 
   
  

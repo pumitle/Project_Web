@@ -19,6 +19,6 @@ export const routes: Routes = [
     {path:'vote',component:VotesComponent,canActivate: [AuthenticationGuard]},
     {path:'profile',component:ProfileComponent,canActivate: [AuthenticationGuard]},
     {path:'toprank',component:ToprankComponent,canActivate: [AuthenticationGuard]},
-    {path:'detailcar',component:DetailcarComponent,canActivate: [AuthenticationGuard]}
+    {path:'detailcar/:upid',component:DetailcarComponent,canActivate: [AuthenticationGuard]}
     
 ];

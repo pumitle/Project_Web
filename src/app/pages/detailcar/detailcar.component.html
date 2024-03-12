@@ -46,16 +46,16 @@
                  </div> 
             </div>
             <div class="main-main">
-                <div class="card-main">
-                    <div class="card-headmain">
-                        <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-car" alt="">
+                <div class="card-main" >
+                    <div class="card-headmain" *ngFor="let itemcar of data">
+                        <img src="{{itemcar.img_car}}" class="img-car" alt="">
                         <div class="detail-head">
                             <div class="pf-car">
-                                <img src="/assets/imges/user1.jpg" class="pf-img" alt="">
-                                <p class="pf-name">yyeiei_</p>
+                                <img src="{{itemcar.img_user}}" class="pf-img" alt="">
+                                <p class="pf-name">{{itemcar.username}}</p>
                             </div>
-                            <p style="margin-bottom: -1vw; font-size: 2vw;">Nisson X</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eum nihil possimus officiis deserunt voluptatem, cumque odio nulla in nostrum id quae a corporis cum sequi ut tempore doloremque tempora?</p>
+                            <p style="margin-bottom: -1vw; font-size: 2vw;">{{itemcar.name_img}}</p>
+                            <p>{{itemcar.detail}}</p>
                         </div>
                     </div>
                     <p style="margin-bottom: -1vw; font-size: 2vw;">Statics for the past 7 days</p>
