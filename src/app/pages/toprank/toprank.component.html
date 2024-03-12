@@ -52,7 +52,7 @@
             </div>
             <div *ngIf="!selectedData || selectedData.length === 0">
             <div class="main-main"    *ngFor="let item of data; let i = index ">
-                <div class="card-rank">
+                <div class="card-rank" (click)="goDetailcar()">
                     <div class="number">{{ i + 1 }}</div>
                     <img src="{{item.img_car}}" class="imgrank" alt="">
                     <div class="detailcar">

@@ -74,6 +74,11 @@ export class ToprankComponent {
     this.router.navigate(['/profile']);
   }
 
+  goDetailcar(): void {
+    this.router.navigate(['/detailcar']);
+  }
+
+
   async loadDataAsync() {
     this.data = await this.mysqlService.getdataAllupload();
     console.log("data is ", this.data);

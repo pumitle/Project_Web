@@ -7,6 +7,7 @@ import { UploadComponent } from './pages/upload/upload.component';
 import { VotesComponent } from './pages/votes/votes.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ToprankComponent } from './pages/toprank/toprank.component';
+import { DetailcarComponent } from './pages/detailcar/detailcar.component';
 
 
 export const routes: Routes = [
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path:'vote',component:VotesComponent,canActivate: [AuthenticationGuard]},
     {path:'profile',component:ProfileComponent,canActivate: [AuthenticationGuard]},
     {path:'toprank',component:ToprankComponent,canActivate: [AuthenticationGuard]},
+    {path:'detailcar',component:DetailcarComponent,canActivate: [AuthenticationGuard]}
     
 ];

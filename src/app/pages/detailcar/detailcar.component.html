@@ -1,1 +1,70 @@
-<p>detailcar works!</p>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+                <div class="nav-bar-main">
+                    <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
+                    <div *ngIf="user; else notLoggedIn" class="profile">
+                      <!-- Logged in user -->
+                        <button mat-raised-button class="buttonRK" (click)="goToprank()" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                        <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
+                        <div class="line"></div>
+                        <span *ngIf="user.img_user">
+                            <img src="{{user.img_user}}" alt="" class="imgprofile">
+                        </span>
+                        <span *ngIf="!user.img_user">
+                            <!-- Display a default image if user.img_user is not defined -->
+                            <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
+                          </span>
+                        <p class="uname">{{user.username }}</p>
+                            <select class="menu" (change)="onSelectChange($event)">
+                                <option value="" disabled selected hidden>MENU</option>
+                                <option class="menu-option" value="profile">Profile</option>
+                                <option class="menu-option" value="upload">Upload</option>
+                                <option class="menu-option" value="toprank">Top Rank</option>
+                                <option class="menu-option" value="logout">Logout</option>
+                            </select>
+                    </div>
+                    <ng-template #notLoggedIn>
+                      <!-- Not logged in user -->
+                      <div class="profile">
+                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                        <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/login',]">LOGIN</button>
+                      </div>
+                    </ng-template>
+                  </div>         
+        </div>
+        <div class="main-content">
+            <div class="head-main">
+                <div class="topten">
+                   <p class="tt" >Details</p>
+                   <p class="tc">Car</p> 
+                </div>
+                <div class="topname">
+                 </div> 
+            </div>
+            <div class="main-main">
+                <div class="card-main">
+                    <div class="card-headmain">
+                        <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" class="img-car" alt="">
+                        <div class="detail-head">
+                            <div class="pf-car">
+                                <img src="/assets/imges/user1.jpg" class="pf-img" alt="">
+                                <p class="pf-name">yyeiei_</p>
+                            </div>
+                            <p style="margin-bottom: -1vw; font-size: 2vw;">Nisson X</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eum nihil possimus officiis deserunt voluptatem, cumque odio nulla in nostrum id quae a corporis cum sequi ut tempore doloremque tempora?</p>
+                        </div>
+                    </div>
+                    <p style="margin-bottom: -1vw; font-size: 2vw;">Statics for the past 7 days</p>
+                    <div class="chart">
+                        <canvas #myChart width="1000px" height="500px"></canvas>
+                    </div>
+                </div>
+                
+              </div>
+        </div> 
+    </div>
+</body>   
