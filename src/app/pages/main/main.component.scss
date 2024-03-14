@@ -127,6 +127,12 @@ body{
     display: flex;
     justify-content: center;
 }
+.main_img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
 .img-main{
     width: 80vw;
     object-fit: cover;

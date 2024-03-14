@@ -48,7 +48,10 @@
                  </div> 
             </div>
             <div class="main-main">
-                <img src="{{itm.img_car}}" class="img-main" alt="">
+                <a (click)="goDetailcar(itm.upid)" class="main_img">
+                    <img src="{{itm.img_car}}" class="img-main" alt="">
+                </a>
+                
             </div>
             <div class="bt-main">
                 <button mat-raised-button class="bt-vote" style="background-color: #bb0102; color: white;"[routerLink]="['/vote',]">Start Vote</button>
