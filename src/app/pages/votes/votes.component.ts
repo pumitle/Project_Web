@@ -79,6 +79,9 @@ export class VotesComponent implements OnInit {
     if (selectedValue === 'profile') {
       this.goToProfile();
     }
+    if (selectedValue === 'toprank') {
+      this.goToprank();
+    }
   }
   goToUpload(): void {
     this.router.navigate(['/upload']);
@@ -87,6 +90,12 @@ export class VotesComponent implements OnInit {
   
   goToProfile(): void {
     this.router.navigate(['/profile']);
+  }
+  goToprank(): void {
+    this.router.navigate(['/toprank']);
+  }
+  goMain(): void{
+    this.router.navigate(['/']);
   }
 
   async loadDataAsync() {

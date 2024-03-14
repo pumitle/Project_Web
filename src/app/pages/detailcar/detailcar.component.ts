@@ -58,6 +58,9 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
     if (selectedValue === 'profile') {
       this.goProfile();
     }
+    if (selectedValue === 'toprank') {
+      this.goToprank();
+    }
   }
   
   logout(): void {
@@ -75,6 +78,9 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
   
   goToprank(): void {
     this.router.navigate(['/toprank']);
+  }
+  goMain(): void{
+    this.router.navigate(['/']);
   }
 
   async loadDataAsync() {

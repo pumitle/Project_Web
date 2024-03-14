@@ -51,6 +51,9 @@ onSelectChange(event: any) {
   if (selectedValue === 'profile') {
     this.goProfile();
   }
+  if (selectedValue === 'toprank') {
+    this.goToprank();
+  }
 }
 
 logout(): void {
@@ -64,6 +67,12 @@ goUpload(): void {
 
 goProfile(): void {
   this.router.navigate(['/profile']);
+}
+goToprank(): void {
+  this.router.navigate(['/toprank']);
+}
+goMain(): void{
+  this.router.navigate(['/']);
 }
 
 

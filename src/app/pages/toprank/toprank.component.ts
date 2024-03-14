@@ -59,6 +59,9 @@ export class ToprankComponent {
     if (selectedValue === 'profile') {
       this.goProfile();
     }
+    if (selectedValue === 'toprank') {
+      this.goToprank();
+    }
   }
   
   logout(): void {
@@ -77,6 +80,12 @@ export class ToprankComponent {
   goDetailcar(carId: any) {
     this.router.navigate(['/detailcar',carId]);
     console.log("idcar :",carId);
+  }
+  goToprank(): void {
+    this.router.navigate(['/toprank']);
+  }
+  goMain(): void{
+    this.router.navigate(['/']);
   }
 
 

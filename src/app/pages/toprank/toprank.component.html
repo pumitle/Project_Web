@@ -2,7 +2,9 @@
     <div class="container">
         <div class="nav-bar">
                 <div class="nav-bar-main">
-                    <img src="assets/imges/BC_3D_Color.png" alt="" class="logo">
+                  <a (click)="goMain()" style="display: flex; align-items: center; cursor: pointer;">
+                    <img src="assets/imges/BC_3D_Color.png" (click)="goMain()" alt="" class="logo">
+                  </a>
                     <div *ngIf="user; else notLoggedIn" class="profile">
                       <!-- Logged in user -->
                         <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>

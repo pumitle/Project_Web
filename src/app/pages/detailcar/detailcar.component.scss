@@ -176,6 +176,10 @@ body{
     font-size: 2vw;
     color: white;
 }
+.fchart{
+    margin-bottom: -1vw; 
+    font-size: 25px;
+}
 .chart{
     margin-top: 2vw;
     width: 80%;
@@ -204,7 +208,7 @@ body{
         font-size: 10px;
     }
     .main-content{
-        height: 780px;
+        height: auto;
     }
 
     .head-main{
@@ -252,5 +256,33 @@ body{
         font-size: large;
         margin-top: -5vw;
     }
-    
+    .card-main{
+        margin-top: 20px;
+    }
+    .card-headmain{
+        flex-direction: column;
+        margin-top: 2vw;
+    }
+    .img-car{
+        width: 90%;
+    }
+    .detail-head{
+        align-items: center;
+        width: 100%;
+    }
+    .pf-car{
+        width: 150px;
+    }
+    .pf-name{
+        font-size: 20px;
+    }
+    .fchart{
+        margin-top: -30px;
+    }
+    .chart{
+        height: 200px;
+    }
+    .mychart{
+        margin-top: 20px;
+    }
 }

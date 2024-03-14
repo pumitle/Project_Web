@@ -73,6 +73,9 @@ onSelectChange(event: any) {
   if (selectedValue === 'profile') {
     this.goProfile();
   }
+  if (selectedValue === 'toprank') {
+    this.goToprank();
+  }
 }
 
 logout(): void {
@@ -90,6 +93,13 @@ goProfile(): void {
 
 goToprank(): void {
   this.router.navigate(['/toprank']);
+}
+goMain(): void{
+  this.router.navigate(['/']);
+}
+goDetailcar(carId: any) {
+  this.router.navigate(['/detailcar',carId]);
+  console.log("idcar :",carId);
 }
 
 
