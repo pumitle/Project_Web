@@ -59,9 +59,11 @@ export class VotesComponent implements OnInit {
         this.user = user;
         this.loadDataAsync();
        
-      } else {
+      }
+       else {
         console.log('User not authenticated');
-
+        this.loadDataAsync();
+  
       }
     });
 
@@ -177,6 +179,37 @@ export class VotesComponent implements OnInit {
     try {
       // Assuming you have the user object available after authentication
       const user = this.user;
+     
+       if (!user) {
+
+          let userId = null; // Send a vote request to the server
+          const now = new Date();
+          const timeZone = 'Asia/Bangkok';  // Set to Thailand's time zone
+          const zonedTime = utcToZonedTime(now, timeZone);
+          const isoString = format(zonedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+          
+        const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date:isoString}).toPromise();
+       
+  
+   
+        
+         const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date:isoString}).toPromise();
+  
+     
+  
+      Swal.fire({
+        icon: 'success',
+        title: 'Vote Successful!',
+        text: 'Thank you for voting.',
+      });
+      
+      // Wait for 3 seconds before reloading the page
+      await new Promise(resolve => setTimeout(resolve, 2000));
+  
+      // Reload the page after a successful vote
+      window.location.reload();
+      
+        } 
 
 
       if (user) { 
@@ -210,15 +243,7 @@ export class VotesComponent implements OnInit {
     // Reload the page after a successful vote
     window.location.reload();
     
-      } else {
-        // Handle the case where the user data is not available
-        console.error('User data not available');
-        Swal.fire({
-          icon: 'error',
-          title: 'Vote Failed',
-          text: 'User data not available. Please try again later.',
-        });
-      }
+      } 
     } catch (error) {
       // Handle error if the vote request fails
       console.error('Vote failed:', error);

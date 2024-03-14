@@ -8,11 +8,11 @@ import { AuthenticationService } from '../../authen.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import {Router } from '@angular/router';
 import { UserResponese,UploadRes } from '../../Modeldatabase/user_get';
-
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-toprank',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatIconModule ],
   templateUrl: './toprank.component.html',
   styleUrl: './toprank.component.scss'
 })
@@ -25,8 +25,10 @@ export class ToprankComponent {
   currentDate: Date = new Date();
   isShowingYesterday: boolean = false;
   selectedData: UploadRes[] = [];
-
-
+  yesterdayRank: number[] = [];
+  todayRank: number[] = [];
+  yesterdayRanks: number[] = [];
+  
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router,private renderer: Renderer2, private el: ElementRef) {}
   datauser: UserResponese[] = [];
   async ngOnInit()  {   
@@ -44,7 +46,11 @@ export class ToprankComponent {
     
       } else {
         console.log('User not authenticated');
-       
+        this.loadDataAsync();
+        setInterval(() => {
+          this.currentDate = new Date();
+        }, 1000);
+      
       }
     });
   }
@@ -95,6 +101,23 @@ export class ToprankComponent {
 
     this.befordata = await this.mysqlService.getBefordataupload();
     console.log("Befor data is ", this.befordata);
+
+    const yesterdayRankData = [5, 3, 2, 1, 6, 4, 7, 8, 9, 10]; // Example data for yesterday
+    const todayRankData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; // Example data for today
+    
+    for (let i = 0; i < todayRankData.length; i++) {
+      if (todayRankData[i] < yesterdayRankData[i]) {
+        this.yesterdayRank.push(0); // 0 means down
+        this.todayRank.push(1); // 1 means up
+      } else if (todayRankData[i] > yesterdayRankData[i]) {
+        this.yesterdayRank.push(1); // 1 means up
+        this.todayRank.push(0); // 0 means down
+      } else {
+        this.yesterdayRank.push(0); // 0 means no change
+        this.todayRank.push(0); // 0 means no change
+      }
+    }
+
  
   }
 

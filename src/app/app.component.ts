@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
         console.log('User authenticated:', user);
       } else {
         console.log('User not authenticated');
-        this.router.navigate(['/login']);
+        // this.router.navigate(['']);
       }
     });
   }

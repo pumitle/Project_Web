@@ -65,6 +65,12 @@
                     <div class="deatilmember">
                         <p class="font-dm">{{item.username}}</p>
                         <p class="font-dm" style="margin-top: -20px;">{{item.total_score}}</p>
+                        <span style="vertical-align: middle;">
+                            <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_down</mat-icon>
+                          </span>
+                          <span style="vertical-align: middle;">
+                            <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_up</mat-icon>
+                          </span>
                     </div>
                 </div>
          
@@ -83,6 +89,12 @@
                   <div class="deatilmember">
                     <p class="font-dm">{{ item.username }}</p>
                     <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
+                    <span style="vertical-align: middle;">
+                        <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_down</mat-icon>
+                      </span>
+                      <span style="vertical-align: middle;">
+                        <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_up</mat-icon>
+                      </span>
                   </div>
                 </div>
               </div></div>

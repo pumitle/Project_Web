@@ -12,13 +12,13 @@ import { DetailcarComponent } from './pages/detailcar/detailcar.component';
 
 export const routes: Routes = [
     {path:'',component:MainComponent},
-    { path: 'id/:uid', component: MainComponent, canActivate: [AuthenticationGuard] },
+    { path: 'id/:uid', component: MainComponent, canActivate: [AuthenticationGuard]},
     {path:'login' ,component:LoginComponent},
     {path:'signin' ,component:RegisterComponent},
     {path:'upload',component:UploadComponent,canActivate: [AuthenticationGuard]},
-    {path:'vote',component:VotesComponent,canActivate: [AuthenticationGuard]},
+    {path:'vote',component:VotesComponent},
     {path:'profile',component:ProfileComponent,canActivate: [AuthenticationGuard]},
-    {path:'toprank',component:ToprankComponent,canActivate: [AuthenticationGuard]},
+    {path:'toprank',component:ToprankComponent},
     {path:'detailcar/:upid',component:DetailcarComponent,canActivate: [AuthenticationGuard]}
     
 ];

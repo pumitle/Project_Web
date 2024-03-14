@@ -7,7 +7,7 @@
                     </a>
                     <div *ngIf="user; else notLoggedIn" class="profile">
                       <!-- Logged in user -->
-                        <button mat-raised-button class="buttonRK" (click)="goToprank()" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                        <button mat-raised-button class="buttonRK" (click)="goToprank()" style="background-color: #bb0102; color: white;" >TOP RANK</button>
                         <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
                         <div class="line"></div>
                         <span *ngIf="user.img_user">
@@ -29,7 +29,7 @@
                     <ng-template #notLoggedIn>
                       <!-- Not logged in user -->
                       <div class="profile">
-                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                        <button mat-raised-button  (click)="goToprank()"  class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
                         <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/login',]">LOGIN</button>
                       </div>
                     </ng-template>

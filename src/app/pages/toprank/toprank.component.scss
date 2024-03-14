@@ -182,6 +182,14 @@ body{
     transform: scale(1.1);
  
 }
+.up {
+    color: green; /* สีเขียวสำหรับลำดับขึ้น */
+  }
+  
+  .down {
+    color: red; /* สีแดงสำหรับลำดับลง */
+  }
+  
 .imgrank{
     width: 250px;
     height: 80%;
