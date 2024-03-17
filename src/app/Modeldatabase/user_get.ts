@@ -30,6 +30,7 @@ export interface UploadRes {
     score:         number;
     vote_date:     Date;
     total_score: number;
+    rank: number;
  
 }
 

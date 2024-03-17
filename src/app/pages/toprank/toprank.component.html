@@ -53,52 +53,65 @@
                  </div> 
             </div>
             <div *ngIf="!selectedData || selectedData.length === 0">
-            <div class="main-main"    *ngFor="let item of data; let i = index ">
+              <div class="main-main" *ngFor="let item of data; let i = index ">
                 <div class="card-rank" (click)="goDetailcar(item.upid)">
-                    <div class="number">{{ i + 1 }}</div>
-                    <img src="{{item.img_car}}" class="imgrank" alt="">
-                    <div class="detailcar">
-                       <p class="font-dm">{{item.name_img}}</p> 
-                       <p style="margin-top: -1vw;">{{item.detail}}</p>
-                    </div>
-                    <div class="line-card"></div>
-                    <div class="deatilmember">
-                        <p class="font-dm">{{item.username}}</p>
-                        <p class="font-dm" style="margin-top: -20px;">{{item.total_score}}</p>
-                        <span style="vertical-align: middle;">
-                            <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_down</mat-icon>
-                          </span>
-                          <span style="vertical-align: middle;">
-                            <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_up</mat-icon>
-                          </span>
-                    </div>
-                </div>
-         
-            </div></div>
-
-            <div *ngIf="selectedData && selectedData.length > 0">
-            <div class="main-main" *ngFor="let item of selectedData; let i = index">
-                <div class="card-rank"  (click)="goDetailcar(item.upid)">
-                    <div class="number">{{ i + 1 }}</div>
+                  <div class="number">{{ i + 1 }}</div>
                   <img src="{{ item.img_car }}" class="imgrank" alt="">
                   <div class="detailcar">
-                    <p class="font-dm">{{ item.name_img }}</p>
+                    <p class="font-dm">{{ item.name_img }}</p> 
                     <p style="margin-top: -1vw;">{{ item.detail }}</p>
                   </div>
                   <div class="line-card"></div>
                   <div class="deatilmember">
                     <p class="font-dm">{{ item.username }}</p>
                     <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
-                    <span style="vertical-align: middle;">
-                        <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_down</mat-icon>
-                      </span>
-                      <span style="vertical-align: middle;">
-                        <mat-icon  [ngClass]="{'up': todayRank[i], 'down': yesterdayRank[i]}">arrow_drop_up</mat-icon>
-                      </span>
+                    
+                    <!-- <span style="vertical-align: middle;" *ngIf="rankChanges && rankChanges.length > i">
+                      <mat-icon [ngClass]="{
+                        'up': rankChanges[i] > 0,
+                        'down': rankChanges[i] < 0,
+                        'forward': rankChanges[i] === 0
+                      }">
+                        {{ rankChanges[i] > 0 ? 'arrow_drop_up' : rankChanges[i] < 0 ? 'arrow_drop_down' : 'arrow_forward' }}
+                      </mat-icon>
+                    </span> -->
+              
                   </div>
                 </div>
-              </div></div>
+              </div>
+            </div>
+            
+      <!-- วันก่อน -->
+              <div *ngIf="selectedData && selectedData.length > 0">
+              <div class="main-main" *ngFor="let item of selectedData; let i = index">
+                  <div class="card-rank"  (click)="goDetailcar(item.upid)">
+                      <div class="number">{{ i + 1 }}</div>
+                    <img src="{{ item.img_car }}" class="imgrank" alt="">
+                    <div class="detailcar">
+                      <p class="font-dm">{{ item.name_img }}</p>
+                      <p style="margin-top: -1vw;">{{ item.detail }}</p>
+                    </div>
+                    <div class="line-card"></div>
+                    <div class="deatilmember">
+                      <p class="font-dm">{{ item.username }}</p>
+                      <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
+                      <!-- <span style="vertical-align: middle; ">
+                        <mat-icon [ngClass]="{
+                          'up': todayRank[i] === 1,
+                          'down': todayRank[i] === -1,
+                          'no-change': todayRank[i] === 0
+                        }">
+                          {{ todayRank[i] === 1 ? 'arrow_drop_up' : todayRank[i] === -1 ? 'arrow_drop_down' : '' }}
+                        </mat-icon>
+                      </span> -->
+                    
+                    </div>
+                  </div>
+                </div></div>
               
         </div>
     </div>
 </body>
+
+
+

@@ -66,6 +66,17 @@ export class MysqlService {
    return response as  UploadRes[];
   }
 
+  public async getranktoday(option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup/top10rank`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
+  public async getrankbefor(option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/befor/top10rankbefor`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
 
   
  
