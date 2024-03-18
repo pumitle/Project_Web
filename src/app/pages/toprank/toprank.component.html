@@ -46,14 +46,14 @@
                     <div class="form-box">
                         <div class="button-box" style="display: flex; flex-direction: row;">
                             <div id="btn"></div>
-                            <button type="button" class="toggle-btn"  (click)="before()">Before</button>
-                            <button type="button" class="toggle-btn"  (click)="today()">Today</button>
+                            <!-- <button type="button" class="toggle-btn"  (click)="before()">Before</button>
+                            <button type="button" class="toggle-btn"  (click)="today()">Today</button> -->
                         </div>
                     </div>
                  </div> 
             </div>
             <div *ngIf="!selectedData || selectedData.length === 0">
-              <div class="main-main" *ngFor="let item of data; let i = index ">
+              <div class="main-main" *ngFor="let item of data  ; let i = index ">
                 <div class="card-rank" (click)="goDetailcar(item.upid)">
                   <div class="number">{{ i + 1 }}</div>
                   <img src="{{ item.img_car }}" class="imgrank" alt="">
@@ -66,16 +66,17 @@
                     <p class="font-dm">{{ item.username }}</p>
                     <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
                     
-                    <!-- <span style="vertical-align: middle;" *ngIf="rankChanges && rankChanges.length > i">
+                    <span style="vertical-align: middle;" *ngIf="rankChanges && rankChanges.length > i">
                       <mat-icon [ngClass]="{
-                        'up': rankChanges[i] > 0,
-                        'down': rankChanges[i] < 0,
-                        'forward': rankChanges[i] === 0
+                        'up': getRankChange(item.upid) > 0,
+                        'down':getRankChange(item.upid) < 0,
+                        'forward': getRankChange(item.upid) === 0
                       }">
-                        {{ rankChanges[i] > 0 ? 'arrow_drop_up' : rankChanges[i] < 0 ? 'arrow_drop_down' : 'arrow_forward' }}
+                        {{ getRankChange(item.upid) > 0 ? 'arrow_drop_up' :getRankChange(item.upid) < 0 ? 'arrow_drop_down' : '' }}
                       </mat-icon>
-                    </span> -->
-              
+                    </span>
+                    
+                    <p>{{ getRankChange(item.upid) }}</p>
                   </div>
                 </div>
               </div>
@@ -104,7 +105,7 @@
                           {{ todayRank[i] === 1 ? 'arrow_drop_up' : todayRank[i] === -1 ? 'arrow_drop_down' : '' }}
                         </mat-icon>
                       </span> -->
-                    
+                      <p class="font-dm" style="margin-top: -20px;">{{ item.rank}}</p>
                     </div>
                   </div>
                 </div></div>
@@ -112,6 +113,5 @@
         </div>
     </div>
 </body>
-
 
 
