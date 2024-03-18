@@ -148,19 +148,25 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
                   sortedData.unshift(0); // เพิ่มค่า 0 ในข้อมูลที่ขาดหายไป
               }
           }
+          const todayScore = sortedData[sortedData.length - 1]; // คะแนนวันนี้
+          const last7Days = sortedData.slice(-8, -1); // คะแนน 7 วันที่ผ่านมา
+          console.log("Today's Score: ", todayScore);
+          console.log("Last 7 days scores: ", last7Days);
             
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels:sortedLabels, // ใช้ labels ที่สร้างไว้
-                    datasets: [{
-                        label: 'Total Score',
-                        data:sortedData, // ใช้ data ที่สร้างไว้
+                  labels: sortedLabels, // ใช้ labels ที่สร้างไว้
+                  datasets: [
+                    {
+                        label: 'Last 7 Days Score',
+                        data: [...last7Days, todayScore], // เพิ่มคะแนนวันนี้ลงในช่วงข้อมูลสุดท้ายของ last7Days
                         borderWidth: 2,
                         borderColor: '#bb0102',
                         fill: false
-                    }]
-                },
+                    }
+                ]
+            },
                 options: {
                     scales: {
                         y: {
