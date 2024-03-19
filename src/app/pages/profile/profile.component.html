@@ -55,13 +55,15 @@
                     </div>
                     <div *ngIf="user; else notLoggedIn" class="detailprofile">
                         <p>Username: {{user.username}}</p>
-                        <p>Email: {{user.email}}</p>
-                        <p>Phone: {{user.mobile_number}}</p>
+                        <p class="mg-dt-pf">Email: {{user.email}}</p>
+                        <p class="mg-dt-pf">Phone: {{user.mobile_number}}</p>
                     </div>
                     <div class="head-bt">
-                        <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit profile</button>
+                        <button mat-raised-button class="bt" (click)="openPopup()" style="background-color: #bb0102; color: white;">Edit profile</button>
                     </div>
+                    
                 </div>
+
                 <div class="line2"></div>
                 <div class="car" *ngFor="let itm of data">
                     <img src="{{itm.img_car}}" alt="" class="imgcar">
@@ -74,11 +76,41 @@
                         <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit</button>
                     </div>
                 </div>
-               
-               
-                
             </div>
         </div>
-    </div>    
+        
+    </div>  
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div style="width: 100%;">
+                <span class="close" (click)="closePopup()">&times;</span>
+            </div>
+            <p class="edit-pf-font">Edit Profile</p>
+            <form class="form-class">
+                <p class="form-pf-font">Select Your Picture</p>
+                <img [src]="imageSrc" *ngIf="imageSrc" class="preview-image">
+                    <input class="upload-box" type="file" #fileUpload (change)="previewImage($event)"/>
+                <p class="form-pf-font">Username</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input type="text" name="username" matInput required >
+                </mat-form-field>
+                <p class="form-pf-font">Email</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input type="email" name="email" matInput required >
+                </mat-form-field>
+                <p class="form-pf-font">Phone</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input type="text" name="phone" matInput required >
+                </mat-form-field>
+                <br>
+                <button class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>  
 </body>
 
