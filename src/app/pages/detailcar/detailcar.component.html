@@ -18,7 +18,7 @@
                         </span>
                         <span *ngIf="!user.img_user">
                             <!-- Display a default image if user.img_user is not defined -->
-                            <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
+                            <img src="/assets/imges/user.png" alt="" class="imgprofile">
                           </span>
                         <p class="uname">{{user.username }}</p>
                             <select class="menu" (change)="onSelectChange($event)">
@@ -53,7 +53,8 @@
                         <img src="{{itemcar.img_car}}" class="img-car" alt="">
                         <div class="detail-head">
                             <div class="pf-car">
-                                <img src="{{itemcar.img_user}}" class="pf-img" alt="">
+                                <img src="{{itemcar.img_user}}" *ngIf="itemcar.img_user" class="pf-img" alt="">
+                                <img src="/assets/imges/user.png" *ngIf="!itemcar.img_user" class="pf-img" alt="">
                                 <p class="pf-name">{{itemcar.username}}</p>
                             </div>
                             <p style="margin-bottom: -1vw; font-size: 30px;">{{itemcar.name_img}}</p>

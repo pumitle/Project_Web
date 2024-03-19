@@ -99,7 +99,22 @@ async closePopup() {
   document.body.style.overflow = 'auto'; // อนิเมชันเสร็จสิ้น ปรับ overflow เพื่อเปลี่ยนเป็น auto
   const modal = document.getElementById('myModal')!;
   modal.classList.add('hide'); // เพิ่มคลาส "hide" เพื่อเล่นอนิเมชัน fadeOut
-  await new Promise(resolve => setTimeout(resolve, 1000)); // รอให้อนิเมชันเสร็จสิ้น (300 มิลลิวินาที)
+  await new Promise(resolve => setTimeout(resolve, 500)); // รอให้อนิเมชันเสร็จสิ้น (300 มิลลิวินาที)
+  modal.style.display = 'none'; // ซ่อนป๊อปอัพ
+}
+
+openPopupReset() {
+  document.getElementById('reSetPass')!.classList.remove('hide');
+  document.getElementById('reSetPass')!.classList.add('show');
+  document.getElementById('reSetPass')!.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+async closePopupReset() {
+  document.body.style.overflow = 'auto'; // อนิเมชันเสร็จสิ้น ปรับ overflow เพื่อเปลี่ยนเป็น auto
+  const modal = document.getElementById('reSetPass')!;
+  modal.classList.add('hide'); // เพิ่มคลาส "hide" เพื่อเล่นอนิเมชัน fadeOut
+  await new Promise(resolve => setTimeout(resolve, 500)); // รอให้อนิเมชันเสร็จสิ้น (300 มิลลิวินาที)
   modal.style.display = 'none'; // ซ่อนป๊อปอัพ
 }
 

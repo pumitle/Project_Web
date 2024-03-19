@@ -15,7 +15,7 @@
                 </span>
                 <span *ngIf="!user.img_user">
                     <!-- Display a default image if user.img_user is not defined -->
-                    <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
+                    <img src="/assets/imges/user.png" alt="" class="imgprofile">
                   </span>
                 <p class="uname">{{user.username }}</p>
                     <select class="menu" (change)="onSelectChange($event)">
@@ -43,9 +43,6 @@
                    <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
                 </div>
                 <div class="topname">
-                    <!-- <p>#1/10 PUMITLE</p>
-                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">1500</p> 
-                    <p>point</p> -->
                  </div> 
             </div>
            <div class="main-main">

@@ -15,7 +15,7 @@
                         </span>
                         <span *ngIf="!user.img_user">
                             <!-- Display a default image if user.img_user is not defined -->
-                            <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile">
+                            <img src="/assets/imges/user.png" alt="" class="imgprofile">
                           </span>
                         <p class="uname">{{user.username }}</p>
                             <select class="menu" (change)="onSelectChange($event)">
@@ -50,7 +50,7 @@
                             <img src="{{user.img_user}}" alt="" class="imgprofile2">
                         </span>
                         <span *ngIf="!user.img_user">
-                            <img src="https://cdn4.iconfinder.com/data/icons/occupation-and-people-avatar-vol-3-1/128/racing_person_car_avatar_sport_occupation_speed-512.png" alt="" class="imgprofile2">
+                            <img src="/assets/imges/user.png" alt="" class="imgprofile2">
                           </span>
                     </div>
                     <div *ngIf="user; else notLoggedIn" class="detailprofile">
@@ -60,6 +60,7 @@
                     </div>
                     <div class="head-bt">
                         <button mat-raised-button class="bt" (click)="openPopup()" style="background-color: #bb0102; color: white;">Edit profile</button>
+                        <button mat-raised-button class="btr" (click)="openPopupReset()" style="background-color: #bb0102; color: white;">Reset Password</button>
                     </div>
                     
                 </div>
@@ -89,25 +90,55 @@
             <form class="form-class">
                 <p class="form-pf-font">Select Your Picture</p>
                 <img [src]="imageSrc" *ngIf="imageSrc" class="preview-image">
+                <img src="/assets/imges/user.png" *ngIf="!imageSrc" class="preview-image">
                     <input class="upload-box" type="file" #fileUpload (change)="previewImage($event)"/>
                 <p class="form-pf-font">Username</p>
                 <mat-form-field class="comment" appearance="outline">
-                    <mat-label>Username</mat-label>
+                    <mat-label class="labelfont">Username</mat-label>
                     <input type="text" name="username" matInput required >
                 </mat-form-field>
                 <p class="form-pf-font">Email</p>
                 <mat-form-field class="comment" appearance="outline">
-                    <mat-label>Email</mat-label>
+                    <mat-label class="labelfont">Email</mat-label>
                     <input type="email" name="email" matInput required >
                 </mat-form-field>
                 <p class="form-pf-font">Phone</p>
                 <mat-form-field class="comment" appearance="outline">
-                    <mat-label>Phone</mat-label>
+                    <mat-label class="labelfont">Phone</mat-label>
                     <input type="text" name="phone" matInput required >
                 </mat-form-field>
                 <br>
                 <button class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
                     Save
+                </button>
+            </form>
+        </div>
+    </div> 
+    <div id="reSetPass" class="modal">
+        <div class="modal-content">
+            <div style="width: 100%;">
+                <span class="close" (click)="closePopupReset()">&times;</span>
+            </div>
+            <p class="edit-pf-font">Reset Password</p>
+            <form class="form-class">
+                <p class="form-pf-font">Old Password</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label class="labelfont">Old Password</mat-label>
+                    <input type="password" name="oldpassword" matInput required >
+                </mat-form-field>
+                <p class="form-pf-font">New Password</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label class="labelfont">New Password</mat-label>
+                    <input type="password" name="newpassword" matInput required >
+                </mat-form-field>
+                <p class="form-pf-font">Comfirm Password</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label class="labelfont">Comfirm Password</mat-label>
+                    <input type="password" name="comfirmpassword" matInput required >
+                </mat-form-field>
+                <br>
+                <button class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
+                    Reset
                 </button>
             </form>
         </div>
