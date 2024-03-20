@@ -148,6 +148,10 @@ async compareRanks() {
       if (rankToday !== undefined && rankToday !== car.rank) {
           console.log(`รถที่มีไอดี ${car.upid} มีการเปลี่ยนแปลง rank จาก ${car.rank} เป็น ${rankToday}`);
       }
+      const carIndex = this.data.findIndex(item => item.upid === car.upid);
+      if (carIndex !== -1) {
+        this.data[carIndex].rank = car.rank;
+      }
   });
 
 
@@ -210,76 +214,20 @@ this.rankChangesCount = rankChangesCount;
 
 }
 
-// async compareRanks() {
-//   // ดึงข้อมูลลำดับของวันนี้
-//   this.topRank = await this.mysqlService.getranktoday();
 
-//   // ดึงข้อมูลลำดับของเมื่อวาน
-//   this.topRankbefor = await this.mysqlService.getrankbefor();
-
-//   // ตรวจสอบว่าข้อมูลเรียงลำดับของวันนี้และเมื่อวานมีขนาดเท่ากันหรือไม่
-//   if (this.topRank.length !== this.topRankbefor.length) {
-//       console.error("Error: Length of today's rank and yesterday's rank are not the same.");
-//       return;
-//   }
-
-//   // สร้าง Map เพื่อเก็บข้อมูลรถแต่ละคันในวันนี้โดยใช้ upid เป็น key และ rank เป็น value
-//   const carsTodayMap = new Map<number, number>();
-//   this.topRank.forEach(car => {
-//       carsTodayMap.set(car.upid, car.rank);
-//   });
-//   this.rankChangesCount = {};
-
-//   // เช็คว่ารถแต่ละคันมีการเปลี่ยนแปลง rank หรือไม่
-//   this.rankChanges = this.topRankbefor.map(car => {
-//       // หาค่า rank ในวันนี้ของรถคันนี้
-//       const rankToday = carsTodayMap.get(car.upid);
-//       // ถ้า rank วันนี้ไม่เท่ากับ undefined และไม่เท่ากับ rank เมื่อวาน
-//       // หมายถึงมีการเปลี่ยนแปลงลำดับ
-//       if (rankToday !== undefined && rankToday !== car.rank) {
-//           // หาว่าการเปลี่ยนแปลงลำดับเป็นการลดหรือเพิ่ม
-//           const rankDifference = car.rank-rankToday;
-//           // ตรวจสอบว่ารถคันนี้มีการเปลี่ยนแปลง rank กี่อันดับ
-//           if (this.rankChangesCount.hasOwnProperty(car.upid)) {
-//               this.rankChangesCount[car.upid] += rankDifference;
-//           } else {
-//               this.rankChangesCount[car.upid] = rankDifference;
-//           }
-//           // แสดงผลลัพธ์การเปลี่ยนแปลง rank
-//           if (rankDifference > 0) {
-//               console.log(`รถที่มีไอดี ${car.upid} มีการเพิ่ม rank จำนวน +${Math.abs(rankDifference)}  อันดับ`);
-//           } else {
-//               console.log(`รถที่มีไอดี ${car.upid} มีการลด rank จำนวน -${Math.abs(rankDifference)} อันดับ`);
-//           }
-//           // รีเทิร์นค่าการเปลี่ยนแปลงลำดับ
-//           return -rankDifference;
-//       } else {
-//           // ถ้าไม่มีการเปลี่ยนแปลงลำดับให้เป็น 0
-//           return 0;
-//       }
-//   });
-  
-//   // แสดงผลลัพธ์การเปรียบเทียบ
-//   console.log("Rank changes:", this.rankChanges);
-  
-//   // แสดงผลลัพธ์การนับการเปลี่ยนแปลง rank ทั้งหมด
-//   console.log("Rank changes count:", this.rankChangesCount);
-// }
-
-
-getRankChange(upid: number): number {
+getRankChange(upid: number): any{
   // ตรวจสอบว่าอ็อบเจกต์ rankChangesCount มีค่าหรือไม่
   if (this.rankChangesCount && this.rankChangesCount[upid] !== undefined) {
     // คืนค่า rankChangesCount สำหรับคีย์ที่กำหนด
-    return this.rankChangesCount[upid];
+    // return this.rankChangesCount[upid];
+    return this.rankChangesCount[upid] > 0 ? `+${this.rankChangesCount[upid]}` : this.rankChangesCount[upid].toString();
   } else {
     // คืนค่าเป็น 0 หรือค่าที่คุณต้องการเมื่อไม่พบคีย์
-    return 0;
+    return '-';
   }
 }
 
 
-  
     today() {
       this.renderer.setStyle(this.el.nativeElement.querySelector('#btn'), 'left', '110px');
       this.selectedData =  this.topRank;
