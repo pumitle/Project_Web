@@ -184,10 +184,18 @@ body{
 }
 .up {
     color: green; /* สีเขียวสำหรับลำดับขึ้น */
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
   }
   
   .down {
     color: red; /* สีแดงสำหรับลำดับลง */
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
   }
   
 .imgrank{

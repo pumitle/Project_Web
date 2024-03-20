@@ -77,7 +77,7 @@
                         <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit</button>
                     </div>
                 </div>
-                <div class="add_car" *ngIf="data.length <= 5">
+                <div class="add_car" *ngIf="data.length < 5">
                     <img class="add_img" src="/assets/imges/add_img.png" alt="">
                 </div>
             </div>
@@ -109,6 +109,11 @@
                 <mat-form-field class="comment" appearance="outline">
                     <mat-label class="labelfont">Phone</mat-label>
                     <input type="text" name="phone" matInput required >
+                </mat-form-field>
+                <p class="form-pf-font">Instagram</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label class="labelfont">Instagram</mat-label>
+                    <input type="text" name="instagram" matInput required >
                 </mat-form-field>
                 <br>
                 <button class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
