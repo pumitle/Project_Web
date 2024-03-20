@@ -62,56 +62,31 @@
                     <p style="margin-top: -1vw;">{{ item.detail }}</p>
                   </div>
                   <div class="line-card"></div>
-                  <div class="deatilmember">
-                    <p class="font-dm">{{ item.username }}</p>
-                    <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
-                    
-                    <span style="vertical-align: middle;" *ngIf="rankChanges && rankChanges.length > i">
-                      <mat-icon [ngClass]="{
-                        'up': getRankChange(item.upid) > 0,
-                        'down':getRankChange(item.upid) < 0,
-                        'forward': getRankChange(item.upid) === 0
-                      }">
-                        {{ getRankChange(item.upid) > 0 ? 'arrow_drop_up' :getRankChange(item.upid) < 0 ? 'arrow_drop_down' : '' }}
-                      </mat-icon>
-                    </span>
-                    
-                    <p>{{ getRankChange(item.upid) }}</p>
-                    <span>Yesterday Rank</span>
-                    <p>{{ item.rank }}</p>
+                  <div class="memandrank">
+                    <div class="deatilmember">
+                      <p class="font-dm">{{ item.username }}</p>
+                      <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
+                    </div>
+                    <div class="line-rank"></div>
+                    <div class="detailrank">
+                      <span style="margin-top: 5px;">Yesterday Rank</span>
+                      <p style="margin-top: 0;">{{ item.rank }}</p>
+                      <span style="display: flex; align-items: center; margin-top: -20px;" *ngIf="rankChanges && rankChanges.length > i">
+                        <mat-icon [ngClass]="{
+                          'up': getRankChange(item.upid) > 0,
+                          'down':getRankChange(item.upid) < 0,
+                          'forward': getRankChange(item.upid) === 0
+                        }">
+                          {{ getRankChange(item.upid) > 0 ? 'arrow_drop_up' :getRankChange(item.upid) < 0 ? 'arrow_drop_down' : '' }}
+                        
+                        </mat-icon> 
+                        <p>{{ getRankChange(item.upid) }}</p>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            
-      <!-- วันก่อน -->
-              <div *ngIf="selectedData && selectedData.length > 0">
-              <div class="main-main" *ngFor="let item of selectedData; let i = index">
-                  <div class="card-rank"  (click)="goDetailcar(item.upid)">
-                      <div class="number">{{ i + 1 }}</div>
-                    <img src="{{ item.img_car }}" class="imgrank" alt="">
-                    <div class="detailcar">
-                      <p class="font-dm">{{ item.name_img }}</p>
-                      <p style="margin-top: -1vw;">{{ item.detail }}</p>
-                    </div>
-                    <div class="line-card"></div>
-                    <div class="deatilmember">
-                      <p class="font-dm">{{ item.username }}</p>
-                      <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
-                      <!-- <span style="vertical-align: middle; ">
-                        <mat-icon [ngClass]="{
-                          'up': todayRank[i] === 1,
-                          'down': todayRank[i] === -1,
-                          'no-change': todayRank[i] === 0
-                        }">
-                          {{ todayRank[i] === 1 ? 'arrow_drop_up' : todayRank[i] === -1 ? 'arrow_drop_down' : '' }}
-                        </mat-icon>
-                      </span> -->
-                      <p class="font-dm" style="margin-top: -20px;">{{ item.rank}}</p>
-                    </div>
-                  </div>
-                </div></div>
-              
         </div>
     </div>
 </body>

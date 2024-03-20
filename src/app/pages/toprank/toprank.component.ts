@@ -223,7 +223,7 @@ getRankChange(upid: number): any{
     return this.rankChangesCount[upid] > 0 ? `+${this.rankChangesCount[upid]}` : this.rankChangesCount[upid].toString();
   } else {
     // คืนค่าเป็น 0 หรือค่าที่คุณต้องการเมื่อไม่พบคีย์
-    return '-';
+    return '';
   }
 }
 
