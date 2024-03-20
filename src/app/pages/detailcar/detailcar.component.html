@@ -52,7 +52,7 @@
                     <div class="card-headmain" *ngFor="let itemcar of data">
                         <img src="{{itemcar.img_car}}" class="img-car" alt="">
                         <div class="detail-head">
-                            <div class="pf-car">
+                            <div class="pf-car" style="cursor: pointer;">
                                 <img src="{{itemcar.img_user}}" *ngIf="itemcar.img_user" class="pf-img" alt="">
                                 <img src="/assets/imges/user.png" *ngIf="!itemcar.img_user" class="pf-img" alt="">
                                 <p class="pf-name">{{itemcar.username}}</p>
