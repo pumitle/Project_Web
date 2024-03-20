@@ -74,7 +74,7 @@
                         <p style="font-size: 30px; color: white; ">Total Score : {{itm.total_score}}</p>
                     </div>
                     <div class="car-bt">
-                        <button mat-raised-button class="bt" style="background-color: #bb0102; color: white;">Edit</button>
+                        <button mat-raised-button class="bt" (click)="openPopupEditcar()" style="background-color: #bb0102; color: white;">Change</button>
                     </div>
                 </div>
                 <div class="add_car" *ngIf="data.length < 5">
@@ -151,5 +151,34 @@
             </form>
         </div>
     </div>  
+    <div id="editcar" class="modal">
+        <div class="modal-content">
+            <div style="width: 100%;">
+                <span class="close" (click)="closePopupEditcar()">&times;</span>
+            </div>
+            <p class="edit-pf-font">Change car</p>
+            <form class="form-class">
+                <p class="form-pf-font">Select Your Car Picture</p>
+                <img [src]="imageCar" *ngIf="imageCar" class="preview-imagecar">
+                <!-- แสดงรูปรถคันเก่านะเติ้ล -->
+                <img src="/assets/imges/2023-Porsche-Mission-X-Concept-001-1080.jpg" *ngIf="!imageCar" class="preview-imagecar"> 
+                <input class="upload-box" type="file" #fileUpload (change)="previewImageCar($event)"/>
+                <p class="form-pf-font">Name your car</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label class="labelfont">Name your car</mat-label>
+                    <input type="password" name="namecar" matInput required >
+                </mat-form-field>
+                <p class="form-pf-font">Details</p>
+                <mat-form-field class="comment" appearance="outline">
+                    <mat-label class="labelfont">Details</mat-label>
+                    <input type="password" name="detailcar" matInput required >
+                </mat-form-field>
+                <br>
+                <button class="font-login2"  mat-raised-button style="background-color: #990000; color: #fff; width: 100px;">
+                    Change
+                </button>
+            </form>
+        </div>
+    </div> 
 </body>
 

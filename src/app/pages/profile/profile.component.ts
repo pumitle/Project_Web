@@ -111,11 +111,26 @@ openPopupReset() {
 }
 
 async closePopupReset() {
-  document.body.style.overflow = 'auto'; // อนิเมชันเสร็จสิ้น ปรับ overflow เพื่อเปลี่ยนเป็น auto
+  document.body.style.overflow = 'auto';
   const modal = document.getElementById('reSetPass')!;
-  modal.classList.add('hide'); // เพิ่มคลาส "hide" เพื่อเล่นอนิเมชัน fadeOut
-  await new Promise(resolve => setTimeout(resolve, 500)); // รอให้อนิเมชันเสร็จสิ้น (300 มิลลิวินาที)
-  modal.style.display = 'none'; // ซ่อนป๊อปอัพ
+  modal.classList.add('hide');
+  await new Promise(resolve => setTimeout(resolve, 500));
+  modal.style.display = 'none'; 
+}
+
+openPopupEditcar() {
+  document.getElementById('editcar')!.classList.remove('hide');
+  document.getElementById('editcar')!.classList.add('show');
+  document.getElementById('editcar')!.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+async closePopupEditcar() {
+  document.body.style.overflow = 'auto';
+  const modal = document.getElementById('editcar')!;
+  modal.classList.add('hide');
+  await new Promise(resolve => setTimeout(resolve, 500));
+  modal.style.display = 'none'; 
 }
 
 imageSrc: string | undefined;
@@ -125,6 +140,15 @@ previewImage(event: Event) {
   if (target.files && target.files.length > 0) {
     this.file = target.files[0];
     this.imageSrc = URL.createObjectURL(this.file);
+  }
+}
+
+imageCar: string | undefined;
+previewImageCar(event: Event) {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    this.file = target.files[0];
+    this.imageCar = URL.createObjectURL(this.file);
   }
 }
 }
