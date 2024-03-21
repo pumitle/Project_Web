@@ -7,8 +7,7 @@
                     </a>
                     <div *ngIf="user; else notLoggedIn" class="profile">
                       <!-- Logged in user -->
-                        <button mat-raised-button class="buttonRK" *ngIf="user.type == 'admin'" (click)="goListUsers()" style="background-color: #bb0102; color: white;" >LIST USER</button>
-                        <button mat-raised-button class="buttonRK" (click)="goToprank()" style="background-color: #bb0102; color: white;" >TOP RANK</button>
+                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;"  [routerLink]="['/toprank']">TOP RANK</button>
                         <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
                         <div class="line"></div>
                         <span *ngIf="user.img_user">
@@ -21,7 +20,6 @@
                         <p class="uname">{{user.username }}</p>
                             <select class="menu" (change)="onSelectChange($event)">
                                 <option value="" disabled selected hidden>MENU</option>
-                                <option class="menu-option" *ngIf="user.type == 'admin'" value="listuser">List User</option>
                                 <option class="menu-option" value="profile">Profile</option>
                                 <option class="menu-option" value="upload">Upload</option>
                                 <option class="menu-option" value="toprank">Top Rank</option>
@@ -31,44 +29,40 @@
                     <ng-template #notLoggedIn>
                       <!-- Not logged in user -->
                       <div class="profile">
-                        <button mat-raised-button  (click)="goToprank()"  class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
+                        <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;">TOP RANK</button>
                         <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/login',]">LOGIN</button>
                       </div>
                     </ng-template>
                   </div>         
         </div>
-        <div class="main-content" *ngFor="let itm of data">
+        <div class="main-content">
             <div class="head-main">
-                <div class="topten">
-                   <p class="tt" >TOP 10 THE BEST</p>
-                   <p class="tc">CAR</p> 
+                <div class="prof">
+                   <p class="pf" >List</p>
+                   <p class="pf" style="color: #bb0102; margin-left: 2%;">User</p> 
                 </div>
                 <div class="topname">
-                    <p>#1 <span>{{itm.username}}</span></p>
-                    <p style="color: #bb0102; margin-left: 2%; margin-right: 2%;">{{itm.total_score}}</p> 
-                    <p>point</p>
-                 </div> 
+                    <form style="display: flex; align-items: center; justify-content: center;">
+                        <input type="text" placeholder="Search..." >
+                        <button type="submit" class="bt-search">
+                            <mat-icon class="icon" aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
+                        </button>
+                    </form>
+                </div> 
             </div>
             <div class="main-main">
-                <a (click)="goDetailcar(itm.upid)" class="main_img">
-                    <img src="{{itm.img_car}}" class="img-main" alt="">
-                </a>
-                
-            </div>
-            <div class="bt-main">
-                <button mat-raised-button class="bt-vote" style="background-color: #bb0102; color: white;"[routerLink]="['/vote',]">Start Vote</button>
-                <button mat-raised-button style="background-color: #bb0102; color: white;" [routerLink]="['/upload',]">Upload Car</button>
-            </div>
-          
-                <ngx-slick-carousel  class="slide-main" #slickModal="slick-carousel" [config]="slickConfig">
-                    <div ngxSlickItem *ngFor="let image of topten" let i = index class="img-slide">
-                    
-                        <a (click)="goDetailcar(image.upid)" style="cursor: pointer;">
-                            <img [src]="image.img_car" alt="Image">
-                        </a>
-                    
+                <div class="card-user" (click)="goShowProfile()">
+                    <img src="/assets/imges/user.png" alt="" class="user_img">
+                    <div class="user_detail">
+                        <p>User ID: 007</p>
+                        <p style="margin-top: -10px;">Username: Heequaytad</p>
+                        <p style="margin-top: -10px;">Email: yyyyyyyyaddmsu.ac.th</p>
                     </div>
-                </ngx-slick-carousel>
+                </div>
+            </div>
         </div>
-    </div>    
+        
+    </div>  
 </body>
+
+

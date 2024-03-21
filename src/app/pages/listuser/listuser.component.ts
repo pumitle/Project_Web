@@ -3,36 +3,32 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service'; 
 import { HttpClient, HttpClientModule } from '@angular/common/http'; 
-import { UserResponese } from '../../Modeldatabase/user_get';
-import { lastValueFrom } from 'rxjs';
+import { UserResponese,UploadRes } from '../../Modeldatabase/user_get';
 import {MatButtonModule} from '@angular/material/button';
 import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
-import {  SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { UploadRes } from '../../Modeldatabase/user_get';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-main',
+  selector: 'app-listuser',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,SlickCarouselModule,MatFormFieldModule,MatSelectModule ],
-
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule,MatIconModule],
+  templateUrl: './listuser.component.html',
+  styleUrl: './listuser.component.scss'
 })
-export class MainComponent implements OnInit {
+export class ListuserComponent {
   uid: any;
   user : UserResponese | undefined;
   data: UploadRes[] = [];
-  topten: UploadRes[] = [];
+
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
   
   
-  async ngOnInit()  {
-   
+  async ngOnInit()  {   
   this.authService.initializeAuthentication().then(user => {
     console.log('User data:', user);
     if (user) {
@@ -41,27 +37,10 @@ export class MainComponent implements OnInit {
       this.loadDataAsync();
     } else {
       console.log('User not authenticated');
-      this.loadDataAsync();
+     
     }
   });
 }
-
-@ViewChild('slickModal') slickModal: SlickCarouselComponent | undefined;
-
-slickConfig = {
-  infinite: true,
-  slidesToShow: 3,
-  slidesToScroll: 3,
-  arrows: false,
-  dots: true,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  variableWidth: false,
-};
-
-
-
-
 onSelectChange(event: any) {
   const selectedValue = event.target.value;
   if (selectedValue === 'logout') {
@@ -75,9 +54,6 @@ onSelectChange(event: any) {
   }
   if (selectedValue === 'toprank') {
     this.goToprank();
-  }
-  if (selectedValue === 'listuser'){
-    this.goListUsers();
   }
 }
 
@@ -93,33 +69,25 @@ goUpload(): void {
 goProfile(): void {
   this.router.navigate(['/profile']);
 }
-
 goToprank(): void {
   this.router.navigate(['/toprank']);
 }
 goMain(): void{
   this.router.navigate(['/']);
 }
-goDetailcar(carId: any) {
-  this.router.navigate(['/detailcar',carId]);
-  console.log("idcar :",carId);
+goShowProfile(): void {
+  this.router.navigate(['/showprofile']);
 }
 
-goListUsers(): void {
-  this.router.navigate(['/listuser']);
-}
 
 
 async loadDataAsync() {
-  this.data = await this.mysqlService.getNoonecar();
+  const user = this.user;
+  if(user){
+  const userId = user.uid;
+  this.data = await this.mysqlService.getProfilebyId(userId);
   console.log("data is ", this.data);
-
-  this.topten = await this.mysqlService.getdataAllupload();
-  console.log("Top10 is ", this.topten);
+  }
 
 }
-
-
 }
-
-
