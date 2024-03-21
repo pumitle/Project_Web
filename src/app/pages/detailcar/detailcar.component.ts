@@ -100,32 +100,6 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
  
   }
 
-
-  // ngAfterViewInit() {
-  //   const ctx = this.myChart.nativeElement.getContext('2d');
-    
-  //   new Chart(ctx, {
-  //     type: 'line',
-  //     data: {
-  //       labels: ['7 day ago','6 day ago', '5 day ago', '4 day ago', '3 day ago', '2 day ago', '1 day ago', 'today'],
-  //       datasets: [{
-  //         label: 'Statics for the past 7 days',
-  //         data: [200,123,50, 89, 48, 12, 11, 54],
-  //         borderWidth: 2, // กำหนดความหนาของเส้น
-  //         borderColor: '#bb0102', // กำหนดสีของเส้น
-  //         fill: false // ไม่เติมสีเข้าไปในพื้นที่ใต้เส้น
-  //       }]
-  //     },
-  //     options: {
-  //       scales: {
-  //         y: {
-  //           beginAtZero: true
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
-
   ngAfterViewInit() {
     const ctx = this.myChart.nativeElement.getContext('2d');
     const data: any[] = [];
