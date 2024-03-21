@@ -202,7 +202,7 @@ async editprofile(username: any, email: any,mobile_number: any,url_user: any) {
         title: 'Upload Successful!',
         text: 'Thank you for Upload.',
       });
-
+      this.autoLogin(Email,this.passuser);
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       // Reload the page after a successful vote
@@ -224,7 +224,7 @@ async editprofile(username: any, email: any,mobile_number: any,url_user: any) {
       title: 'Update Successful!',
       text: 'Your profile has been updated.',
     });
-
+    this.autoLogin(Email,this.passuser);
     await new Promise(resolve => setTimeout(resolve, 2000));
     window.location.reload();
     }
