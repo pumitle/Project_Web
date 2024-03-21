@@ -116,7 +116,6 @@
      
       await this.compareRanks();
    
-
   }
   
 
@@ -131,7 +130,7 @@ async compareRanks() {
   this.topRankbefor = await this.mysqlService.getrankbefor();
 
   // ตรวจสอบว่าข้อมูลเรียงลำดับของวันนี้และเมื่อวานมีขนาดเท่ากันหรือไม่
-  if (this.topRank.length !== this.topRankbefor.length) {
+  if (this.topRank.length !== this.topRankbefor.length && this.topRank.length === this.topRankbefor.length) {
       console.error("Error: Length of today's rank and yesterday's rank are not the same.");
       return;
   }

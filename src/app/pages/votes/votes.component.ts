@@ -112,6 +112,8 @@ losescore: any;
 
     this.calculateTotalScores();
     console.log("Total Scores:", this.totalScores);
+    
+    
 
  
   }
@@ -298,12 +300,15 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
   
   const winnerScoreIncrease = winnerNewScore - winscore;
   const loserScoreDecrease = loserNewScore-losescore;
-  
-  
 
-  // Insert vote
-  await this.insertvote(winnerId, loserId,  winnerScoreIncrease,loserScoreDecrease);
-
+  if (winscore === 100) {
+    await this.insertvote(winnerId, loserId,winnerNewScore,loserScoreDecrease);
+  }else if(losescore === 100){
+    await this.insertvote(winnerId, loserId,winnerScoreIncrease,loserNewScore);
+  }else{
+      // Insert vote
+  await this.insertvote(winnerId, loserId,winnerScoreIncrease,loserScoreDecrease);
+  }
   // Calculate changes in scores
  
   // Output the changes in scores
@@ -318,6 +323,8 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
   console.log("Calculated loser score:", loserNewScore);
   return { winnerScoreIncrease, loserScoreDecrease };
 }
+
+
 
 
 
@@ -340,9 +347,9 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
   
       // Add winscore to the winner ID and losescore to the loser ID
       if (item.upid === winnerId) {
-        this.newtotalScores[item.upid] += winscore;
+        this.newtotalScores[item.upid] += winscore ;
       } else if (item.upid === loserId) {
-        this.newtotalScores[item.upid] += losescore;
+        this.newtotalScores[item.upid] += losescore ;
       }
     });
   
@@ -369,12 +376,4 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
     console.log("Loser Score Decrease:", this.loserScoreDecrease);
   }
   
-  
-
 }
-
-
-
-
-
-

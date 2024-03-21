@@ -29,17 +29,22 @@ export class ProfileComponent implements OnInit{
   imguser: any;
   isEditing: boolean = false; // เพิ่มตัวแปรเพื่อติดตามว่ากำลังแก้ไขหรือไม่
   editedUser: any // เพิ่มตัวแปรสำหรับเก็บข้อมูลผู้ใช้ที่แก้ไข
-editName: any;
-editemail: any;
-editphone: any;
-editurl: any;
-oldpass: any;
-newpass: any;
-confirmpass: any;
-passuser: any;
- emailuser: any;
-  constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
+  editName: any;
+  editemail: any;
+  editphone: any;
+  editurl: any;
+  oldpass: any;
+  newpass: any;
+  confirmpass: any;
+  passuser: any;
+  emailuser: any;
+  showEditModal: any;
+  selectedCarId: any;
+  cars: UploadRes[] = [];
   datauser: UserResponese[] = [];
+  imageCar: string | undefined;
+  constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
+  
  
 
   
@@ -136,11 +141,22 @@ async closePopupReset() {
   modal.style.display = 'none'; 
 }
 
-openPopupEditcar() {
+async openPopupEditcar(carId: number) {
+  try {
+    // เรียกใช้ API เพื่อดึงข้อมูลรถจากไอดีที่ระบุ
+    const req: any = await this.mysqlService.getCarsbyId(carId);
+    this.cars = req;
+    console.log(this.cars);
+  } catch(e) {
+    console.log(e);
+  }
   document.getElementById('editcar')!.classList.remove('hide');
   document.getElementById('editcar')!.classList.add('show');
   document.getElementById('editcar')!.style.display = 'block';
   document.body.style.overflow = 'hidden';
+ 
+  this.showEditModal = true;
+  this.selectedCarId = carId;
 }
 
 async closePopupEditcar() {
@@ -149,9 +165,90 @@ async closePopupEditcar() {
   modal.classList.add('hide');
   await new Promise(resolve => setTimeout(resolve, 500));
   modal.style.display = 'none'; 
+  this.showEditModal = false;
 }
 
 
+previewImageCar(event: Event) {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    this.file = target.files[0];
+    this.imageCar = URL.createObjectURL(this.file);
+  }
+}
+
+async changeCar(namecar :any ,detail : any) {
+  // ฟังก์ชันที่จะทำงานเมื่อกดปุ่ม "Change"
+  console.log("Changing car with ID:", this.selectedCarId);
+
+try {  
+  const user = this.user;
+  if(user){
+    
+    await this.mysqlService.deleteCars(this.selectedCarId);
+
+    if(this.file){
+      const formData = new FormData();
+      formData.append('file', this.file);
+
+      const Name =  namecar;
+      const detii = detail;
+      const userId = user.uid;
+
+      console.log(Name);
+      const url = 'https://adv-voote.onrender.com/upimg';
+      const response: any = await this.http.post(url, formData).toPromise();
+      console.log(response.file);
+
+      const insertApi = 'https://adv-voote.onrender.com/voteapi/imgsert';
+      const Allinsert : any = await this.http.post(insertApi,{img_car:response.file,name_img:Name,detail:detii, uid_user: userId }).toPromise();
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Upload Successful!',
+        text: 'Thank you for Upload.',
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Reload the page after a successful vote
+      window.location.reload();
+    }else {
+      console.error('No file selected');
+    }
+  }
+} catch (error) {
+  console.error('Insert upload failed:', error);
+}
+
+}
+
+async deleteCar() {
+  // ฟังก์ชันที่จะทำงานเมื่อกดปุ่ม "Delete"
+  console.log("Deleting car with ID:", this.selectedCarId);
+
+  try {
+    const user = this.user;
+  if(user){
+    await this.mysqlService.deleteCars(this.selectedCarId);
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Delete Successful!',
+      text: 'Thank you for Delete.',
+    });
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Reload the page after a successful vote
+    window.location.reload();
+  }
+    
+  } catch (error) {
+    console.error('Insert Delete failed:', error);
+  }
+
+}
 
 previewImage(event: Event) {
   const target = event.target as HTMLInputElement;
@@ -161,14 +258,8 @@ previewImage(event: Event) {
   }
 }
 
-imageCar: string | undefined;
-previewImageCar(event: Event) {
-  const target = event.target as HTMLInputElement;
-  if (target.files && target.files.length > 0) {
-    this.file = target.files[0];
-    // this.imageCar = URL.createObjectURL(this.file);
-  }
-}
+
+
 
 async editprofile(username: any, email: any,mobile_number: any,url_user: any) {
   try {
@@ -186,7 +277,7 @@ async editprofile(username: any, email: any,mobile_number: any,url_user: any) {
       const userId = user.uid;
       // console.log( Namecar);
       // console.log( detail);
-      console.log(Name);
+      console.log("Nameee : ",Name);
 
       const url = 'https://adv-voote.onrender.com/upimg';
       const response: any = await this.http.post(url, formData).toPromise();
@@ -308,7 +399,6 @@ autoLogin(email: string, password: string) {
       console.error('Authentication error:', error);
     });
 }
-
 
 
 

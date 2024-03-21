@@ -95,7 +95,7 @@ async goUpload(namecar: any, detailscar: any) {
       console.log(response.file);
 
       const insertApi = 'https://adv-voote.onrender.com/voteapi/imgsert';
-      const Allinsert : any = await this.http.post(insertApi,{img_car:response.file,name_img:Namecar,detail:detail, uid_user: userId }).toPromise();
+      const Allinsert : any = await this.http.post(insertApi,{img_car:response.file,name_img:Namecar,detail:detail,uid_user: userId }).toPromise();
       
       Swal.fire({
         icon: 'success',

@@ -79,6 +79,13 @@ export class MysqlService {
   }
 
   
+  public async deleteCars(id: number,option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/user/del/${id}`);
+   const response = await lastValueFrom(this.http.delete(url));
+   return response as  UploadRes[];
+  }
+
+  
  
 
 }
