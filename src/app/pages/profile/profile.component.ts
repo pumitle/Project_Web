@@ -9,12 +9,13 @@ import {Router } from '@angular/router';
 import { AuthenticationService } from '../../authen.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule,FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -22,11 +23,25 @@ export class ProfileComponent implements OnInit{
   uid: any;
   user : UserResponese | undefined;
   data: UploadRes[] = [];
-
-  
+  imageSrc: string | undefined;
+  file? : File; 
+  oldImageSrc: any;
+  imguser: any;
+  isEditing: boolean = false; // เพิ่มตัวแปรเพื่อติดตามว่ากำลังแก้ไขหรือไม่
+  editedUser: any // เพิ่มตัวแปรสำหรับเก็บข้อมูลผู้ใช้ที่แก้ไข
+editName: any;
+editemail: any;
+editphone: any;
+editurl: any;
+oldpass: any;
+newpass: any;
+confirmpass: any;
+passuser: any;
+ emailuser: any;
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
-  
+ 
+
   
   async ngOnInit()  {   
   this.authService.initializeAuthentication().then(user => {
@@ -34,6 +49,8 @@ export class ProfileComponent implements OnInit{
     if (user) {
       console.log('User authenticated:', user);
       this.user = user;
+      this.passuser = user.password;
+      this.emailuser = user.email;
       this.loadDataAsync();
     } else {
       console.log('User not authenticated');
@@ -88,6 +105,7 @@ async loadDataAsync() {
 
 }
 
+
 openPopup() {
   document.getElementById('myModal')!.classList.remove('hide');
   document.getElementById('myModal')!.classList.add('show');
@@ -133,8 +151,8 @@ async closePopupEditcar() {
   modal.style.display = 'none'; 
 }
 
-imageSrc: string | undefined;
-file? : File;
+
+
 previewImage(event: Event) {
   const target = event.target as HTMLInputElement;
   if (target.files && target.files.length > 0) {
@@ -148,7 +166,152 @@ previewImageCar(event: Event) {
   const target = event.target as HTMLInputElement;
   if (target.files && target.files.length > 0) {
     this.file = target.files[0];
-    this.imageCar = URL.createObjectURL(this.file);
+    // this.imageCar = URL.createObjectURL(this.file);
   }
 }
+
+async editprofile(username: any, email: any,mobile_number: any,url_user: any) {
+  try {
+    const user = this.user;
+    if (user) { 
+    if (this.file) {
+      const formData = new FormData();
+      formData.append('file', this.file);
+
+      const Name =  username;
+      const Email = email;
+      const Phone =  mobile_number;
+      const Url_user = url_user;
+
+      const userId = user.uid;
+      // console.log( Namecar);
+      // console.log( detail);
+      console.log(Name);
+
+      const url = 'https://adv-voote.onrender.com/upimg';
+      const response: any = await this.http.post(url, formData).toPromise();
+
+      // Assuming the response contains the file URL
+      console.log(response.file);
+
+      const insertApi = `https://adv-voote.onrender.com/user/edit/${userId}`;
+      const Allinsert : any = await this.http.put(insertApi,{img_user:response.file,username:Name,email:Email,mobile_number:Phone,url_user:Url_user}).toPromise();
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Upload Successful!',
+        text: 'Thank you for Upload.',
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Reload the page after a successful vote
+      window.location.reload();
+      
+      // Do something with the file URL if needed
+    } else {
+     // ไม่มีไฟล์ที่เลือกใหม่ ใช้ URL ของรูปภาพที่มีอยู่แล้ว
+    const Name  =  username;
+    const Email =  email;
+    const Phone =  mobile_number;
+    const Url_user = url_user;
+    const userId = user.uid;
+    const insertApi = `https://adv-voote.onrender.com/user/edit/${userId}`;
+    const result: any = await this.http.put(insertApi,{username:Name,email:Email,mobile_number:Phone,url_user:Url_user}).toPromise();
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Update Successful!',
+      text: 'Your profile has been updated.',
+    });
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    window.location.reload();
+    }
+  }
+  } catch (error) {
+    console.error('File upload failed:', error);
+    // Handle the error, e.g., show an error message to the user
+  }
 }
+
+
+
+async editpassword(password : any, oldpass : any) {
+  try {
+    const user = this.user;
+    const oldPass = oldpass;
+    const confirmPass = this.confirmpass;
+    const newpass = password;
+    if (oldPass && newpass && confirmPass && newpass === confirmPass) {
+    if (user) { 
+    
+      const userId = user.uid;
+         // เช็คว่ารหัสผ่านเดิมที่ผู้ใช้ใส่ตรงกับรหัสผ่านที่อยู่ในฐานข้อมูลหรือไม่
+      if (this.passuser === oldPass) {
+      // ทำการอัปเดตรหัสผ่านใหม่
+       const upApi = `https://adv-voote.onrender.com/user/edit/${userId}`;
+       const Allinsert: any = await this.http.put(upApi, { password: newpass }).toPromise();
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Password Updated!',
+            text: 'Your password has been updated successfully.',
+          });
+            this.autoLogin(this.emailuser,newpass);
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          // รีโหลดหน้าหลังจากการอัปเดตสำเร็จ
+          window.location.reload();
+        
+        } else {
+          // แจ้งเตือนให้ผู้ใช้ระบุรหัสผ่านเดิมให้ถูกต้อง
+          Swal.fire({
+            icon: 'error',
+            title: 'Password Update Failed',
+            text: 'The old password you entered is incorrect.',
+          });
+        }
+    } else {
+      console.error('User not found.');
+    }
+  }else {
+    // แจ้งเตือนให้ผู้ใช้กรอกรหัสผ่านใหม่และยืนยันรหัสผ่านใหม่ให้ตรงกัน
+    Swal.fire({
+      icon: 'error',
+      title: 'Password Update Failed',
+      text: 'Please make sure you enter the correct old password and the new password fields match.',
+    });
+  }
+}
+   catch (error) {
+    console.error('File upload failed:', error);
+    // Handle the error, e.g., show an error message to the user
+  }
+}
+
+autoLogin(email: string, password: string) {
+  // Perform login using the updated credentials
+  this.authService.login(email, password)
+    .then(user => {
+      // Check if user authentication was successful
+      if (user) {
+        // Save the updated credentials to local storage
+        localStorage.setItem('loggedInUser', JSON.stringify({ email, password }));
+      } else {
+        // Notify the user if authentication failed
+        console.error('Authentication failed.');
+      }
+    })
+    .catch(error => {
+      // Handle authentication errors
+      console.error('Authentication error:', error);
+    });
+}
+
+
+
+
+}
+
+
