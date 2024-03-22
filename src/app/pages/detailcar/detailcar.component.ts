@@ -22,14 +22,27 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
   data: UploadRes[] = [];
   dataOfday: UploadRes[] = [];
   upid: any;
+  loading: boolean = false;
 
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
 
+  @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
+
+   showLoadingWindow() {
+    this.loading = true;
+  }
+
+  hideLoadingWindow() {
+    this.loading = false;
+  }
+
+
   @ViewChild('myChart') myChart!: ElementRef;
   
   async ngOnInit()  {
+    this.showLoadingWindow();
     this.upid = this.activateRoute.snapshot.paramMap.get('upid') || '';
     this.authService.initializeAuthentication().then(user => {
       console.log('User data:', user);
@@ -97,7 +110,9 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
     this.dataOfday = await this.mysqlService.getdataCarsbyId(this.upid);
     console.log("dataofday is ", this.dataOfday);
     
- 
+    setTimeout(() => {
+      this.hideLoadingWindow();
+    }, 900); // 1 วินาที = 1000 มิลลิวินาที
   }
 
   ngAfterViewInit() {

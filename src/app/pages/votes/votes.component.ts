@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service';
@@ -53,9 +53,26 @@ losescore: any;
   displayedTotalScores: { [key: number]: number } = {}; 
   winnerScoreIncrease: number | undefined;
   loserScoreDecrease:number | undefined;
+  loading: boolean = false;
+  originalData: UploadRes[] = [];
+  cooldownTime: any;
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { }
 
+
+
+  @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
+
+  showLoadingWindow() {
+   this.loading = true;
+ }
+
+ hideLoadingWindow() {
+   this.loading = false;
+ }
+
+
    ngOnInit(): void {
+    this.showLoadingWindow();
     this.authService.initializeAuthentication().then(user => {
       console.log('User data:', user);
       if (user) {
@@ -106,16 +123,23 @@ losescore: any;
 
   async loadDataAsync() {
     this.data = await this.mysqlService.getdataupload();
-    this.shuffleImages(this.data);
-    console.log("Shuffled Data:", this.data);
+    // this.shuffleImages(this.data);
+    // console.log("Shuffled Data:", this.data);  
     console.log("data is ", this.data);
+   
+  // เช็คว่าภาพยังไม่ถูกสลับ และเรียกใช้ shuffleImages() เพื่อสลับภาพ
+  if (this.data.some(item => !this.originalData.some(originalItem => originalItem.upid === item.upid))) {
+    this.shuffleImages(this.data);
+  }
+  console.log("Shuffled Data:", this.data);  
 
     this.calculateTotalScores();
     console.log("Total Scores:", this.totalScores);
     
-    
-
- 
+    setTimeout(() => {
+      this.hideLoadingWindow();
+    }, 900); // 1 วินาที = 1000 มิลลิวินาที
+  
   }
 
   
@@ -154,21 +178,38 @@ losescore: any;
       } while (!swapped);
     }
   }
-  
 
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   
 
-
    selectImage(side: string, item: any, index: number, imageId: any, score: number, Unselectscore: number,unselectedImage: any): void {
+  // ตรวจสอบว่ายังไม่ถึงเวลา cooldown หรือไม่
+  if (!this.canVote(imageId)) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cannot Vote Yet',
+      text: 'Please wait 4 seconds before voting again for image ID: ' + imageId,
+    });
+    setTimeout(() => {
+      // รีโหลดหน้าเว็บหลังจากที่แสดงข้อมูลเสร็จสิ้น
+      window.location.reload();
+    }, 2000);
+
+    return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับและไม่ทำการโหวต
+} 
+
+  
+
     this.selectedImage = side;
     this.selectImageId = imageId;
     this.selectScore = score;
     this.UnselectScore = Unselectscore;
     this.unselect = unselectedImage;
-   
+    this.voteForImage(this.selectImageId);
+    console.log("cowdoen ID ",this.selectImageId);
+
     // เรียกใช้ calvote และส่ง imageId ไป
     this.calvote( imageId,unselectedImage,score,Unselectscore).then(({ winnerScoreIncrease, loserScoreDecrease }) => {
       // เรียกใช้ getScores เพื่อนำค่า winnerScoreIncrease และ loserScoreDecrease ไปแสดงทันที
@@ -177,17 +218,14 @@ losescore: any;
     setTimeout(() => {
       // รีโหลดหน้าเว็บหลังจากที่แสดงข้อมูลเสร็จสิ้น
       window.location.reload();
-    }, 3000);
+    }, 2000);
     });
 
     console.log("Unimgid", unselectedImage);
     console.log("selectid",imageId);
     console.log("score", score);
     console.log("Unselectscore",  Unselectscore);
-    // this.calculateTotalScores();
 
-
- 
   }
 
 
@@ -375,5 +413,49 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
     console.log("Winner Score Increase:", this.winnerScoreIncrease);
     console.log("Loser Score Decrease:", this.loserScoreDecrease);
   }
+
+
+voteForImage(imageId: number): void {
+  // ตรวจสอบว่ามีรูปภาพนี้ใน local storage หรือไม่
+  const lastVoteTime = localStorage.getItem(`lastVoteTime_${imageId}`);
+
+  if (lastVoteTime) {
+      const lastVoteTimeMillis = parseInt(lastVoteTime, 10);
+      const currentTimeMillis = new Date().getTime();
+      const elapsedTime = currentTimeMillis - lastVoteTimeMillis;
+
+      const cooldownTime: number = 4000; // 1 นาทีในหน่วยมิลลิวินาที
+
+      // ตรวจสอบว่าผ่านไปเวลา cooldown หรือไม่
+      if (elapsedTime < cooldownTime) {
+          console.log("โปรดรอสักครู่ก่อนที่จะโหวตซ้ำสำหรับรูปภาพ ID:", imageId);
+          return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับ
+      }
+  }
+
+  // ทำการโหวต
+  console.log("โหวตสำเร็จสำหรับรูปภาพ ID:", imageId);
+
+  // บันทึกเวลาที่โหวตสำหรับรูปภาพนี้ลงใน local storage
+  localStorage.setItem(`lastVoteTime_${imageId}`, new Date().getTime().toString());
+} 
+
+
+
+  // ตรวจสอบว่ายังไม่ถึงเวลา cooldown หรือไม่
+  canVote(imageId: any): boolean {
+    const lastVoteTime = localStorage.getItem(`lastVoteTime_${imageId}`);
+    if (lastVoteTime) {
+        const lastVoteTimeMillis = parseInt(lastVoteTime, 10);
+        const currentTimeMillis = new Date().getTime();
+        const elapsedTime = currentTimeMillis - lastVoteTimeMillis;
+        const cooldownTime: number = 4000; // 1 นาทีในหน่วยมิลลิวินาที
+        return elapsedTime >= cooldownTime; // สามารถโหวตได้หากเวลาผ่านไปเพียงพอต่อการ cooldown
+    }
+    return true; // สามารถโหวตได้หากยังไม่มีการโหวตก่อนหน้านี้
+    }
   
+  
+
+
 }

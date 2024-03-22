@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ElementRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service'; 
@@ -26,13 +26,24 @@ export class MainComponent implements OnInit {
   user : UserResponese | undefined;
   data: UploadRes[] = [];
   topten: UploadRes[] = [];
+  loading: boolean = false;
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
-  
+ 
+  @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
+
+   showLoadingWindow() {
+    this.loading = true;
+  }
+
+  hideLoadingWindow() {
+    this.loading = false;
+  }
+
   
   async ngOnInit()  {
-   
+  this.showLoadingWindow();
   this.authService.initializeAuthentication().then(user => {
     console.log('User data:', user);
     if (user) {
@@ -46,6 +57,10 @@ export class MainComponent implements OnInit {
   });
 }
 
+
+
+  
+ 
 @ViewChild('slickModal') slickModal: SlickCarouselComponent | undefined;
 
 slickConfig = {
@@ -117,9 +132,14 @@ async loadDataAsync() {
   this.topten = await this.mysqlService.getdataAllupload();
   console.log("Top10 is ", this.topten);
 
-}
+  this.hideLoadingWindow();
 
 
+  }
+
+ 
+
 }
+
 
 

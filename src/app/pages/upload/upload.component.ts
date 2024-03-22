@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild ,ElementRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service'; 
@@ -25,21 +25,38 @@ export class UploadComponent {
   user : UserResponese | undefined;
   carName: any;
   carDetails: any;
- 
+  loading: boolean = false;
+
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   datauser: UserResponese[] = [];
    file? : File;
   
+   @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
+
+   showLoadingWindow() {
+    this.loading = true;
+  }
+
+  hideLoadingWindow() {
+    this.loading = false;
+  }
+
   async ngOnInit()  {
-   
+    this.showLoadingWindow();
   this.authService.initializeAuthentication().then(user => {
     console.log('User data:', user);
     if (user) {
       console.log('User authenticated:', user);
       this.user = user;
+      setTimeout(() => {
+        this.hideLoadingWindow();
+      }, 900); // 1 วินาที = 1000 มิลลิวินาที
     } else {
       console.log('User not authenticated');
+      setTimeout(() => {
+        this.hideLoadingWindow();
+      }, 900); // 1 วินาที = 1000 มิลลิวินาที
      
     }
   });

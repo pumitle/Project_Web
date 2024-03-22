@@ -1,7 +1,7 @@
 
   import { CommonModule } from '@angular/common';
   import { HttpClient ,HttpClientModule } from '@angular/common/http';
-  import { Component, Renderer2, ElementRef } from '@angular/core';
+  import { Component, Renderer2, ElementRef, ViewChild } from '@angular/core';
   import { MysqlService } from '../app/../../mysql.service'; 
   import { MatButtonModule } from '@angular/material/button';
   import { AuthenticationService } from '../../authen.service';
@@ -34,10 +34,25 @@
   
     rankChanges: any;
   rankChangesCount: any;
+  loading: boolean = false;
+
  
     constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router,private renderer: Renderer2, private el: ElementRef) {}
     datauser: UserResponese[] = [];
+
+    
+  @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
+
+  showLoadingWindow() {
+   this.loading = true;
+ }
+
+ hideLoadingWindow() {
+   this.loading = false;
+ }
+
     async ngOnInit()  {   
+      this.showLoadingWindow();
       this.authService.initializeAuthentication().then(user => {
         console.log('User data:', user);
         if (user) {
@@ -115,6 +130,7 @@
       console.log("Rank befor is ", this.topRankbefor);
      
       await this.compareRanks();
+      this.hideLoadingWindow();
    
   }
   

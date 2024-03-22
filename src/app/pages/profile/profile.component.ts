@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild  ,ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service'; 
@@ -43,12 +43,26 @@ export class ProfileComponent implements OnInit{
   cars: UploadRes[] = [];
   datauser: UserResponese[] = [];
   imageCar: string | undefined;
+  loading: boolean = false;
+
+
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   
  
 
+  @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
+
+   showLoadingWindow() {
+    this.loading = true;
+  }
+
+  hideLoadingWindow() {
+    this.loading = false;
+  }
+
   
   async ngOnInit()  {   
+    this.showLoadingWindow();
   this.authService.initializeAuthentication().then(user => {
     console.log('User data:', user);
     if (user) {
@@ -107,6 +121,9 @@ async loadDataAsync() {
   this.data = await this.mysqlService.getProfilebyId(userId);
   console.log("data is ", this.data);
   }
+  setTimeout(() => {
+    this.hideLoadingWindow();
+  }, 900); // 1 วินาที = 1000 มิลลิวินาที
 
 }
 
