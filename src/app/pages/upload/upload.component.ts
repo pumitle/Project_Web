@@ -77,6 +77,9 @@ onSelectChange(event: any) {
   if (selectedValue === 'toprank') {
     this.goToprank();
   }
+  if (selectedValue === 'listuser'){
+    this.goListUsers();
+  }
 }
 
 logout(): void {
@@ -149,6 +152,9 @@ goToprank(): void {
 }
 goMain(): void{
   this.router.navigate(['/']);
+}
+goListUsers(): void {
+  this.router.navigate(['/listuser']);
 }
 
 }

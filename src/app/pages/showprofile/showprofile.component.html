@@ -7,6 +7,7 @@
                     </a>
                     <div *ngIf="user; else notLoggedIn" class="profile">
                       <!-- Logged in user -->
+                        <button mat-raised-button class="buttonRK" *ngIf="user.type == 'admin'" (click)="goListUsers()" style="background-color: #bb0102; color: white;" >LIST USER</button>
                         <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white;"  [routerLink]="['/toprank']">TOP RANK</button>
                         <!-- <button mat-raised-button style="background-color: #bb0102; color: white;" (click)="logout()">LOGOUT</button> -->
                         <div class="line"></div>
@@ -20,6 +21,7 @@
                         <p class="uname">{{user.username }}</p>
                             <select class="menu" (change)="onSelectChange($event)">
                                 <option value="" disabled selected hidden>MENU</option>
+                                <option class="menu-option" *ngIf="user.type == 'admin'" value="listuser">List User</option>
                                 <option class="menu-option" value="profile">Profile</option>
                                 <option class="menu-option" value="upload">Upload</option>
                                 <option class="menu-option" value="toprank">Top Rank</option>
@@ -62,7 +64,7 @@
                 </div>
 
                 <div class="line2"></div>
-                <div class="car" *ngFor="let itm of data">
+                <div class="box-car" *ngFor="let itm of data">
                     <img src="{{itm.img_car}}" alt="" class="imgcar">
                     <div class="detailcar">
                         <p style="font-size: 20px; margin-bottom: 0;">{{itm.name_img}}</p>
@@ -77,7 +79,7 @@
 </body>
 
 <div class="loading-window"   *ngIf="loading" #loadingWindow >
-    <div class="carr">
+    <div class="car">
         <div class="strike"></div>
         <div class="strike strike2"></div>
         <div class="strike strike3"></div>

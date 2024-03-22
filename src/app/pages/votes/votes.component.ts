@@ -105,6 +105,9 @@ losescore: any;
     if (selectedValue === 'toprank') {
       this.goToprank();
     }
+    if (selectedValue === 'listuser'){
+      this.goListUsers();
+    }
   }
   goToUpload(): void {
     this.router.navigate(['/upload']);
@@ -119,6 +122,9 @@ losescore: any;
   }
   goMain(): void{
     this.router.navigate(['/']);
+  }
+  goListUsers(): void {
+    this.router.navigate(['/listuser']);
   }
 
   async loadDataAsync() {
