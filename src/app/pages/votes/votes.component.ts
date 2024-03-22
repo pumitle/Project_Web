@@ -137,6 +137,9 @@ losescore: any;
     if (selectedValue === 'listuser'){
       this.goListUsers();
     }
+    if (selectedValue === 'vote') {
+      this.goVote();
+    }
   }
   goToUpload(): void {
     this.router.navigate(['/upload']);
@@ -154,6 +157,9 @@ losescore: any;
   }
   goListUsers(): void {
     this.router.navigate(['/listuser']);
+  }
+  goVote(): void {
+    this.router.navigate(['/vote']);
   }
 
   async loadDataAsync() {

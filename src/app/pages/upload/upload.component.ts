@@ -67,9 +67,8 @@ onSelectChange(event: any) {
   if (selectedValue === 'logout') {
     this.logout();
   }
-  if (selectedValue === 'upload') {
-    this.goToUpload();
-  
+  if (selectedValue === 'home') {
+    this.goMain();
   }
   if (selectedValue === 'profile') {
     this.goToProfile();
@@ -79,6 +78,9 @@ onSelectChange(event: any) {
   }
   if (selectedValue === 'listuser'){
     this.goListUsers();
+  }
+  if (selectedValue === 'vote') {
+    this.goVote();
   }
 }
 
@@ -155,6 +157,9 @@ goMain(): void{
 }
 goListUsers(): void {
   this.router.navigate(['/listuser']);
+}
+goVote(): void {
+  this.router.navigate(['/vote']);
 }
 
 }

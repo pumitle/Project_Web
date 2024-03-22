@@ -24,9 +24,10 @@
                         <p class="uname">{{user.username }}</p>
                             <select class="menu" (change)="onSelectChange($event)">
                                 <option value="" disabled selected hidden>MENU</option>
+                                <option class="menu-option" value="home">Home</option>
                                 <option class="menu-option" *ngIf="user.type == 'admin'" value="listuser">List User</option>
                                 <option class="menu-option" value="profile">Profile</option>
-                                <option class="menu-option" value="upload">Upload</option>
+                                <option class="menu-option" value="vote">Vote</option>
                                 <option class="menu-option" value="toprank">Top Rank</option>
                                 <option class="menu-option" value="logout">Logout</option>
                             </select>

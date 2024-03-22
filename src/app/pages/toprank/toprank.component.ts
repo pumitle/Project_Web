@@ -80,8 +80,8 @@
       if (selectedValue === 'logout') {
         this.logout();
       }
-      if (selectedValue === 'upload') {
-        this.goUpload();
+      if (selectedValue === 'home') {
+        this.goMain();
       }
       if (selectedValue === 'profile') {
         this.goProfile();
@@ -91,6 +91,9 @@
       }
       if (selectedValue === 'listuser'){
         this.goListUsers();
+      }
+      if (selectedValue === 'vote') {
+        this.goVote();
       }
     }
     
@@ -119,6 +122,9 @@
     }
     goListUsers(): void {
       this.router.navigate(['/listuser']);
+    }
+    goVote(): void {
+      this.router.navigate(['/vote']);
     }
 
 
