@@ -12,11 +12,14 @@ import { SlickCarouselComponent, SlickCarouselModule } from 'ngx-slick-carousel'
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
 import { utcToZonedTime, format } from 'date-fns-tz';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-votes',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule, MatButtonModule, SlickCarouselModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule, MatButtonModule, SlickCarouselModule,MatFormFieldModule,MatSelectModule,FormsModule],
   templateUrl: './votes.component.html',
   styleUrl: './votes.component.scss'
 })
@@ -55,8 +58,34 @@ losescore: any;
   loserScoreDecrease:number | undefined;
   loading: boolean = false;
   originalData: UploadRes[] = [];
-  cooldownTime: any;
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { }
+  // cooldownTime: any;
+
+  minutes: string[] = [];
+  seconds: string[] = [];
+
+  selectedMinute: any;
+  selectedSecond: any;
+ 
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { 
+    
+    this.valueX = 0;
+
+    // Populate minutes
+    for (let i = 0; i < 60; i++) {
+      this.minutes.push(this.pad(i));
+    }
+
+    // Populate seconds
+    for (let i = 0; i < 60; i++) {
+      this.seconds.push(this.pad(i));
+    }
+  }
+
+  private valueX: any | undefined;
+
+  pad(num: number): string {
+    return num < 10 ? '0' + num : num.toString();
+  }
 
 
 
@@ -143,7 +172,7 @@ losescore: any;
     console.log("Total Scores:", this.totalScores);
     this.hideLoadingWindow();
   
-  
+    console.log("Time",this.valueX);
   }
 
   
@@ -418,6 +447,24 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
     console.log("Loser Score Decrease:", this.loserScoreDecrease);
   }
 
+  setTime(): void {
+    let valueX: number;
+    if (this.selectedMinute && this.selectedSecond) {
+      this.valueX = (parseInt(this.selectedMinute) * 60 + parseInt(this.selectedSecond)) * 1000;
+  
+    }else if(this.selectedMinute){
+      this.valueX =parseInt(this.selectedMinute) * 60 * 1000;
+   
+    }else{
+      this.valueX =parseInt(this.selectedSecond) * 1000;
+    }
+    
+      // this.voteForImage(this.valueX);
+      console.log("Time",this.valueX);
+      
+
+  }
+
 
 voteForImage(imageId: number): void {
   // ตรวจสอบว่ามีรูปภาพนี้ใน local storage หรือไม่
@@ -428,10 +475,10 @@ voteForImage(imageId: number): void {
       const currentTimeMillis = new Date().getTime();
       const elapsedTime = currentTimeMillis - lastVoteTimeMillis;
 
-      const cooldownTime: number = 4000; // 1 นาทีในหน่วยมิลลิวินาที
-
+      // const cooldownTime: number = x;
+      console.log("Time",this.valueX);
       // ตรวจสอบว่าผ่านไปเวลา cooldown หรือไม่
-      if (elapsedTime < cooldownTime) {
+      if (elapsedTime < this.valueX) {
           console.log("โปรดรอสักครู่ก่อนที่จะโหวตซ้ำสำหรับรูปภาพ ID:", imageId);
           return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับ
       }
@@ -439,7 +486,7 @@ voteForImage(imageId: number): void {
 
   // ทำการโหวต
   console.log("โหวตสำเร็จสำหรับรูปภาพ ID:", imageId);
-
+  console.log("Time",this.valueX);
   // บันทึกเวลาที่โหวตสำหรับรูปภาพนี้ลงใน local storage
   localStorage.setItem(`lastVoteTime_${imageId}`, new Date().getTime().toString());
 } 
@@ -453,7 +500,7 @@ voteForImage(imageId: number): void {
         const lastVoteTimeMillis = parseInt(lastVoteTime, 10);
         const currentTimeMillis = new Date().getTime();
         const elapsedTime = currentTimeMillis - lastVoteTimeMillis;
-        const cooldownTime: number = 4000; // 1 นาทีในหน่วยมิลลิวินาที
+        const cooldownTime: number = this.valueX; 
         return elapsedTime >= cooldownTime; // สามารถโหวตได้หากเวลาผ่านไปเพียงพอต่อการ cooldown
     }
     return true; // สามารถโหวตได้หากยังไม่มีการโหวตก่อนหน้านี้

@@ -45,7 +45,19 @@
                    <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
                 </div>
                 <div class="topname">
-                 </div> 
+                  <form class="form-set" *ngIf="user?.type == 'admin'">
+                    <label style="font-size: 30px; margin-top: 5px; text-shadow: 1px 1px 2px gray;">Time</label>
+                      <select class="select-form" [(ngModel)]="selectedMinute" name="selectedMinute" >
+                        <option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</option>
+                      </select>
+                
+                      <h5>:</h5>
+                      <select class="select-form"  [(ngModel)]="selectedSecond" name="selectedSecond">
+                        <option *ngFor="let second of seconds" [value]="second">{{ second }}</option>
+                      </select>
+                    <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white; margin-left: 5px; box-shadow: 2px 2px 2px black;" (click)="setTime()">Set</button>
+                  </form>
+                </div>
             </div>
            <div class="main-main">
          
