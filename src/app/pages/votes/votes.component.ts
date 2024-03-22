@@ -135,10 +135,8 @@ losescore: any;
 
     this.calculateTotalScores();
     console.log("Total Scores:", this.totalScores);
-    
-    setTimeout(() => {
-      this.hideLoadingWindow();
-    }, 900); // 1 วินาที = 1000 มิลลิวินาที
+    this.hideLoadingWindow();
+  
   
   }
 

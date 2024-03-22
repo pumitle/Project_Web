@@ -109,10 +109,8 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
   
     this.dataOfday = await this.mysqlService.getdataCarsbyId(this.upid);
     console.log("dataofday is ", this.dataOfday);
+     this.hideLoadingWindow();
     
-    setTimeout(() => {
-      this.hideLoadingWindow();
-    }, 900); // 1 วินาที = 1000 มิลลิวินาที
   }
 
   ngAfterViewInit() {

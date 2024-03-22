@@ -102,8 +102,7 @@ async loadDataAsync() {
   this.data = await this.mysqlService.getProfilebyId(userId);
   console.log("data is ", this.data);
   }
-  setTimeout(() => {
-    this.hideLoadingWindow();
-  }, 900); // 1 วินาที = 1000 มิลลิวินาที
+  this.hideLoadingWindow();
+
 }
 }

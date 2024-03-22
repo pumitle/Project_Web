@@ -56,7 +56,7 @@ export class UploadComponent {
       console.log('User not authenticated');
       setTimeout(() => {
         this.hideLoadingWindow();
-      }, 900); // 1 วินาที = 1000 มิลลิวินาที
+      }, 800); // 1 วินาที = 1000 มิลลิวินาที
      
     }
   });
