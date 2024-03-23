@@ -195,6 +195,21 @@ body{
     padding-right: 2vw;
     box-shadow: 5px 5px 5px #6c6c6c;
 }
+.up {
+    color: green; /* สีเขียวสำหรับลำดับขึ้น */
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
+  }
+  
+  .down {
+    color: red; /* สีแดงสำหรับลำดับลง */
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
+  }
 .imgcar{
     width: 250px;
     height: 150px;

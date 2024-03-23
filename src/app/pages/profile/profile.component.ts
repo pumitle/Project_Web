@@ -11,11 +11,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule,FormsModule],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule,FormsModule,MatIconModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -47,8 +48,13 @@ export class ProfileComponent implements OnInit{
   car: UploadRes[] = [];
   upid: any;
   otheruser: UserResponese [] = [];
-
-
+  topRank: UploadRes[] = [];
+  topRankbefor: UploadRes[] = [];
+  yesterdayRank: number[] = [];
+  todayRank: number[] = [];
+  yesterdayRanks: number[] = [];
+  rankChanges: any;
+  rankChangesCount: any;
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
   
  
@@ -126,22 +132,144 @@ goListUsers(): void {
 goVote(): void {
   this.router.navigate(['/vote']);
 }
+goDetailcar(carId: any) {
+  this.router.navigate(['/detailcar',carId]);
+  console.log("idcar :",carId);
+}
 
 
 
 async loadDataAsync() {
-  const user = this.user;
-  this.uid = this.activateRoute.snapshot.paramMap.get('uid') || '';
-  console.log("ไอดีที่ส่งมา",this.uid);
-  
+  const user = this.user;  
   if(user){
   const userId = user.uid;
   this.data= await this.mysqlService.getProfilebyId(userId);
   console.log("data is ", this.data);
   }
+  this.topRank = await this.mysqlService.getranktoday();
+  console.log("Rank today is ", this.topRank);
+
+  this.topRankbefor = await this.mysqlService.getrankbefor();
+  console.log("Rank befor is ", this.topRankbefor);
+
   this.hideLoadingWindow();
+  await this.compareRanks();
+
+}
+
+getRankByCarId(carId: any): number {
+  const rankInfo = this.topRank.find(item => item.upid === carId);
+  return rankInfo ? rankInfo.rank : 0; // ถ้าไม่พบข้อมูล rank ให้ส่งค่า 0 กลับ
+}
+
+getRankbeforByCarId(carId: any): number {
+  const rankInfo = this.topRankbefor.find(item => item.upid === carId);
+  return rankInfo ? rankInfo.rank : 0; // ถ้าไม่พบข้อมูล rank ให้ส่งค่า 0 กลับ
+}
 
 
+async compareRanks() {
+  // ดึงข้อมูลลำดับของวันนี้
+  this.topRank = await this.mysqlService.getranktoday();
+
+  // ดึงข้อมูลลำดับของเมื่อวาน
+  this.topRankbefor = await this.mysqlService.getrankbefor();
+
+  // ตรวจสอบว่าข้อมูลเรียงลำดับของวันนี้และเมื่อวานมีขนาดเท่ากันหรือไม่
+  if (this.topRank.length !== this.topRankbefor.length && this.topRank.length === this.topRankbefor.length) {
+      console.error("Error: Length of today's rank and yesterday's rank are not the same.");
+      return;
+  }
+
+  // สร้าง Map เพื่อเก็บข้อมูลรถแต่ละคันในวันนี้โดยใช้ upid เป็น key และ rank เป็น value
+  const carsTodayMap = new Map<number, number>();
+  this.topRank.forEach(car => {
+      carsTodayMap.set(car.upid, car.rank);
+  });
+
+  // เช็คว่ารถแต่ละคันมีการเปลี่ยนแปลง rank หรือไม่
+  this.topRankbefor.forEach(car => {
+      const rankToday = carsTodayMap.get(car.upid);
+      if (rankToday !== undefined && rankToday !== car.rank) {
+          console.log(`รถที่มีไอดี ${car.upid} มีการเปลี่ยนแปลง rank จาก ${car.rank} เป็น ${rankToday}`);
+      }
+      const carIndex = this.data.findIndex(item => item.upid === car.upid);
+      if (carIndex !== -1) {
+        this.data[carIndex].rank = car.rank;
+      }
+  });
+
+
+  // เช็คว่ารถแต่ละคันมีการเปลี่ยนแปลง rank หรือไม่
+
+  this.rankChanges = this.topRankbefor.map(car => {
+    // หาค่า rank ในวันนี้ของรถคันนี้
+    const rankToday = carsTodayMap.get(car.upid);
+    // ถ้า rank วันนี้ไม่เท่ากับ undefined และไม่เท่ากับ rank เมื่อวาน
+    // หมายถึงมีการเปลี่ยนแปลงลำดับ
+    if (rankToday !== undefined && rankToday !== car.rank) {
+        // หาว่าการเปลี่ยนแปลงลำดับเป็นการลดหรือเพิ่ม
+        return rankToday > car.rank ? 1 : -1;
+      
+    } else {
+        // ถ้าไม่มีการเปลี่ยนแปลงลำดับให้เป็น 0
+        return 0;
+    }
+});
+
+// แสดงผลลัพธ์การเปรียบเทียบ
+console.log("Rank changes:", this.rankChanges);
+
+// สร้างตัวแปรเพื่อเก็บผลการเปรียบเทียบการเปลี่ยนแปลง rank
+const rankChangesCount: { [carId: number]: number } = {};
+
+// นับจำนวนการเพิ่มลำดับ (ตัวเลขบวก) และลดลำดับ (ตัวเลขลบ) ในอาร์เรย์ rankChanges
+
+
+// วนลูปเช็ครถแต่ละคัน
+this.topRankbefor.forEach(car => {
+    const rankToday = carsTodayMap.get(car.upid);
+    if (rankToday !== undefined && rankToday !== car.rank) {
+        // หาความต่างของ rank เมื่อวันนี้กับเมื่อวาน
+        const rankDifference =  car.rank-rankToday ;
+        // ตรวจสอบว่า rank เพิ่มหรือลด
+        if (rankDifference !== 0) {
+            // ตรวจสอบว่ารถคันนี้มีการเปลี่ยนแปลง rank กี่อันดับ
+            if (rankChangesCount[car.upid] === undefined) {
+                rankChangesCount[car.upid] = rankDifference;
+            } else {
+                rankChangesCount[car.upid] += rankDifference;
+            }
+            // แสดงผลลัพธ์การเปลี่ยนแปลง rank
+            if (rankDifference > 0) {
+                console.log(`รถที่มีไอดี ${car.upid} มีการเพิ่ม rank จำนวน +${Math.abs(rankDifference)}  อันดับ`);
+            } else {
+                console.log(`รถที่มีไอดี ${car.upid} มีการลด rank จำนวน -${Math.abs(rankDifference)} อันดับ`);
+            }
+        }
+    }
+});
+
+// แสดงผลลัพธ์การเปลี่ยนแปลง rank ทั้งหมด
+console.log(rankChangesCount);
+this.rankChangesCount = rankChangesCount;
+
+
+
+
+}
+
+
+getRankChange(upid: number): any{
+  // ตรวจสอบว่าอ็อบเจกต์ rankChangesCount มีค่าหรือไม่
+  if (this.rankChangesCount && this.rankChangesCount[upid] !== undefined) {
+    // คืนค่า rankChangesCount สำหรับคีย์ที่กำหนด
+    // return this.rankChangesCount[upid];
+    return this.rankChangesCount[upid] > 0 ? `+${this.rankChangesCount[upid]}` : this.rankChangesCount[upid].toString();
+  } else {
+    // คืนค่าเป็น 0 หรือค่าที่คุณต้องการเมื่อไม่พบคีย์
+    return '';
+  }
 }
 
 

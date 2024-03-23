@@ -45,8 +45,8 @@
                    <p class="pf" style="color: #bb0102; margin-left: 2%;">User</p> 
                 </div>
                 <div class="topname">
-                    <form style="display: flex; align-items: center; justify-content: center;">
-                        <input type="text" placeholder="Search..." >
+                    <form style="display: flex; align-items: center; justify-content: center;" (ngSubmit)="search()">
+                        <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" name="searchTerm" >
                         <button type="submit" class="bt-search">
                             <mat-icon class="icon" aria-hidden="false" aria-label="Example home icon" fontIcon="search"></mat-icon>
                         </button>
@@ -61,6 +61,7 @@
                         <p>User ID: {{itm.uid}}</p>
                         <p style="margin-top: -10px;">Username: {{itm.username}}</p>
                         <p style="margin-top: -10px;">Email: {{itm.email}}</p>
+                        <p style="margin-top: -10px;" [ngStyle]="{'color': itm.type === 'admin' ? 'red' : 'blue'}">Role: {{itm.type}}</p>
                     </div>
                 </div>
             </div>

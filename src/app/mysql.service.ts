@@ -36,6 +36,13 @@ export class MysqlService {
    return response as  UploadRes[];
   }
 
+  ////Rankทั้งหมด
+  public async getdataAllrank(option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup/rankalldetail`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as  UploadRes[];
+  }
+
   public async getBefordataupload(option? :any) {
     const url = (`${this.conn.API_ENDPOINT}/befor/befordate`);
    const response = await lastValueFrom(this.http.get(url));
@@ -98,6 +105,24 @@ export class MysqlService {
    return response as UserResponese[];
   }
  
- 
+  // public async searchuser(id:number, name: any, option? :any) {
+  //   const url = (`${this.conn.API_ENDPOINT}/dataup/search?id=${id}`);
+  //  const response = await lastValueFrom(this.http.get(url));
+  //  return response as UserResponese[];
+  // }
+  public async searchuser(id: number, name: string, option?: any) {
+    let url = `${this.conn.API_ENDPOINT}/dataup/search?`;
+  
+    // เรียกใช้งานเงื่อนไข option ถ้ามีการส่งค่า option เข้ามา
+    if (option) {
+      url += `id=${id}&name=${name}`;
+    } else {
+      url += `name=${name}`;
+    }
+  
+    const response = await lastValueFrom(this.http.get(url));
+    return response as UserResponese[];
+  }
+  
 
 }

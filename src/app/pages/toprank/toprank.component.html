@@ -56,7 +56,7 @@
                  </div> 
             </div>
             <div *ngIf="!selectedData || selectedData.length === 0">
-              <div class="main-main" *ngFor="let item of data  ; let i = index ">
+              <div class="main-main" *ngFor="let item of data ; let i = index ">
                 <div class="card-rank" (click)="goDetailcar(item.upid)">
                   <div class="number">{{ i + 1 }}</div>
                   <img src="{{ item.img_car }}" class="imgrank" alt="">
@@ -90,6 +90,46 @@
                 </div>
               </div>
             </div>
+        <!-- ///Admin -->
+        <div *ngIf="user?.type == 'admin' " >
+       <h2>AllRank</h2>
+            <div *ngIf="!selectedData || selectedData.length === 0">
+              <div class="main-main" *ngFor="let item of dataAll ; let i = index ">
+                <div class="card-rank" (click)="goDetailcar(item.upid)">
+                  <div class="number">{{ i + 1 }}</div>
+                  <img src="{{ item.img_car }}" class="imgrank" alt="">
+                  <div class="detailcar">
+                    <p class="font-dm">{{ item.name_img }}</p> 
+                    <p style="margin-top: -1vw;">{{ item.detail }}</p>
+                  </div>
+                  <div class="line-card"></div>
+                  <div class="memandrank">
+                    <div class="deatilmember">
+                      <p class="font-dm">{{ item.username }}</p>
+                      <p class="font-dm" style="margin-top: -20px;">{{ item.total_score }}</p>
+                    </div>
+                    <div class="line-rank"></div>
+                    <div class="detailrank">
+                      <span style="margin-top: 5px;">Yesterday Rank</span>
+                      <p style="margin-top: 0;">{{ item.rank }}</p>
+                      <span style="display: flex; align-items: center; margin-top: -20px;" *ngIf="rankChanges && rankChanges.length > i">
+                        <mat-icon [ngClass]="{
+                          'up': getRankChange(item.upid) > 0,
+                          'down':getRankChange(item.upid) < 0,
+                          'forward': getRankChange(item.upid) === 0
+                        }">
+                          {{ getRankChange(item.upid) > 0 ? 'arrow_drop_up' :getRankChange(item.upid) < 0 ? 'arrow_drop_down' : '' }}
+                        
+                        </mat-icon> 
+                        <p>{{ getRankChange(item.upid) }}</p>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            
         </div>
     </div>
 </body>

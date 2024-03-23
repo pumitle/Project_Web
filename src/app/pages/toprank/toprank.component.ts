@@ -21,6 +21,7 @@
     uid: any;
     user : UserResponese | undefined;
     data: UploadRes[] = [];
+    dataAll: UploadRes[] = [];
     befordata: UploadRes[] = [];
     topRank: UploadRes[] = [];
     topRankbefor: UploadRes[] = [];
@@ -131,6 +132,9 @@
     async loadDataAsync() {
       this.data = await this.mysqlService.getdataAllupload();
       console.log("data is ", this.data);
+
+      this.dataAll = await this.mysqlService.getdataAllrank();
+     
   
       this.befordata = await this.mysqlService.getBefordataupload();
       console.log("Befor data is ", this.befordata);
@@ -178,6 +182,10 @@ async compareRanks() {
       const carIndex = this.data.findIndex(item => item.upid === car.upid);
       if (carIndex !== -1) {
         this.data[carIndex].rank = car.rank;
+      }
+      const carIndexAll = this.dataAll.findIndex(item => item.upid === car.upid);
+      if (carIndexAll !== -1) {
+        this.dataAll[carIndexAll].rank = car.rank;
       }
   });
 

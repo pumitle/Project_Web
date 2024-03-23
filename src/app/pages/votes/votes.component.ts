@@ -433,6 +433,11 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
       // this.voteForImage(this.valueX);
       const insertApi = `https://adv-voote.onrender.com/user/numberx/${1}`;
       const Allinsert : any = await this.http.put(insertApi,{X:valueX}).toPromise();
+      Swal.fire({
+        icon: 'success',
+        title: 'Set CooldownTime Success ',
+        text: 'Thank you ' ,
+      });
       console.log("Time",valueX);
   }
 

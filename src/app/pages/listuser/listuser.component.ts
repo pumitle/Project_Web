@@ -10,11 +10,12 @@ import { AuthenticationService } from '../../authen.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listuser',
   standalone: true,
-  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule,MatIconModule],
+  imports: [CommonModule,RouterOutlet,RouterLink,HttpClientModule,MatButtonModule,MatFormFieldModule,MatInputModule,MatIconModule,FormsModule],
   templateUrl: './listuser.component.html',
   styleUrl: './listuser.component.scss'
 })
@@ -24,7 +25,7 @@ export class ListuserComponent {
   data: UploadRes[] = [];
   loading: boolean = false;
   userall: UserResponese [] = [];
-
+  searchTerm: any ; 
   
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
@@ -117,4 +118,15 @@ async loadDataAsync() {
   this.hideLoadingWindow();
 
 }
+
+async search() {
+  if (this.searchTerm.trim() !== '') { // ตรวจสอบว่าคำค้นหาไม่เป็นค่าว่าง
+    // เรียกเมธอด searchuser เพื่อค้นหาผู้ใช้
+    this.userall = await this.mysqlService.searchuser(0, this.searchTerm);
+  } else {
+    // ถ้าคำค้นหาเป็นค่าว่าง ให้โหลดข้อมูลผู้ใช้ทั้งหมด
+    this.loadDataAsync();
+  }
+}
+
 }
