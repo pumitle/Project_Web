@@ -26,12 +26,7 @@ import { FormsModule } from '@angular/forms';
 export class VotesComponent implements OnInit {
 winscore: any;
 losescore: any;
-
-
-  
-  
-
-
+ 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
@@ -79,14 +74,10 @@ losescore: any;
       this.seconds.push(this.pad(i));
     }
   }
-
-
-
+  
   pad(num: number): string {
     return num < 10 ? '0' + num : num.toString();
   }
-
-
 
   @ViewChild('loadingWindow') loadingWindow!: ElementRef<any>;
 
@@ -97,7 +88,6 @@ losescore: any;
  hideLoadingWindow() {
    this.loading = false;
  }
-
 
    ngOnInit(): void {
     this.showLoadingWindow();
@@ -115,8 +105,8 @@ losescore: any;
   
       }
     });
-
   }
+
   onSelectChange(event: any) {
     const selectedValue = event.target.value;
    
@@ -143,8 +133,6 @@ losescore: any;
   goToUpload(): void {
     this.router.navigate(['/upload']);
   }
-  
-  
   goToProfile(): void {
     this.router.navigate(['/profile']);
   }
@@ -179,8 +167,6 @@ losescore: any;
   
 
   }
-
-  
 
   async shuffleImages(images: any[]) {
     const uniqueIds = new Set<number>();
@@ -221,7 +207,6 @@ losescore: any;
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   
-
   async selectImage(side: string, item: any, index: number, imageId: any, score: number, Unselectscore: number,unselectedImage: any): Promise<void> {
   // ตรวจสอบว่ายังไม่ถึงเวลา cooldown หรือไม่
   if (!(await this.canVote(imageId))) {
@@ -237,8 +222,6 @@ losescore: any;
 
     return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับและไม่ทำการโหวต
   }
-
-  
 
     this.selectedImage = side;
     this.selectImageId = imageId;
@@ -266,7 +249,6 @@ losescore: any;
 
   }
 
-
     async insertvote(selectImageId: any,UnselectImageId: any ,winscore : number,losescore : number) {
       // Assuming you have an API endpoint for voting
       const voteApiUrl = 'https://adv-voote.onrender.com/voteapi/vote';
@@ -284,14 +266,8 @@ losescore: any;
             const isoString = format(zonedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
             
           const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date:isoString}).toPromise();
-        
-    
-    
-          
           const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date:isoString}).toPromise();
-    
-      
-  
+
       Swal.fire({
         icon: 'success',
         title: 'Vote Successful!',
@@ -306,7 +282,6 @@ losescore: any;
       
         } 
 
-
       if (user) { 
 
         const userId = user.uid;
@@ -318,8 +293,6 @@ losescore: any;
         const isoString = format(zonedTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         
       const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date:isoString}).toPromise();
-     
-
  
         // // Insert data for the non-selected image
     const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date:isoString}).toPromise();
@@ -365,8 +338,6 @@ losescore: any;
     return { winnerNewScore, loserNewScore };
 }
 
-
-
 async calvote(winnerId: number, loserId: number, winscore: number, losescore: number): Promise<{ winnerScoreIncrease: number, loserScoreDecrease: number }>{
   console.log("Winner Score before Elo calculation:", winscore);
   console.log("Loser Score before Elo calculation:", losescore);
@@ -399,10 +370,6 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
   console.log("Calculated loser score:", loserNewScore);
   return { winnerScoreIncrease, loserScoreDecrease };
 }
-
-
-
-
 
   calculateTotalScores() {
     // Reset total scores
@@ -467,10 +434,7 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
       const insertApi = `https://adv-voote.onrender.com/user/numberx/${1}`;
       const Allinsert : any = await this.http.put(insertApi,{X:valueX}).toPromise();
       console.log("Time",valueX);
-      
-
   }
-
 
  async voteForImage(imageId: number) {
   // ตรวจสอบว่ามีรูปภาพนี้ใน local storage หรือไม่
@@ -497,8 +461,6 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
   localStorage.setItem(`lastVoteTime_${imageId}`, new Date().getTime().toString());
 } 
 
-
-
   // ตรวจสอบว่ายังไม่ถึงเวลา cooldown หรือไม่
   async canVote(imageId: any): Promise<boolean> {
     const lastVoteTime = localStorage.getItem(`lastVoteTime_${imageId}`);
@@ -512,8 +474,4 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
     }
     return true; // สามารถโหวตได้หากยังไม่มีการโหวตก่อนหน้านี้
     }
-  
-  
-
-
 }

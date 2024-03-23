@@ -167,22 +167,26 @@ body{
     outline: none;
 }
 .input{
-    font-size: 10px;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     background: #ffffff;
     border-radius: 50px;
     box-shadow: 5px 5px 10px black;
-    width: 300px;
+    width: 290px;
     height: 30px;
     outline: none;
     font-family: "Bebas Neue", sans-serif;
     margin-top: -2vw;
 }
 .textarea{
-    font-size: 10px;
+    font-size: 15px;
     background: #ffffff;
     border-radius: 5px;
     box-shadow: 5px 5px 10px black;
-    width: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 290px;
     outline: none;
     font-family: "Bebas Neue", sans-serif;
     margin-top: -2vw;
