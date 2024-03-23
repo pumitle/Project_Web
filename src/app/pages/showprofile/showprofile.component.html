@@ -46,33 +46,41 @@
                 </div>
                 <div class="topname"></div> 
             </div>
-            <div class="main-main">
+            <div class="main-main" >
                 <div class="head-profile">
-                    <div *ngIf="user; else notLoggedIn" class="imageprofile2">
-                        <span *ngIf="user.img_user">
-                            <img src="{{user.img_user}}" alt="" class="imgprofile2">
+                    <div *ngIf="usercom; else notLoggedIn" class="imageprofile2">
+                        <div *ngFor="let itm of usercom">
+                        <span *ngIf="itm.img_user">
+                            <img src="{{itm.img_user}}" alt="" class="imgprofile2">
                         </span>
-                        <span *ngIf="!user.img_user">
+                        <span *ngIf="!itm.img_user">
                             <img src="/assets/imges/user.png" alt="" class="imgprofile2">
                           </span>
+
+                        </div>
                     </div>
-                    <div *ngIf="user; else notLoggedIn" class="detailprofile">
-                        <p>Username: {{user.username}}</p>
-                        <p class="mg-dt-pf">Email: {{user.email}}</p>
-                        <p class="mg-dt-pf">Phone: {{user.mobile_number}}</p>
+                    <div *ngIf="usercom; else notLoggedIn" class="detailprofile">
+                        <div *ngFor="let itm of usercom">
+                        <p>Username: {{itm.username}}</p>
+                        <p class="mg-dt-pf">Email: {{itm.email}}</p>
+                        <p class="mg-dt-pf">Phone: {{itm.mobile_number}}</p>
+                        <p class="mg-dt-pf">IG: {{itm.url_user}}</p>
                     </div>
+                </div>
                     
                 </div>
 
                 <div class="line2"></div>
-                <div class="box-car" *ngFor="let itm of data">
-                    <img src="{{itm.img_car}}" alt="" class="imgcar">
+                <ng-container *ngFor="let itm of data">
+                    <div class="box-car" *ngIf="itm.img_car != null">
+                    <img src="{{itm.img_car}}" alt="" class="imgcar" style="cursor: pointer;">
                     <div class="detailcar">
                         <p style="font-size: 20px; margin-bottom: 0;">{{itm.name_img}}</p>
                         <p style="font-size: 10px;">{{itm.detail}}</p>
                         <p style="font-size: 30px; color: white; ">Total Score : {{itm.total_score}}</p>
                     </div>
                 </div>
+            </ng-container>
             </div>
         </div>
         

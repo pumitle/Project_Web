@@ -54,12 +54,13 @@
                 </div> 
             </div>
             <div class="main-main">
-                <div class="card-user" (click)="goShowProfile()">
-                    <img src="/assets/imges/user.png" alt="" class="user_img">
+                <div class="card-user" *ngFor=" let itm of userall" (click)="goShowProfile(itm.uid)">
+                    <img *ngIf="itm.img_user" src="{{itm.img_user}}" alt="" class="user_img">
+                    <img *ngIf="!itm.img_user" src="/assets/imges/user.png" alt="" class="user_img">
                     <div class="user_detail">
-                        <p>User ID: 007</p>
-                        <p style="margin-top: -10px;">Username: Heequaytad</p>
-                        <p style="margin-top: -10px;">Email: yyyyyyyyaddmsu.ac.th</p>
+                        <p>User ID: {{itm.uid}}</p>
+                        <p style="margin-top: -10px;">Username: {{itm.username}}</p>
+                        <p style="margin-top: -10px;">Email: {{itm.email}}</p>
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@
                 <div class="vote-main">
                   <!-- img 1 -->
                   <div class="vote-card">
-                    <div class="vote-profile" *ngIf="user">
+                    <div class="vote-profile" *ngIf="user" [routerLink]="['/showprofile',item.uid]" >
                         <img class="vote-pf-img" *ngIf="item.img_user" src="{{item.img_user}}" alt="">
                         <img class="vote-pf-img" *ngIf="!item.img_user" src="/assets/imges/user.png" alt="">
                         <p>{{item.username}}</p>
@@ -88,7 +88,7 @@
                   
                   <!-- img 2 -->
                   <div class="vote-card">
-                    <div class="vote-profile" *ngIf="user">
+                    <div class="vote-profile" *ngIf="user" [routerLink]="['/showprofile',data[i + 1].uid]">
                       <img class="vote-pf-img" *ngIf="data[i + 1].img_user" src="{{data[i + 1].img_user}}" alt="">
                       <img class="vote-pf-img" *ngIf="!data[i + 1].img_user" src="/assets/imges/user.png" alt="">
                       <p>{{data[i + 1].username}}</p>

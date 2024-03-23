@@ -49,6 +49,7 @@ export class DetailcarComponent implements OnInit, AfterViewInit {
       if (user) {
         console.log('User authenticated:', user);
         this.user = user;
+        this.uid=user.uid;
        
        console.log("dataofday is ", this.dataOfday);
         this.loadDataAsync();

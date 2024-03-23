@@ -44,6 +44,9 @@ export class ProfileComponent implements OnInit{
   datauser: UserResponese[] = [];
   imageCar: string | undefined;
   loading: boolean = false;
+  car: UploadRes[] = [];
+  upid: any;
+  otheruser: UserResponese [] = [];
 
 
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
@@ -63,7 +66,7 @@ export class ProfileComponent implements OnInit{
   
   async ngOnInit()  {   
     this.showLoadingWindow();
-  this.authService.initializeAuthentication().then(user => {
+    this.authService.initializeAuthentication().then(user => {
     console.log('User data:', user);
     if (user) {
       console.log('User authenticated:', user);
@@ -73,9 +76,9 @@ export class ProfileComponent implements OnInit{
       this.loadDataAsync();
     } else {
       console.log('User not authenticated');
-     
     }
   });
+ 
 }
 onSelectChange(event: any) {
   const selectedValue = event.target.value;
@@ -128,11 +131,14 @@ goVote(): void {
 
 async loadDataAsync() {
   const user = this.user;
+  this.uid = this.activateRoute.snapshot.paramMap.get('uid') || '';
+  console.log("ไอดีที่ส่งมา",this.uid);
+  
   if(user){
   const userId = user.uid;
-  this.data = await this.mysqlService.getProfilebyId(userId);
+  this.data= await this.mysqlService.getProfilebyId(userId);
   console.log("data is ", this.data);
-  } 
+  }
   this.hideLoadingWindow();
 
 

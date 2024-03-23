@@ -22,7 +22,7 @@ export const routes: Routes = [
     {path:'profile',component:ProfileComponent,canActivate: [AuthenticationGuard]},
     {path:'toprank',component:ToprankComponent},
     {path:'detailcar/:upid',component:DetailcarComponent,canActivate: [AuthenticationGuard]},
-    {path:'showprofile',component:ShowprofileComponent,canActivate: [AuthenticationGuard]},
+    {path:'showprofile/:uid',component:ShowprofileComponent,canActivate: [AuthenticationGuard]},
     {path:'listuser',component:ListuserComponent,canActivate: [AuthenticationGuard]}
     
 ];

@@ -23,6 +23,7 @@ export class ListuserComponent {
   user : UserResponese | undefined;
   data: UploadRes[] = [];
   loading: boolean = false;
+  userall: UserResponese [] = [];
 
   
   
@@ -95,8 +96,8 @@ goToprank(): void {
 goMain(): void{
   this.router.navigate(['/']);
 }
-goShowProfile(): void {
-  this.router.navigate(['/showprofile']);
+goShowProfile(id: any) {
+  this.router.navigate(['/showprofile',id]);
 }
 goListUsers(): void {
   this.router.navigate(['/listuser']);
@@ -110,9 +111,8 @@ goVote(): void {
 async loadDataAsync() {
   const user = this.user;
   if(user){
-  const userId = user.uid;
-  this.data = await this.mysqlService.getProfilebyId(userId);
-  console.log("data is ", this.data);
+  this.userall = await this.mysqlService.getUser();
+  console.log("dataUser is ",this.userall);
   }
   this.hideLoadingWindow();
 

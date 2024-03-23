@@ -70,7 +70,8 @@
                 </div>
 
                 <div class="line2"></div>
-                <div class="box-car" *ngFor="let itm of data">
+                <ng-container *ngFor="let itm of data">
+                    <div class="box-car" *ngIf="itm.img_car != null">
                     <img src="{{itm.img_car}}" alt="" class="imgcar" style="cursor: pointer;">
                     <div class="detailcar">
                         <p style="font-size: 20px; margin-bottom: 0;">{{itm.name_img}}</p>
@@ -81,13 +82,14 @@
                         <button mat-raised-button class="bt" (click)="openPopupEditcar(itm.upid)" style="background-color: #bb0102; color: white;">Change</button>
                     </div>
                 </div>
+            </ng-container>
+            </div>
                 <div class="add_car" *ngIf="data.length < 5">
                     <img class="add_img" src="/assets/imges/add_img.png" alt="" [routerLink]="['/upload',]">
                 </div>
-            </div>
-        </div>
-        
-    </div>  
+            </div>   
+        </div>   
+ 
     <div id="myModal" class="modal">
         <div class="modal-content">
             <div style="width: 100%;">

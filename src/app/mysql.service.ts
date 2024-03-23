@@ -91,6 +91,13 @@ export class MysqlService {
    const response = await lastValueFrom(this.http.get(url));
    return response as ValueX[];
   }
+
+  public async getUser(option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/dataup/userAll`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as UserResponese[];
+  }
+ 
  
 
 }

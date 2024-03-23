@@ -22,6 +22,8 @@ export class ShowprofileComponent {
   user : UserResponese | undefined;
   data: UploadRes[] = [];
   loading: boolean = false;
+  usercom: UserResponese [] = [];
+  userId: any;
 
   
   
@@ -46,6 +48,7 @@ export class ShowprofileComponent {
     if (user) {
       console.log('User authenticated:', user);
       this.user = user;
+      this.userId = user.uid;
       this.loadDataAsync();
     } else {
       console.log('User not authenticated');
@@ -104,13 +107,15 @@ goVote(): void {
 
 async loadDataAsync() {
   const user = this.user;
+  this.uid = this.activateRoute.snapshot.paramMap.get('uid') || '';
+  console.log("ไอดีที่ส่งมา",this.uid);
+  const uid = this.uid;
   if(user){
-  const userId = user.uid;
-  this.data = await this.mysqlService.getProfilebyId(userId);
-  console.log("data is ", this.data);
+       this.usercom = await this.mysqlService.getById(this.uid);
+      this.data = await this.mysqlService.getProfilebyId(this.uid);
+      console.log("data is ", this.data);
   }
   this.hideLoadingWindow();
 
-
-}
+  }
 }
