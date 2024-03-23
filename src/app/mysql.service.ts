@@ -3,7 +3,7 @@ import { Observable, lastValueFrom } from 'rxjs';
 import { Dbconn } from '../../src/app/config/dbconn';
 import { HttpClient } from '@angular/common/http';
 import { UserResponese } from './Modeldatabase/user_get';
-import {  UploadRes } from './Modeldatabase/user_get';
+import {  UploadRes,ValueX } from './Modeldatabase/user_get';
 
 
 @Injectable({
@@ -85,7 +85,12 @@ export class MysqlService {
    return response as  UploadRes[];
   }
 
-  
+
+  public async getX(id: number,option? :any) {
+    const url = (`${this.conn.API_ENDPOINT}/user/valuex/${id}`);
+   const response = await lastValueFrom(this.http.get(url));
+   return response as ValueX[];
+  }
  
 
 }

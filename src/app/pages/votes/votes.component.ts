@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { MysqlService } from '../app/../../mysql.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { UserResponese, UploadRes } from '../../Modeldatabase/user_get';
+import { UserResponese, UploadRes,ValueX } from '../../Modeldatabase/user_get';
 import { lastValueFrom } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 export class VotesComponent implements OnInit {
 winscore: any;
 losescore: any;
+
 
   
   
@@ -58,7 +59,7 @@ losescore: any;
   loserScoreDecrease:number | undefined;
   loading: boolean = false;
   originalData: UploadRes[] = [];
-  // cooldownTime: any;
+  Xvalue: ValueX[] = [];
 
   minutes: string[] = [];
   seconds: string[] = [];
@@ -67,8 +68,6 @@ losescore: any;
   selectedSecond: any;
  
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { 
-    
-    this.valueX = 0;
 
     // Populate minutes
     for (let i = 0; i < 60; i++) {
@@ -81,7 +80,7 @@ losescore: any;
     }
   }
 
-  private valueX: any | undefined;
+
 
   pad(num: number): string {
     return num < 10 ? '0' + num : num.toString();
@@ -178,7 +177,7 @@ losescore: any;
     console.log("Total Scores:", this.totalScores);
     this.hideLoadingWindow();
   
-    console.log("Time",this.valueX);
+
   }
 
   
@@ -223,13 +222,13 @@ losescore: any;
   }
   
 
-   selectImage(side: string, item: any, index: number, imageId: any, score: number, Unselectscore: number,unselectedImage: any): void {
+  async selectImage(side: string, item: any, index: number, imageId: any, score: number, Unselectscore: number,unselectedImage: any): Promise<void> {
   // ตรวจสอบว่ายังไม่ถึงเวลา cooldown หรือไม่
-  if (!this.canVote(imageId)) {
+  if (!(await this.canVote(imageId))) {
     Swal.fire({
       icon: 'warning',
       title: 'Cannot Vote Yet',
-      text: 'Please wait 4 seconds before voting again for image ID: ' + imageId,
+      text: 'Please wait before voting again for image ID: ' + imageId,
     });
     setTimeout(() => {
       // รีโหลดหน้าเว็บหลังจากที่แสดงข้อมูลเสร็จสิ้น
@@ -237,7 +236,7 @@ losescore: any;
     }, 2000);
 
     return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับและไม่ทำการโหวต
-} 
+  }
 
   
 
@@ -453,38 +452,39 @@ async calvote(winnerId: number, loserId: number, winscore: number, losescore: nu
     console.log("Loser Score Decrease:", this.loserScoreDecrease);
   }
 
-  setTime(): void {
+  async setTime(){
     let valueX: number;
     if (this.selectedMinute && this.selectedSecond) {
-      this.valueX = (parseInt(this.selectedMinute) * 60 + parseInt(this.selectedSecond)) * 1000;
+     valueX = (parseInt(this.selectedMinute) * 60 + parseInt(this.selectedSecond)) * 1000;
   
     }else if(this.selectedMinute){
-      this.valueX =parseInt(this.selectedMinute) * 60 * 1000;
+     valueX =parseInt(this.selectedMinute) * 60 * 1000;
    
     }else{
-      this.valueX =parseInt(this.selectedSecond) * 1000;
+    valueX =parseInt(this.selectedSecond) * 1000;
     }
-    
       // this.voteForImage(this.valueX);
-      console.log("Time",this.valueX);
+      const insertApi = `https://adv-voote.onrender.com/user/numberx/${1}`;
+      const Allinsert : any = await this.http.put(insertApi,{X:valueX}).toPromise();
+      console.log("Time",valueX);
       
 
   }
 
 
-voteForImage(imageId: number): void {
+ async voteForImage(imageId: number) {
   // ตรวจสอบว่ามีรูปภาพนี้ใน local storage หรือไม่
   const lastVoteTime = localStorage.getItem(`lastVoteTime_${imageId}`);
-
-  if (lastVoteTime) {
+  this.Xvalue = await this.mysqlService.getX(1);
+  const cooldownTime: number = this.Xvalue[0].X; // ใช้ค่า X จากฐานข้อมูล
+    if (lastVoteTime) {
       const lastVoteTimeMillis = parseInt(lastVoteTime, 10);
       const currentTimeMillis = new Date().getTime();
       const elapsedTime = currentTimeMillis - lastVoteTimeMillis;
-
-      // const cooldownTime: number = x;
-      console.log("Time",this.valueX);
+      
+      console.log("Time",cooldownTime);
       // ตรวจสอบว่าผ่านไปเวลา cooldown หรือไม่
-      if (elapsedTime < this.valueX) {
+      if (elapsedTime < cooldownTime) {
           console.log("โปรดรอสักครู่ก่อนที่จะโหวตซ้ำสำหรับรูปภาพ ID:", imageId);
           return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับ
       }
@@ -492,7 +492,7 @@ voteForImage(imageId: number): void {
 
   // ทำการโหวต
   console.log("โหวตสำเร็จสำหรับรูปภาพ ID:", imageId);
-  console.log("Time",this.valueX);
+  console.log("Time",cooldownTime);
   // บันทึกเวลาที่โหวตสำหรับรูปภาพนี้ลงใน local storage
   localStorage.setItem(`lastVoteTime_${imageId}`, new Date().getTime().toString());
 } 
@@ -500,13 +500,14 @@ voteForImage(imageId: number): void {
 
 
   // ตรวจสอบว่ายังไม่ถึงเวลา cooldown หรือไม่
-  canVote(imageId: any): boolean {
+  async canVote(imageId: any): Promise<boolean> {
     const lastVoteTime = localStorage.getItem(`lastVoteTime_${imageId}`);
+    this.Xvalue = await this.mysqlService.getX(1);
     if (lastVoteTime) {
         const lastVoteTimeMillis = parseInt(lastVoteTime, 10);
         const currentTimeMillis = new Date().getTime();
         const elapsedTime = currentTimeMillis - lastVoteTimeMillis;
-        const cooldownTime: number = this.valueX; 
+        const cooldownTime: number = this.Xvalue[0].X;
         return elapsedTime >= cooldownTime; // สามารถโหวตได้หากเวลาผ่านไปเพียงพอต่อการ cooldown
     }
     return true; // สามารถโหวตได้หากยังไม่มีการโหวตก่อนหน้านี้
