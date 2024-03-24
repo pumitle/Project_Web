@@ -54,10 +54,21 @@
                 </div> 
             </div>
             <div class="main-main">
+                <p *ngIf="userall.length == 0" class="notfound">NOT FOUND...</p>
                 <div class="card-user" *ngFor=" let itm of userall" (click)="goShowProfile(itm.uid)">
                     <img *ngIf="itm.img_user" src="{{itm.img_user}}" alt="" class="user_img">
                     <img *ngIf="!itm.img_user" src="/assets/imges/user.png" alt="" class="user_img">
                     <div class="user_detail">
+                        <div class="delete-row" *ngIf="itm.type === 'user'">
+                            <div class="admin-bt">
+                                <mat-icon class="icondelete" fontIcon="person"></mat-icon>
+                            </div>
+
+                            <div class="delete-bt">
+                                <mat-icon class="icondelete" fontIcon="delete"></mat-icon>
+                            </div>
+                        </div>
+                        
                         <p>User ID: {{itm.uid}}</p>
                         <p style="margin-top: -10px;">Username: {{itm.username}}</p>
                         <p style="margin-top: -10px;">Email: {{itm.email}}</p>

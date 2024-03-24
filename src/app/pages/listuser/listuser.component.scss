@@ -163,9 +163,11 @@ input:focus{
 
 .main-main{
     width: 100%;
+    min-height: 480px;
+    margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: start;
     background-color: #00000021;
     border-radius: 10px;
     backdrop-filter: blur(2px);
@@ -201,6 +203,94 @@ input:focus{
     flex-direction: column;
     justify-content: center;
 }
+.delete-row{
+    width: 100%;
+    margin-bottom: -20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.admin-bt{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #00a42c;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.admin-bt:hover{
+    transform: scale(1.1);
+    box-shadow: 2px 2px 2px #000000;
+}
+.admin-bt::before {
+    content: "add to admin";
+    position: absolute;
+    top: -30px; /* ปรับตำแหน่งตามต้องการ */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.581);
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.admin-bt:hover::before {
+    visibility: visible;
+    opacity: 1;
+}
+.delete-bt{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #bb0102;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.delete-bt:hover{
+    transform: scale(1.1);
+    box-shadow: 2px 2px 2px #000000;
+}
+.delete-bt::before {
+    content: "DELETE";
+    position: absolute;
+    top: -30px; /* ปรับตำแหน่งตามต้องการ */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.581);
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.delete-bt:hover::before {
+    visibility: visible;
+    opacity: 1;
+}
+.icondelete{
+    color: white;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .bt{
     font-size: 1vw;
@@ -209,7 +299,15 @@ input:focus{
     font-size: 1vw;
     margin-top: 10px;
 }
-
+.notfound{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    color: white;
+    text-shadow: 1px 2px 4px black;
+}
 
 @media (max-width: 700px){
     body{
