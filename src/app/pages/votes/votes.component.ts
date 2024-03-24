@@ -15,11 +15,12 @@ import { utcToZonedTime, format } from 'date-fns-tz';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-votes',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule, MatButtonModule, SlickCarouselModule,MatFormFieldModule,MatSelectModule,FormsModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule, MatButtonModule, SlickCarouselModule,MatFormFieldModule,MatSelectModule,FormsModule,MatDialogModule],
   templateUrl: './votes.component.html',
   styleUrl: './votes.component.scss'
 })
@@ -149,6 +150,21 @@ losescore: any;
     this.router.navigate(['/vote']);
   }
 
+  openPopup() {
+    document.getElementById('myModal')!.classList.remove('hide');
+    document.getElementById('myModal')!.classList.add('show');
+    document.getElementById('myModal')!.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  
+  async closePopup() {
+    document.body.style.overflow = 'auto'; // อนิเมชันเสร็จสิ้น ปรับ overflow เพื่อเปลี่ยนเป็น auto
+    const modal = document.getElementById('myModal')!;
+    modal.classList.add('hide'); // เพิ่มคลาส "hide" เพื่อเล่นอนิเมชัน fadeOut
+    await new Promise(resolve => setTimeout(resolve, 1000)); // รอให้อนิเมชันเสร็จสิ้น (300 มิลลิวินาที)
+    modal.style.display = 'none'; // ซ่อนป๊อปอัพ
+  }
+
   async loadDataAsync() {
     this.data = await this.mysqlService.getdataupload();
     // this.shuffleImages(this.data);
@@ -160,12 +176,9 @@ losescore: any;
     this.shuffleImages(this.data);
   }
   console.log("Shuffled Data:", this.data);  
-
     this.calculateTotalScores();
     console.log("Total Scores:", this.totalScores);
     this.hideLoadingWindow();
-  
-
   }
 
   async shuffleImages(images: any[]) {
@@ -274,12 +287,6 @@ losescore: any;
         text: 'Thank you for voting.',
       });
       
-      // // Wait for 3 seconds before reloading the page
-      // await new Promise(resolve => setTimeout(resolve, 3000));
-  
-      // // // Reload the page after a successful vote
-      // window.location.reload();
-      
         } 
 
       if (user) { 
@@ -294,24 +301,18 @@ losescore: any;
         
       const responseWin  = await this.http.post(voteApiUrl, { user_fk_id: userId, up_fk_id: selectImageId, whowon: 1, score: winscore, vote_date:isoString}).toPromise();
  
-        // // Insert data for the non-selected image
-    const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date:isoString}).toPromise();
+       // Insert data for the non-selected image
+      const responseLoser  = await this.http.post(voteApiUrl, {user_fk_id: userId,up_fk_id: UnselectImageId, whowon: 0, score: losescore,vote_date:isoString}).toPromise();
 
-   
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Vote Successful!',
-      text: 'Thank you for voting.',
-    });
-    
-    // // Wait for 3 seconds before reloading the page
-    // await new Promise(resolve => setTimeout(resolve, 3000));
-
-    // // // Reload the page after a successful vote
-    // window.location.reload();
-    
+        Swal.fire({
+          icon: 'success',
+          title: 'Vote Successful!',
+          text: 'Thank you for voting.',
+        });
       } 
+      ///////////////////////////กูเปิดป๊อปอัพตรงนี้เติ้ลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลลล
+      this.openPopup();
+
     } catch (error) {
       // Handle error if the vote request fails
       console.error('Vote failed:', error);

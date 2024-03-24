@@ -263,6 +263,7 @@ body{
 @media (max-width: 700px){
     body{
         background-image: url("/assets/imges/BG-BcForPhone.png");
+        overflow: auto;
     }
     .logo{
         width: 40%;
@@ -278,7 +279,7 @@ body{
         font-size: 10px;
     }
     .main-content{
-        height: auto;
+        height: 780;
     }
 
     .head-main{

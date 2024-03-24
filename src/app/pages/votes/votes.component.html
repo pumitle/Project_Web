@@ -46,6 +46,12 @@
                    <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
                 </div>
                 <div class="topname">
+                  <div class="onoff">
+                    <input type="checkbox" class="checkbox" id="showElo" (change)="openPopup()"/>
+                    <label class="switch" for="checkbox">
+                      <span class="slider"></span>
+                    </label>
+                  </div>
                   <form class="form-set" *ngIf="user?.type == 'admin'">
                     <label style="font-size: 30px; margin-top: 5px; text-shadow: 1px 1px 2px gray;">Time</label>
                       <select class="select-form" [(ngModel)]="selectedMinute" name="selectedMinute" >
@@ -68,11 +74,16 @@
                 <div class="vote-main">
                   <!-- img 1 -->
                   <div class="vote-card">
-                    <div class="vote-profile" *ngIf="user" [routerLink]="['/showprofile',item.uid]" >
+                    <div class="vote-profile" *ngIf="user && user.uid != item.uid" [routerLink]="['/showprofile',item.uid]" >
                         <img class="vote-pf-img" *ngIf="item.img_user" src="{{item.img_user}}" alt="">
                         <img class="vote-pf-img" *ngIf="!item.img_user" src="/assets/imges/user.png" alt="">
                         <p>{{item.username}}</p>
                     </div>
+                    <div class="vote-profile" *ngIf="user && user.uid === item.uid" [routerLink]="['/profile']" >
+                      <img class="vote-pf-img" *ngIf="item.img_user" src="{{item.img_user}}" alt="">
+                      <img class="vote-pf-img" *ngIf="!item.img_user" src="/assets/imges/user.png" alt="">
+                      <p>{{item.username}}</p>
+                  </div>
                     <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)" >
                     <p class="namecar">{{item.name_img}}</p>
                     <p class="namecar" style="margin-top: -15px;">Total Score: {{totalScores[item.upid]}}</p>
@@ -88,7 +99,12 @@
                   
                   <!-- img 2 -->
                   <div class="vote-card">
-                    <div class="vote-profile" *ngIf="user" [routerLink]="['/showprofile',data[i + 1].uid]">
+                    <div class="vote-profile" *ngIf="user && user.uid != data[i + 1].uid" [routerLink]="['/showprofile',data[i + 1].uid]">
+                      <img class="vote-pf-img" *ngIf="data[i + 1].img_user" src="{{data[i + 1].img_user}}" alt="">
+                      <img class="vote-pf-img" *ngIf="!data[i + 1].img_user" src="/assets/imges/user.png" alt="">
+                      <p>{{data[i + 1].username}}</p>
+                    </div>
+                    <div class="vote-profile" *ngIf="user && user.uid === data[i + 1].uid" [routerLink]="['/profile']">
                       <img class="vote-pf-img" *ngIf="data[i + 1].img_user" src="{{data[i + 1].img_user}}" alt="">
                       <img class="vote-pf-img" *ngIf="!data[i + 1].img_user" src="/assets/imges/user.png" alt="">
                       <p>{{data[i + 1].username}}</p>
@@ -107,13 +123,17 @@
               </div>
             </div>
           </div>
-
-
-
-         
-      
         </div>
-    </div>    
+    </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+          <div style="width: 100%;">
+              <span class="close" (click)="closePopup()">&times;</span>
+          </div>
+          <p class="edit-pf-font">Edit Profile</p>
+          
+      </div>
+  </div>     
 </body>
 
 <div class="loading-window"   *ngIf="loading" #loadingWindow >
