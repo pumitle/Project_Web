@@ -60,9 +60,12 @@
                         <p>Username: {{user.username}}</p>
                         <p class="mg-dt-pf">Email: {{user.email}}</p>
                         <p class="mg-dt-pf">Phone: {{user.mobile_number}}</p>
-                        <div class="inst">
+                        <div class="inst" *ngIf="user.url_user != null">
                             <a href="https://www.instagram.com/{{user.url_user}}" style="display: flex; align-items: center; margin-right: 10px;"><img class="ig-img" src="/assets/imges/ig.png" alt=""></a>
                             <p>: {{user.url_user}}</p>
+                        </div>
+                        <div class="inst" *ngIf="user.url_user === null">
+                            <img class="ig-img" src="/assets/imges/ig.png" alt="">
                         </div>
                         
                     </div>

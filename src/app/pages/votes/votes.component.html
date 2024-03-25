@@ -90,9 +90,9 @@
                     <p class="namecar">{{item.name_img}}</p>
                     <p class="namecar" style="margin-top: -15px;">Total Score: {{totalScores[item.upid]}}</p>
                     <!-- <p class="namecar" style="margin-top: -15px;">New Total Score: {{newtotalScores[item.upid]}}</p> -->
-                    <p *ngIf=" selectImageId === item.upid" class="namecar" style="margin-top: -15px;">Score added : {{winnerScoreIncrease | number: '1.3-3'}}</p>
+                    <!-- <p *ngIf=" selectImageId === item.upid" class="namecar" style="margin-top: -15px;">Score added : {{winnerScoreIncrease | number: '1.3-3'}}</p> -->
                     <!-- แสดงคะแนนที่ถูกเพิ่มขึ้นไปยังผู้แพ้ -->
-                    <p *ngIf=" selectImageId !== item.upid" class="namecar" style="margin-top: -15px;">Score added : {{loserScoreDecrease| number: '1.3-3'}}</p>
+                    <!-- <p *ngIf=" selectImageId !== item.upid" class="namecar" style="margin-top: -15px;">Score added : {{loserScoreDecrease| number: '1.3-3'}}</p> -->
                   </div>
                   <div class="vs">
                     <span class="font-v" style="color: #bb0102;">V</span>
@@ -115,9 +115,9 @@
                     <p class="namecar">{{data[i + 1].name_img}}</p>
                     <p class="namecar" style="margin-top: -15px;">Total Score: {{totalScores[data[i + 1].upid]}}</p>
                     <!-- <p class="namecar" style="margin-top: -15px;">New Total Score: {{newtotalScores[data[i + 1].upid]}}</p> -->
-                    <p *ngIf="selectImageId === data[i + 1].upid" class="namecar" style="margin-top: -15px;">Score added : {{ winnerScoreIncrease| number: '1.3-3'}}</p>
+                    <!-- <p *ngIf="selectImageId === data[i + 1].upid" class="namecar" style="margin-top: -15px;">Score added : {{ winnerScoreIncrease| number: '1.3-3'}}</p> -->
                     <!-- แสดงคะแนนที่ถูกเพิ่มขึ้นไปยังผู้แพ้ -->
-                    <p *ngIf="selectImageId !== data[i + 1].upid" class="namecar" style="margin-top: -15px;">Score added : {{ loserScoreDecrease | number: '1.3-3' }}</p>
+                    <!-- <p *ngIf="selectImageId !== data[i + 1].upid" class="namecar" style="margin-top: -15px;">Score added : {{ loserScoreDecrease | number: '1.3-3' }}</p> -->
 
                     
                   </div>

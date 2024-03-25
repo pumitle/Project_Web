@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 body{
     width: 100%;
+    min-height: 700px;
     height: auto;
     background-image: url("/assets/imges/BG-Bestcar.png");
     background-size: cover;
     background-attachment: fixed;
     font-family: "Bebas Neue", sans-serif;
+    overflow: hidden;
 }
 
 .container {
@@ -108,7 +110,6 @@ body{
   
 .main-content{
     width: 80%;
-    min-height: 780px;
     height: auto;
     margin-right: auto;
     margin-left: auto;
@@ -244,6 +245,7 @@ body{
 @media (max-width: 700px){
     body{
         background-image: url("/assets/imges/BG-BcForPhone.png");
+        height: auto;
         overflow: auto;
     }
     .logo{
@@ -260,7 +262,7 @@ body{
         font-size: 10px;
     }
     .main-content{
-        height: 780;
+        height: 780px;
     }
 
     .head-main{

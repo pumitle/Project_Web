@@ -16,6 +16,7 @@ body{
     height: 100%;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 50px;
 }
 
 .nav-bar{
@@ -381,7 +382,10 @@ input:focus{
         display: flex;
     }
     .main-main{
+        min-height: auto;
+        flex-wrap: nowrap;
         flex-direction: column;
+        align-items: center;
     }
     .card-user{
         width: 90%;
@@ -394,7 +398,9 @@ input:focus{
     .user_detail{
         font-size: smaller;
     }
-    
+    .notfound{
+        font-size: 50px;
+    }
 }
 
 
