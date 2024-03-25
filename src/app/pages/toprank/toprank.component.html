@@ -58,7 +58,7 @@
             <div *ngIf="!selectedData || selectedData.length === 0">
               <div class="main-main" *ngFor="let item of data ; let i = index ">
                 <div class="card-rank" (click)="goDetailcar(item.upid)">
-                  <div class="number">{{ i + 1 }}</div>
+                  <div class="number"><p>{{ i + 1 }}</p></div>
                   <img src="{{ item.img_car }}" class="imgrank" alt="">
                   <div class="detailcar">
                     <p class="font-dm">{{ item.name_img }}</p> 
@@ -92,7 +92,7 @@
             </div>
         <!-- ///Admin -->
         <div *ngIf="user?.type == 'admin' " >
-       <h2>AllRank</h2>
+       <h2 style="text-shadow: 2px 2px 2px rgb(189, 189, 189);">AllRank</h2>
             <div *ngIf="!selectedData || selectedData.length === 0">
               <div class="main-main" *ngFor="let item of dataAll ; let i = index ">
                 <div class="card-rank" (click)="goDetailcar(item.upid)">

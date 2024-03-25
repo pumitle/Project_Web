@@ -10,7 +10,6 @@ body{
     font-family: "Bebas Neue", sans-serif;
     overflow: hidden;
 }
-
 .container {
     width: 100%;
     height: 100%;
@@ -127,17 +126,19 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #00000021;
+    background-color: #ffffffb3;
     border-radius: 10px;
     backdrop-filter: blur(2px);
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 50px black;
 }
 .head-profile{
-    width: 80%;
+    width: 90%;
     height: 20vw;
     display: flex;
     align-items: center;
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding-left: 0;
+    padding-right: 2vw;
 }
 .imageprofile2{
     width: 20vw;
@@ -153,11 +154,13 @@ body{
     border-radius: 50%;
 }
 .detailprofile{
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
     font-family: "Kanit", sans-serif;
+    margin-left: 20px;
 }
 .mg-dt-pf{
     margin-top: -20px;
@@ -166,14 +169,62 @@ body{
     font-size: 2vw;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
+.inst{
+    height: 50px; 
+    display: flex; 
+    align-items: center; 
+    margin-top: -10px;
+}
+.ig-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    transition: all 0.2s ease-in-out;
+}
+.ig-img:hover{
+    transform: scale(1.1);
+    box-shadow: 2px 2px 3px black;
+}
 .head-bt{
     height: 90%;
     width: 20%;
     display: flex;
-    flex-direction: column;
-    align-items: end;
-    justify-content: top;
-    margin-left: 10%;
+    align-items: top;
+    justify-content: end;
+    margin-left: 20px;
+}
+.bt{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bb0102;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.bt:hover{
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px #000000;
+}
+.btr{
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #bb0102;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btr:hover{
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px #000000;
 }
 .line2{
     height: 0.1vw;
@@ -186,10 +237,10 @@ body{
     display: flex;
     align-items: center;
     width: 90%;
-    height: 200px;
+    min-height: 200px;
     margin-bottom: 1vw;
     border-radius: 10px;
-    background-color: #00000050;
+    background-color: #000000a0;
     backdrop-filter: blur(5px);
     padding-left: 2vw;
     padding-right: 2vw;
@@ -224,13 +275,24 @@ body{
     flex-direction: column;
     align-items: start;
     justify-content: start;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+.rank-today{
+    display: flex;
+    align-items: center;
+}
+.rank-change{
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
 }
 .car-bt{
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: center;
     width: 10%;
-    height: 50%;
+    height: 90%;  
 }
 .add_car{
     display: flex;
@@ -261,13 +323,7 @@ body{
 .add_img:hover{
     background-color: #00000070;
 }
-.bt{
-    font-size: 1vw;
-}
-.btr{
-    font-size: 1vw;
-    margin-top: 10px;
-}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -423,6 +479,9 @@ body{
     .mg-dt-pf{
         margin-top: 0;
     }
+    .main-main{
+        margin-bottom: 20px;
+    }
 
     .head-main{
         display: flex;
@@ -435,23 +494,51 @@ body{
         object-fit: cover;
         border-radius: 10px;
     }
+    .head-profile{
+        width: 80%;
+        height: 100px;
+    }
+    .detailprofile{
+        margin-left: 0;
+    }
+    .inst{
+        margin-top: -10px;
+    }
+    .ig-img{
+        width: 30px;
+        height: 30px;
+    }
+    .head-bt{
+        width: 15%;
+        flex-direction: column;
+        align-items: end;
+        justify-content: space-around;
+    }
     .bt{
-        width: 10px;
-        font-size: 10px;
+        width: 30px;
+        height: 30px;
     }
     .btr{
-        margin-top: 2px;
-        width: 10px;
-        font-size: 8px;
+        width: 30px;
+        height: 30px;
+        margin-left: 0;
     }
     .box-car{
         height: auto;
         padding-top: 10px;
         flex-direction: column;
+        margin-bottom: 20px;
     }
+    
     .imgcar{
         width: 150px;
         height: 100px;
+    }
+    .detailcar{
+        text-align: center;
+    }
+    .car-bt{
+        margin-top: -10px;
     }
     .prof{
         justify-content: center;

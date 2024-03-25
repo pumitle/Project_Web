@@ -60,11 +60,19 @@
                         <p>Username: {{user.username}}</p>
                         <p class="mg-dt-pf">Email: {{user.email}}</p>
                         <p class="mg-dt-pf">Phone: {{user.mobile_number}}</p>
-                        <p class="mg-dt-pf">IG: {{user.url_user}}</p>
+                        <div class="inst">
+                            <a href="https://www.instagram.com/{{user.url_user}}" style="display: flex; align-items: center; margin-right: 10px;"><img class="ig-img" src="/assets/imges/ig.png" alt=""></a>
+                            <p>: {{user.url_user}}</p>
+                        </div>
+                        
                     </div>
                     <div class="head-bt">
-                        <button mat-raised-button class="bt" (click)="openPopup()" style="background-color: #bb0102; color: white;">Edit profile</button>
-                        <button mat-raised-button class="btr" (click)="openPopupReset()" style="background-color: #bb0102; color: white;">Reset Password</button>
+                        <div class="bt" (click)="openPopup()">
+                            <mat-icon fontIcon="edit"></mat-icon>
+                        </div>
+                        <div class="btr" (click)="openPopupReset()">
+                            <mat-icon fontIcon="lock_reset"></mat-icon>
+                        </div>
                     </div>
                     
                 </div>
@@ -75,37 +83,36 @@
                     <img src="{{itm.img_car}}" alt="" class="imgcar" style="cursor: pointer;" (click)="goDetailcar(itm.upid)">
                     <div class="detailcar">
                         <p style="font-size: 20px; margin-bottom: 0;">{{itm.name_img}}</p>
-                        <p style="font-size: 10px;">{{itm.detail}}</p>
-                        <p style="font-size: 30px; color: white; ">Total Score : {{itm.total_score}}</p>
-                        <!-- Rank วันนี้ -->
-                        <p style="font-size: 30px; color: white; position: absolute; margin-top: 150px; margin-left: 250px;">
-                            Rank to day this : {{getRankByCarId(itm.upid)}}</p>
-                        <!-- Rank เมื่อวาน -->
-                        <p style="font-size: 30px; color: white; position: absolute; margin-top: 150px; margin-left: 500px;">
-                             Rank Yesterday this : {{getRankbeforByCarId(itm.upid)}}</p>
-                            <!-- ลูกษร  -->
-                             <span style="display: flex; align-items: center; margin-top: -35px; margin-left: 450px;" *ngIf="rankChanges && rankChanges.length > i">
+                        <p style="font-size: 15px;">{{itm.detail}}</p>
+                        <div class="rank-today">
+                            <p class="rank-font">Rank to day : {{getRankByCarId(itm.upid)}}</p>
+                            <span class="rank-change" *ngIf="rankChanges && rankChanges.length > i">
                                 <mat-icon [ngClass]="{
                                   'up': getRankChange(itm.upid) > 0,
                                   'down':getRankChange(itm.upid) < 0,
                                   'forward': getRankChange(itm.upid) === 0
                                 }">
                                   {{ getRankChange(itm.upid) > 0 ? 'arrow_drop_up' :getRankChange(itm.upid) < 0 ? 'arrow_drop_down' : '' }}
-                                
                                 </mat-icon> 
-                                <p>{{ getRankChange(itm.upid) }}</p>
+                                <p style="margin-left: 5px;">{{ getRankChange(itm.upid)}}</p>
                               </span>
-
+                        </div>
+                        <p style="margin-top: -10px;">Rank Yesterday : {{getRankbeforByCarId(itm.upid)}}</p>
+                        <p style="margin-top: -5px; font-size: 30px; color: white; ">Total Score : {{itm.total_score}}</p>
                     </div>
+                    
                     <div class="car-bt">
-                        <button mat-raised-button class="bt" (click)="openPopupEditcar(itm.upid)" style="background-color: #bb0102; color: white;">Change</button>
+                        <div class="bt" (click)="openPopupEditcar(itm.upid)">
+                            <mat-icon fontIcon="edit"></mat-icon>
+                        </div>
                     </div>
                 </div>
             </ng-container>
-            </div>
                 <div class="add_car" *ngIf="data.length < 5">
                     <img class="add_img" src="/assets/imges/add_img.png" alt="" [routerLink]="['/upload',]">
                 </div>
+            </div>
+                
             </div>   
         </div>   
  

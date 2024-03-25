@@ -159,25 +159,27 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: rgba(0, 0, 0, 0.232);
-    border-start-start-radius: 10px;
-    border-start-end-radius: 10px;
-    border-end-start-radius: 10px;
-    border-end-end-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.779);
+    border-radius: 20px;
     margin-bottom: 20px;
 }
  .img-slide{
     width: 100%;
-    height: 100%;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: space-around;
  }
 .img-slide img{
-    width: 15vw;
-    height: 10vw;
+    width: 18vw;
+    height: 12vw;
     object-fit: cover;
     border-radius: 20px;
+    transition: all 0.2s ease-in-out;
+}
+.img-slide img:hover{
+    transform: scale(1.03);
+    box-shadow: 0 0 10px white;
 }
 .carousel {
     width: 90%;
