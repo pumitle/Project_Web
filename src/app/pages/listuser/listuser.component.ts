@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listuser',
@@ -20,12 +21,14 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './listuser.component.scss'
 })
 export class ListuserComponent {
+
   uid: any;
   user : UserResponese | undefined;
   data: UploadRes[] = [];
   loading: boolean = false;
   userall: UserResponese [] = [];
   searchTerm: any ; 
+  Iduser: any;
   
   
   constructor(private http :HttpClient,private activateRoute:ActivatedRoute,private mysqlService: MysqlService,private authService: AuthenticationService,private router:Router ) {}
@@ -129,4 +132,30 @@ async search() {
   }
 }
 
+
+async  updateUserType(iduser : any) {
+  try {
+    const user = this.user;
+    if(user){
+        this.Iduser = iduser;
+        console.log( this.Iduser );
+        
+        const UpdateType = `https://adv-voote.onrender.com/user/type/${iduser}`;
+        const Uptype : any = await this.http.put( UpdateType,{ type:"admin"}).toPromise();
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Update Successful!',
+          text: 'Update Successful!',
+        });
+
+        
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    window.location.reload();
+    }
+  } catch (error) {
+    console.log(error);
+    
+  }
+  }
 }

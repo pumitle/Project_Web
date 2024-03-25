@@ -47,11 +47,13 @@
                 </div>
                 <div class="topname">
                   <div class="onoff">
-                    <input type="checkbox" class="checkbox" id="showElo" (change)="openPopup()"/>
-                    <label class="switch" for="checkbox">
-                      <span class="slider"></span>
+                    <input type="checkbox" class="checkbox"  id="showElo" #showEloCheckbox (change)="onChangeCheckbox(showEloCheckbox.checked)" [(ngModel)]="showEloChecked" />
+                    <label class="switch" for="showEloCheckbox">
+                        <span class="slider"></span>
                     </label>
-                  </div>
+                </div>
+                
+                  
                   <form class="form-set" *ngIf="user?.type == 'admin'">
                     <label style="font-size: 30px; margin-top: 5px; text-shadow: 1px 1px 2px gray;">Time</label>
                       <select class="select-form" [(ngModel)]="selectedMinute" name="selectedMinute" >
@@ -84,7 +86,7 @@
                       <img class="vote-pf-img" *ngIf="!item.img_user" src="/assets/imges/user.png" alt="">
                       <p>{{item.username}}</p>
                   </div>
-                    <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid)" >
+                    <img src="{{item.img_car}}" class="img-main" alt="" (click)="selectImage('left', item, i,item.upid,item.score,data[i + 1].score,data[i + 1].upid,item.img_car)" >
                     <p class="namecar">{{item.name_img}}</p>
                     <p class="namecar" style="margin-top: -15px;">Total Score: {{totalScores[item.upid]}}</p>
                     <!-- <p class="namecar" style="margin-top: -15px;">New Total Score: {{newtotalScores[item.upid]}}</p> -->
@@ -109,7 +111,7 @@
                       <img class="vote-pf-img" *ngIf="!data[i + 1].img_user" src="/assets/imges/user.png" alt="">
                       <p>{{data[i + 1].username}}</p>
                     </div>
-                    <img src="{{data[i + 1].img_car}}" class="img-main" alt="" (click)="selectImage('right', data[i + 1], i + 1,data[i + 1].upid,data[i + 1].score,item.score,item.upid)">
+                    <img src="{{data[i + 1].img_car}}" class="img-main" alt="" (click)="selectImage('right', data[i + 1], i + 1,data[i + 1].upid,data[i + 1].score,item.score,item.upid,data[i + 1].img_car)">
                     <p class="namecar">{{data[i + 1].name_img}}</p>
                     <p class="namecar" style="margin-top: -15px;">Total Score: {{totalScores[data[i + 1].upid]}}</p>
                     <!-- <p class="namecar" style="margin-top: -15px;">New Total Score: {{newtotalScores[data[i + 1].upid]}}</p> -->
@@ -130,8 +132,48 @@
           <div style="width: 100%;">
               <span class="close" (click)="closePopup()">&times;</span>
           </div>
-          <p class="edit-pf-font">Edit Profile</p>
-          
+          <p class="edit-pf-font">Calculate EloRating</p>
+          <H1>Winner is </H1>
+          <img style="width: 250px;" src="{{this.WinnerImg}}" alt="">
+          <p>Winner's previous score : {{this.selectScore}}</p>
+          <p style="margin-top: -10px;">Loser's previous score : {{this.UnselectScore}}</p>
+          <h3>Calculate the car's expected rating</h3>
+          <img style="width: 340px;" src="/assets/imges/Screenshot 2024-03-25 210200.png" alt="">
+
+          <!--คำนวนผู้ชนะ -->
+          <span style="display: flex; flex-direction: row;">
+            <p style="font-size: 16px; font-family: Arial, sans-serif;">
+              E<sub>Winner</sub> = 1 / (1 + 10<sup>({{this.UnselectScore}} - {{this.selectScore}}) / 400</sup>) =
+          </p>
+          <p style="margin-left: 5px;">{{this.winnerExpectedScore}}</p>
+          </span>
+
+          <!--คำนวนผู้แพ้ -->
+          <span style="display: flex; flex-direction: row;">
+            <p style="font-size: 16px; font-family: Arial, sans-serif;">
+              E<sub>Loser</sub> = 1 / (1 + 10<sup>({{this.selectScore}} - {{this.UnselectScore}}) / 400</sup>) =
+          </p>
+          <p style="margin-left: 5px;">{{this.loserExpectedScore}}</p>
+          </span>
+      
+          <h3>Calculate the new rating of the car</h3>
+          <span style="display: flex; flex-direction: row; margin-top: -10px;">
+              <p style="margin-right: 10px;">Formula for winner</p><p style="font-size: 16px; font-family: 'Times New Roman', Times, serif;">R<sub>a'</sub> = R<sub>a</sub> + K&sdot;(1 - E<sub>a</sub>)</p>
+          </span>
+          <span style="display: flex; flex-direction: row;">
+            <p style="margin-right: 10px; margin-top: -10px;">Formula for loser</p><p style="font-size: 16px; font-family: 'Times New Roman', Times, serif;  margin-top: -10px;">R<sub>b'</sub> = R<sub>b</sub> + K&sdot;(0 - E<sub>a</sub>)</p>
+        </span>
+        <!--คำนวนผู้ชนะ -->
+        <span style="display: flex; flex-direction: row; margin-top: -10px;">
+        <p style="font-size: 16px; font-family: 'Times New Roman', Times, serif;">R<sub>winner'</sub> = {{this.selectScore}} + {{this.K}}&sdot;(1 -{{this.winnerExpectedScore}}) = </p>
+        <p>{{this.WinnerNewScore}}</p>
+        </span>
+
+        <!--คำนวนผู้แพ้ -->
+        <span style="display: flex; flex-direction: row; margin-top: -10px;">
+          <p style="font-size: 16px; font-family: 'Times New Roman', Times, serif;">R<sub>loser'</sub> = {{this.UnselectScore}} + {{this.K}}&sdot;(1 -{{this.loserExpectedScore}}) = </p>
+          <p>{{this.LoserNewScore}}</p>
+          </span>   
       </div>
   </div>     
 </body>

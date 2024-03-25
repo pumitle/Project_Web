@@ -105,11 +105,6 @@ export class MysqlService {
    return response as UserResponese[];
   }
  
-  // public async searchuser(id:number, name: any, option? :any) {
-  //   const url = (`${this.conn.API_ENDPOINT}/dataup/search?id=${id}`);
-  //  const response = await lastValueFrom(this.http.get(url));
-  //  return response as UserResponese[];
-  // }
   public async searchuser(id: number, name: string, option?: any) {
     let url = `${this.conn.API_ENDPOINT}/dataup/search?`;
   
