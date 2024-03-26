@@ -71,6 +71,7 @@
     selectedMinute: any;
     selectedSecond: any;
     showEloChecked: boolean = false;
+
     constructor(private http: HttpClient, private activateRoute: ActivatedRoute, private mysqlService: MysqlService, private authService: AuthenticationService,private router:Router) { 
 
       // Populate minutes
@@ -106,11 +107,12 @@
           console.log('User authenticated:', user);
           this.user = user;
           this.loadDataAsync();
-
+  
         }
         else {
           console.log('User not authenticated');
           this.loadDataAsync();
+        
   
         }
       });
@@ -219,6 +221,7 @@
       console.log("Total Scores:", this.totalScores);
       this.hideLoadingWindow();
       this.showEloFromLocalStorage();
+      this.getTime();
     }
 
 
@@ -270,7 +273,7 @@
       Swal.fire({
         icon: 'warning',
         title: 'Cannot Vote Yet',
-        text: 'Please wait before voting again for image ID: ' + imageId,
+        text: `Please wait ${this.selectedMinute} min.${this.selectedSecond} sec. before voting again for image ID: ${imageId}`,
       });
       setTimeout(() => {
         // รีโหลดหน้าเว็บหลังจากที่แสดงข้อมูลเสร็จสิ้น
@@ -541,6 +544,25 @@
       }
       return true; // สามารถโหวตได้หากยังไม่มีการโหวตก่อนหน้านี้
       }
+
+
+      async getTime() {
+        // เรียกใช้งาน API เพื่อดึงข้อมูลเวลา
+        this.Xvalue = await this.mysqlService.getX(1);
+      
+        // แปลงข้อมูลเวลาให้เป็นนาทีและวินาที
+        const timeInMilliseconds: number = this.Xvalue[0].X;
+        const timeInSeconds: number = Math.floor(timeInMilliseconds / 1000);
+        const minutes: number = Math.floor(timeInSeconds / 60);
+        const seconds: number = timeInSeconds % 60;
+      
+        // กำหนดค่าของ selectedMinute และ selectedSecond จากข้อมูลที่ได้รับ
+        this.selectedMinute = minutes.toString();
+        this.selectedSecond = seconds.toString();
+        console.log('Selected Minute:', this.selectedMinute);
+        console.log('Selected Second:', this.selectedSecond);
+      }
+      
   }
   function openPopup() {
     throw new Error('Function not implemented.');
