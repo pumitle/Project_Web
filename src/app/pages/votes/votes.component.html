@@ -40,11 +40,14 @@
             
         </div>
         <div class="main-content">
-            <div class="head-main">
+            <div class="head-main" >
+
+              
                 <div class="topten">
                    <p class="tt" >Vote</p>
                    <p class="tt" style="color: #bb0102; margin-left: 2%;">CAR</p> 
                 </div>
+                
                 <div class="topname">
                   <div class="onoff">
                     <input type="checkbox" class="checkbox"  id="showElo" #showEloCheckbox (change)="onChangeCheckbox(showEloCheckbox.checked)" [(ngModel)]="showEloChecked" />
@@ -65,14 +68,21 @@
                         <option *ngFor="let second of seconds" [value]="second" >{{ second }}</option>
                       </select>
                     <button mat-raised-button class="buttonRK" style="background-color: #bb0102; color: white; margin-left: 5px; box-shadow: 2px 2px 2px black;" (click)="setTime()">Set</button>
-                  </form>    
-                  <!-- นาที-->
-                  <p>{{ this.selectedMinute}}</p>
-                  <h5>:</h5>
-                  <!-- วินาที -->
-                  <p>{{this.selectedSecond}}</p>
-                
+                  </form>   
                 </div>
+                
+                <ng-container *ngIf="user?.type == 'admin'" style="display: flex; flex-direction: row; " >
+               <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;"> 
+                <mat-icon>schedule</mat-icon>
+            
+                <p style="display: flex; flex-direction: row;">{{ this.selectedMinute}}</p>
+                <p style="margin-left: 2px;">min.</p>
+                <h5  style="margin-left: 2px; margin-right: 2px;" >:</h5>
+             
+                <p>{{this.selectedSecond}} </p>
+                <p style="margin-left: 2px; ">sec.</p>
+              </div>  
+                </ng-container>
             </div>
            <div class="main-main">
          

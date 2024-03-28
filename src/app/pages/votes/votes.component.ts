@@ -16,11 +16,11 @@
   import { MatSelectModule } from '@angular/material/select';
   import { FormsModule } from '@angular/forms';
   import {MatDialogModule} from '@angular/material/dialog';
-
+  import { MatIconModule } from '@angular/material/icon';
   @Component({
     selector: 'app-votes',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule, MatButtonModule, SlickCarouselModule,MatFormFieldModule,MatSelectModule,FormsModule,MatDialogModule],
+    imports: [CommonModule, RouterOutlet, RouterLink, HttpClientModule, MatButtonModule, SlickCarouselModule,MatFormFieldModule,MatSelectModule,FormsModule,MatDialogModule,MatIconModule ],
     templateUrl: './votes.component.html',
     styleUrl: './votes.component.scss'
   })
@@ -278,7 +278,7 @@
       setTimeout(() => {
         // รีโหลดหน้าเว็บหลังจากที่แสดงข้อมูลเสร็จสิ้น
         window.location.reload();
-      }, 2000);
+      }, 3000);
 
       return; // หากยังไม่ถึงเวลา cooldown ให้ย้อนกลับและไม่ทำการโหวต
     }
