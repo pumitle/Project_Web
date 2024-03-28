@@ -62,7 +62,7 @@
                     <div *ngIf="usercom; else notLoggedIn" class="detailprofile">
                         <div *ngFor="let itm of usercom">
                         <p>Username: {{itm.username}}</p>
-                        <p class="mg-dt-pf">Email: {{itm.email}}</p>
+                        <!-- <p class="mg-dt-pf">Email: {{itm.email}}</p> -->
                         <p class="mg-dt-pf">Phone: {{itm.mobile_number}}</p>
                         <div class="inst" *ngIf="itm.url_user != null">
                             <a href="https://www.instagram.com/{{itm.url_user}}" style="display: flex; align-items: center; margin-right: 10px;"><img class="ig-img" src="/assets/imges/ig.png" alt=""></a>
